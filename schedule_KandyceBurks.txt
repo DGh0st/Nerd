@@ -1,0 +1,12 @@
+Schedule
+
+Kandyce Burks
+
+- Draft GameObject superclass (Create hierarchy, define subclasses) -- 2/25 by midnight (estimate: 1.5 hour)
+- Define methods inherited to and within GameObject's subclasses and make detailed descriptions of their functionality --2/26 by midnight (estimate: 1.5 hours)
+- Design GameObject superclass (code) -- 3/1 by midnight (estimate: 3 hours)
+- Design Characters class extends GameObject (code) -- 3/4 by midnight (estimate: 3 hours)
+- Design 7 subclasses of Characters class(code) -- 3/5 by 5pm (estimate: 2 hours)
+- Design Obstacle subclass extends GameObject(code) -- 3/8 by midnight (estimate:3 hours)
+
+Total hours: 14
