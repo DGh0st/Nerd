@@ -1,0 +1,12 @@
+Schedule
+
+Raymond Hruby II
+
+- Draft Location superclass (Create hierarchy, define subclasses) - 2/24 midnight | est: 1.5 hours
+- Draft 7 Location subclasses (Design & Art implementation) - 2/25 midnight | est: 2 hours
+- Draft gridSystem & pathing - 2/26 midnight | est: 1 hour
+- Define methods inherited to and within Location's subclasses and make detailed descriptions of their functionality - 2/27 midnight | est: 3 hours
+- Design Location superclass (code) - 3/3 by midnight | est: 3 hours 
+- Design First Location subclass (code, gridsystem, pathing) - 3/4 midnight | est: 4 hours
+
+Total hours: 14.5
