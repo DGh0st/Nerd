@@ -5,3 +5,4 @@ Schedule and deliverable:
 	- Implement the listeners and events (Collision) -- Sun 2/26 (estimate: 3 hrs)
 	- Implement the Menus (Main, Load Game, Pause) -- Sat 3/4 (estimate: 3 hrs)
 
+Total hours: 10
