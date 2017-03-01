@@ -1,3 +1,9 @@
+/*
+ *  ~Location.java
+ *
+ * Raymond Hruby II
+ */
+
 import java.awt.Graphics;
 
 //TODO: - implement string parser to get dimensions from location.txt file 
