@@ -2,7 +2,13 @@ import static org.junit.Assert.*;
 import org.junit.Ignore;
 import org.junit.Test;
 import junit.framework.TestCase;
- 
+/*
+ *  ~ NerdTester.java
+ *
+ * Raymond Hruby II
+ *
+ * Description: tester to collectively and extensively test each class 
+ */
 public class NerdTester extends TestCase{
   @Ignore
   @Test
