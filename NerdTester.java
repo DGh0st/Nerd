@@ -20,7 +20,7 @@ public class NerdTester extends TestCase{
   
   @Ignore
   @Test
-  //LOCATION ARRAY | TOTAL | ADDLOCATION 
+  //LOCATION ARRAY | TOTAL | LOCATIONINDEX 
   public void testLocationArray(){
     LocationArray locations = new LocationArray(5);    
     assertEquals(locations.getTotal(),5);
