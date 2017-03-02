@@ -19,7 +19,7 @@ public class Location
     //this.name = name;
     this.id = id;
     dimensions = new LocationDimension(width,height);
-    createWorld(path);
+    createLocation(path);
   }
   
   //getters and setters below:
@@ -44,7 +44,7 @@ public class Location
     
   }
   
-  public void createWorld(String path){
+  public void createLocation(String path){
     //get data from location.txt file
     //get dimensions here
   }
