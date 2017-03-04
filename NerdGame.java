@@ -24,7 +24,7 @@ public class NerdGame extends JFrame {
 		game.close();
 	}
 
-	public NerdGame() {
+	private NerdGame() {
 		createWindow();
 
 		currentDisplayState = DisplayState.getInstance();
@@ -39,7 +39,7 @@ public class NerdGame extends JFrame {
 		this.setVisible(true);
 	}
 
-	public void close() {
+	private void close() {
 		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 }
