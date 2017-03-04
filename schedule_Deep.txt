@@ -3,7 +3,7 @@ Schedule and deliverable:
 	- Setup the basic NerdGame main class -- Sat 2/25 (estimate: 1 hr)
 	- Setup the DisplayState class -- Sat 3/4 (estimate: 1 hr)
 	- Implement the Interfaces (Movable, Drawable, Sound) -- Sat 2/25 (estimate: 1 hr)
-	- Implement the listeners and events (Collision) -- Sat 3/4 (estimate: 3 hrs)
+	- Implement the listeners and events (Collision) -- Sat 3/5 (estimate: 3 hrs)
 	- Implement the Menus (Main, Load Game, Pause) -- Sun 3/5 (estimate: 3 hrs)
 
 Total hours: 11
