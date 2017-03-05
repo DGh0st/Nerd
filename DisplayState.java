@@ -7,12 +7,16 @@
  *  - Add Menus
  */
 
+import javax.swing.*;
+
 public class DisplayState {
 	private static DisplayState instance = null;
 	private DisplayStatus currentDisplayStatus;
+	private GameState gameCanvas;
 
 	private DisplayState() {
 		currentDisplayStatus = DisplayStatus.STARTMENU;
+		gameCanvas = GameState.getInstance();
 	}
 
 	public static synchronized DisplayState getInstance() {
@@ -35,7 +39,7 @@ public class DisplayState {
 			case STARTMENU:
 				break;
 			case INGAME:
-				// TODO: update the game world with player
+				gameCanvas.update();
 				break;
 			case PAUSEMENU:
 				break;
@@ -52,12 +56,16 @@ public class DisplayState {
 	}
 
 	public void drawCurrentDisplayStatus() {
+		NerdGame gameWindow = NerdGame.getInstance();
 		switch (currentDisplayStatus) {
 			case STARTMENU:
 				// TODO: display start menu which includes title, shop and settings screens
 				break;
 			case INGAME:
-				// TODO: display the game world with player
+				if (gameCanvas.getParent() == null) {
+					gameWindow.add(gameCanvas);
+				}
+				gameCanvas.draw();
 				break;
 			case PAUSEMENU:
 				// TODO: display pause menu overlay on top of the game
