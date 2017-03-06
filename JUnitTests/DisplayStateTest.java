@@ -1,5 +1,5 @@
 /**
- * Nerd 02/26/2017
+ * Nerd 03/04/2017
  * Deep Patel
  * Test cases related to DisplayState class
  * Todo:
@@ -15,6 +15,14 @@ import org.junit.Test;
 import org.junit.Ignore;
 
 public class DisplayStateTest {
+	@Test
+	public void displayStateShouldBeASingleton() {
+		DisplayState tester = DisplayState.getInstance();
+		DisplayState tester2 = DisplayState.getInstance();
+
+		assertEquals(tester, tester2);
+	}
+
 	@Test
 	public void displayStatusShouldBeInitializedToStartMenu() {
 		DisplayState tester = DisplayState.getInstance();
