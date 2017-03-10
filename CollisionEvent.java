@@ -8,11 +8,7 @@
 import java.util.ArrayList;
 
 public class CollisionEvent {
-	private ArrayList<CollisionListener> listeners;
-
-	public void CollisionEvent() {
-		listeners = new ArrayList<CollisionListener>();
-	}
+	private ArrayList<CollisionListener> listeners = new ArrayList<CollisionListener>();
 
 	public void addListener(CollisionListener listener) {
 		listeners.add(listener);
@@ -25,7 +21,9 @@ public class CollisionEvent {
 	public void checkCollision() {
 		// TODO: Implement the collision check
 		for (CollisionListener listener : listeners) {
-			listener.collisionDetected();
+			if (listener != null) {
+				listener.collisionDetected();
+			}
 		}
 	}
 }
