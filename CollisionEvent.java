@@ -5,8 +5,27 @@
  * TODO: Implement collision check
  */
 
+import java.util.ArrayList;
+
 public class CollisionEvent {
-	void checkCollision() {
+	private ArrayList<CollisionListener> listeners;
+
+	public void CollisionEvent() {
+		listeners = new ArrayList<CollisionListener>();
+	}
+
+	public void addListener(CollisionListener listener) {
+		listeners.add(listener);
+	}
+
+	public void removeListener(CollisionListener listener) {
+		listeners.remove(listener);
+	}
+
+	public void checkCollision() {
 		// TODO: Implement the collision check
+		for (CollisionListener listener : listeners) {
+			listener.collisionDetected();
+		}
 	}
 }
