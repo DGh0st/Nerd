@@ -10,37 +10,37 @@ import java.awt.event.*;
 public abstract class Character extends GameObject implements KeyListener, CollisionListener, Movable, Drawable, Sound {
   private int xPos, yPos;
   Location location;
-  //Position position;
+  private Position position;
 
   public Character(int x, int y){
-    this.addKeyListener(this);
     this.xPos = x;
     this.yPos = y;
+    position = new Position();
+    //location = new Location ();
   }
-  public Character(){}
   
   public void moveLeft(){
-    if (location.canMoveToPosition(xPos--, yPos) == true){
+    if (location.canMoveToPosition(xPos-1, yPos) == true){
       xPos--;
-      currentPosition.setX(xPos);
+      position.setX(xPos);
     }
   }
   public void moveRight(){
-    if (location.canMoveToPosition(xPos++, yPos) == true){
+    if (location.canMoveToPosition(xPos+1, yPos) == true){
       xPos++;
-      currentPosition.setX(xPos);
+      position.setX(xPos);
     }
   }
   public void moveUp(){
-    if (location.canMoveToPosition(xPos, yPos++) == true){
+    if (location.canMoveToPosition(xPos, yPos+1) == true){
       yPos++;
-      currentPosition.setY(yPos);
+      position.setY(yPos);
     }
   }
   public void moveDown(){
-    if (location.canMoveToPosition(xPos, yPos--) == true){
+    if (location.canMoveToPosition(xPos, yPos-1) == true){
       yPos--;
-    currentPosition.setY(yPos);
+      position.setY(yPos);
     }
   }
   
@@ -49,29 +49,21 @@ public abstract class Character extends GameObject implements KeyListener, Colli
   
   public void collisionDetected(){
     //TODO
-    //uses getX and getY from Position Class
+    //uses getPosition from GameObject Class which
+    //sends current position of object to Position class then
+    //use Position instamce to grab value of x and y for comparison
+    //If collision is detected stop the game??
   }
   
   public void keyPressed(KeyEvent e){
     System.out.println("KeyPressed");
     int keyCode = e.getKeyCode();
-    switch( keyCode ) { 
-        case KeyEvent.VK_UP:    // handle up 
-            moveUp();
-            break;
-        case KeyEvent.VK_DOWN:  // handle down 
-            moveDown();
-            break;
-        case KeyEvent.VK_LEFT:  // handle left
-            moveLeft();
-            break;
-        case KeyEvent.VK_RIGHT : // handle right
-            moveRight();
-            break;
-     }
+    if (keyCode == KeyEvent.VK_UP){moveUp();}    // handle up 
+    else if (keyCode == KeyEvent.VK_DOWN){moveDown();}  // handle down 
+    else if (keyCode ==KeyEvent.VK_LEFT){moveLeft();}  // handle left
+    else if (keyCode == KeyEvent.VK_RIGHT){moveRight();} // handle right 
   }
   public void keyReleased(KeyEvent e){
-    System.out.println("KeyReleased");
   }
   public void keyTyped(KeyEvent e){
   }

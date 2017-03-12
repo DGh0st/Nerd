@@ -4,26 +4,28 @@
  * Position class that handles the x/y coordinate positions of all game objects.
  * Sub-class of GameObject
  */
-public abstract class Position extends GameObject{
+public class Position extends GameObject{
   
   LocationDimension location;
-  int x = location.getWidth()/2, y = 0;
+  static int x , y; 
+  //x = location.getWidth()/2, y = 0; <----- TODO: starting xPos. should be at bottom of screen in the center. DOES NOT WORK!
   
   public Position(){
+    System.out.println("");
   }
   
-  void getX(int posX){
+  static void getX(int posX){//takes x parameter given by Object Class and up
     x = posX;
   }
-  void getY(int posY){
+  static void getY(int posY){
     y = posY;
   }
   
-  void setX(int posX){
+  void setX(int posX){//takes x coordinate given the parameter and updates it in Object Class.
     x = posX;
     setPosition();
   }
-  void setY(int posY){
+  void setY(int posY){// Same as setX() above
     y = posY;
     setPosition();
   }
