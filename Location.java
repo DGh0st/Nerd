@@ -56,8 +56,4 @@ public class Location
     
     //not yet implemented
   }
-  public static boolean canMoveToPosition(int x, int y){
-    //dummy method
-    return true;
-  }
 }
