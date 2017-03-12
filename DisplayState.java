@@ -3,20 +3,35 @@
  * Deep Patel
  * DisplayState class that handles drawing and updating of scene/display.
  * TODO:
- *  - Add GameState
  *  - Add Menus
  */
 
+import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
-public class DisplayState {
+public class DisplayState extends JPanel {
 	private static DisplayState instance = null;
 	private DisplayStatus currentDisplayStatus;
 	private GameState gameCanvas;
+	private ArrayList<Menu> menus = new ArrayList<Menu>();
 
 	private DisplayState() {
 		currentDisplayStatus = DisplayStatus.STARTMENU;
 		gameCanvas = GameState.getInstance();
+		setupMenus();
+
+		this.setBackground(Color.black);
+		this.setPreferredSize(NerdGame.windowSize);
+		this.setSize(NerdGame.windowSize);
+
+		FlowLayout layout = (FlowLayout)getLayout();
+		layout.setVgap(0);
+	}
+	
+	private void setupMenus() {
+		menus.add(new MainMenu());
+		menus.add(new PauseMenu());
 	}
 
 	public static synchronized DisplayState getInstance() {
@@ -32,19 +47,21 @@ public class DisplayState {
 
 	public void setCurrentDisplayStatus(DisplayStatus newDisplayStatus) {
 		currentDisplayStatus = newDisplayStatus;
+		clear(Color.black);
 	}
 
 	public void updateCurrentDisplayStatus() {
 		switch (currentDisplayStatus) {
 			case STARTMENU:
+				menus.get(0).update();
 				break;
 			case INGAME:
 				gameCanvas.update();
 				break;
 			case PAUSEMENU:
+				menus.get(1).update();
 				break;
 			case VICTORYMENU:
-				// TODO: update animation state
 				break;
 			case LOSEMENU:
 				break;
@@ -56,18 +73,16 @@ public class DisplayState {
 	}
 
 	public void drawCurrentDisplayStatus() {
-		NerdGame gameWindow = NerdGame.getInstance();
+		addCurrentCanvasIfNeeded();
 		switch (currentDisplayStatus) {
 			case STARTMENU:
-				// TODO: display start menu which includes title, shop and settings screens
+				menus.get(0).draw();
 				break;
 			case INGAME:
-				if (gameCanvas.getParent() == null) {
-					gameWindow.add(gameCanvas);
-				}
 				gameCanvas.draw();
 				break;
 			case PAUSEMENU:
+				menus.get(1).draw();
 				// TODO: display pause menu overlay on top of the game
 				break;
 			case VICTORYMENU:
@@ -80,6 +95,21 @@ public class DisplayState {
 				break;
 			default:
 				break;
+		}
+	}
+
+	private void addCurrentCanvasIfNeeded() {
+		if (this.getParent() == null) {
+			NerdGame.getInstance().add(this);
+		}
+	}
+
+	private void clear(Color color) {
+		Graphics g = getGraphics();
+		Dimension canvasSize = getSize();
+		if (g != null) {
+			g.setColor(color);
+			g.fillRect(0, 0, (int)canvasSize.getWidth(), (int)canvasSize.getHeight());
 		}
 	}
 }

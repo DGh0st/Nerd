@@ -15,10 +15,15 @@ import org.junit.Ignore;
 public class NerdGameTest {
 	@Ignore
 	@Test
-	public void nerdGameShouldBeASingleton() {
+	public void shouldBeASingleton() {
 		NerdGame tester = NerdGame.getInstance();
 		NerdGame tester2 = NerdGame.getInstance();
 
 		assertEquals(tester, tester2);
+	}
+
+	@Test
+	public void windowSizeShouldBeGlobal() {
+		assertEquals(NerdGame.windowSize, NerdGame.windowSize);
 	}
 }

@@ -16,10 +16,17 @@ import org.junit.Ignore;
 
 public class GameStateTest {
 	@Test
-	public void gameStateShouldBeASingleton() {
+	public void shouldBeASingleton() {
 		GameState tester = GameState.getInstance();
 		GameState tester2 = GameState.getInstance();
 
 		assertEquals(tester, tester2);
+	}
+
+	@Test
+	public void sizeShouldBeSameAsNerdGameWindowSize() {
+		GameState tester = GameState.getInstance();
+
+		assertEquals(tester.getSize(), NerdGame.windowSize);
 	}
 }

@@ -4,34 +4,32 @@
  * NerdGame class which instantiates and displays a window.
  */
 
-import java.awt.Dimension;
-import java.awt.Color;
-import java.awt.event.WindowEvent;
-
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 public class NerdGame extends JFrame {
 	private static NerdGame instance = null;
 	private static DisplayState currentDisplayState;
 
-	private final static Dimension windowSize = new Dimension(1024, 768);
+	public final static Dimension windowSize = new Dimension(1024, 768);
 
 	public static void main(String[] args) {
-		NerdGame game = getInstance();
-		currentDisplayState.setCurrentDisplayStatus(DisplayStatus.INGAME); // For testing in game related stuff
+		NerdGame gameWindow = getInstance();
 
 		while (currentDisplayState.getCurrentDisplayStatus() != DisplayStatus.CLOSE) {
 			currentDisplayState.updateCurrentDisplayStatus();
 			currentDisplayState.drawCurrentDisplayStatus();
 		}
 
-		game.close();
+		gameWindow.close();
 	}
 
 	private NerdGame() {
-		createWindow();
-
 		currentDisplayState = DisplayState.getInstance();
+		this.add(currentDisplayState);
+
+		createWindow();
 	}
 
 	public static synchronized NerdGame getInstance() {
@@ -50,7 +48,7 @@ public class NerdGame extends JFrame {
 		this.setVisible(true);
 	}
 
-	private void close() {
+	public void close() {
 		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 }

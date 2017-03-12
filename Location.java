@@ -38,6 +38,10 @@ public class Location
   public int getHeight(){
     return this.dimensions.getHeight();
   }
+
+  public boolean canMoveToPosition(int x, int y) {
+    return true;
+  }
   
   public void update(){
     //not yet implemented

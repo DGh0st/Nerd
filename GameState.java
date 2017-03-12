@@ -2,24 +2,33 @@
  * Nerd 03/05/2017
  * Deep Patel
  * DisplayState class that handles drawing and updating of scene/display.
- * TODO:
- *  - Add Character for player
- *  - Add CollisionEvent for collisionChecker
  */
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Dimension;
-
+import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
 
-public class GameState extends JPanel {
+public class GameState extends JPanel implements KeyListener {
 	private static GameState instance = null;
 	private LocationArray locations;
+	private CollisionEvent collisionChecker;
+	// private Character player;
 
 	private GameState() {
+		collisionChecker = new CollisionEvent();
+		// TODO: 
+		//  - add CollisionListeners
+		//  - set locations to LocationArray singleton
+		//  - initialize player
+
 		this.setBackground(Color.black);
-		// TODO: set locations to LocationArray singleton
+		this.setPreferredSize(NerdGame.windowSize);
+		this.setSize(NerdGame.windowSize);
+		this.setFocusable(true);
+		this.addKeyListener(this);
+
+		FlowLayout layout = (FlowLayout)getLayout();
+		layout.setVgap(0);
 	}
 
 	public static synchronized GameState getInstance() {
@@ -29,13 +38,47 @@ public class GameState extends JPanel {
 		return instance;
 	}
 
+	@Override
+	public void keyPressed(KeyEvent event) {
+		// Nothing additional to do as of yet...
+	}
+
+	@Override
+	public void keyReleased(KeyEvent event) {
+		if (event.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.PAUSEMENU);
+			removeCurrentCanvasIfNeeded();
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent event) {
+		// Nothing additional to do as of yet...
+	}
+
 	public void update() {
-		// update current location and check collisions with movable objects
+		// TODO: update current location and check collisions with movable objects
 	}
 
 	public void draw() {
-		clear(Color.black);
-		// draw current location and character
+		addCurrentCanvasIfNeeded();
+		this.requestFocus();
+
+		clear(Color.green);
+		// TODO: draw current location and character
+	}
+
+	private void addCurrentCanvasIfNeeded() {
+		if (this.getParent() == null) {
+			DisplayState.getInstance().add(this);
+		}
+	}
+
+	private void removeCurrentCanvasIfNeeded() {
+		DisplayState currentDisplayState = DisplayState.getInstance();
+		if (this.getParent() != null && this.getParent() == currentDisplayState) {
+			currentDisplayState.remove(this);
+		}
 	}
 
 	private void clear(Color color) {

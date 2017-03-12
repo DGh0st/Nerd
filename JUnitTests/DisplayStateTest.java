@@ -47,4 +47,11 @@ public class DisplayStateTest {
 		tester.setCurrentDisplayStatus(DisplayStatus.STARTMENU);
 		assertEquals(DisplayStatus.STARTMENU, tester.getCurrentDisplayStatus());
 	}
+
+	@Test
+	public void sizeShouldBeSameAsNerdGameWindowSize() {
+		DisplayState tester = DisplayState.getInstance();
+
+		assertEquals(tester.getSize(), NerdGame.windowSize);
+	}
 }
