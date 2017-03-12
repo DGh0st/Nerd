@@ -7,17 +7,17 @@ import javax.swing.*;
 
 public abstract class GameObject extends JPanel{
   int xPos, yPos;
-  Position currentPosition;
+  private Position currentPosition;
   
   public GameObject(){
   }
   
   void getPosition(){
-    currentPosition.getX(xPos);
-    currentPosition.getY(yPos);
+    Position.getX(xPos);
+    Position.getY(yPos);
   }
   void setPosition(){
-    xPos = currentPosition.x;
-    yPos = currentPosition.y;
+      xPos = Position.x;
+      yPos = Position.y;
   }
 }

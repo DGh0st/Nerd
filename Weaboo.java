@@ -7,7 +7,8 @@
  *  - Implement play() Method
  */
 class Weaboo extends Character{
-  public Weaboo(){
+  public Weaboo(int x, int y){
+    super(x,y);
   }
   
   public void draw(){
