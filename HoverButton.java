@@ -16,8 +16,10 @@ public class HoverButton extends JButton {
 	private BufferedImage pressedImage;
 
 	public HoverButton() {
+		super("");
 		hoverImage = null;
 		pressedImage = null;
+		hoverImage = null;
 	}
 
 	public HoverButton(String title, String path) {
@@ -55,6 +57,14 @@ public class HoverButton extends JButton {
 			g.drawImage(regularImage, 0, 0, null);
 		}
 		super.paintComponent(g);
+	}
+
+	public BufferedImage getImage() {
+		return regularImage;
+	}
+
+	public void setImage(BufferedImage image) {
+		regularImage = image;
 	}
 
 	public BufferedImage getHoverImage() {
