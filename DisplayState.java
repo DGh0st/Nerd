@@ -2,8 +2,6 @@
  * Nerd 03/04/2017
  * Deep Patel
  * DisplayState class that handles drawing and updating of scene/display.
- * TODO:
- *  - Add Menus
  */
 
 import java.awt.*;
@@ -32,6 +30,8 @@ public class DisplayState extends JPanel {
 	private void setupMenus() {
 		menus.add(new MainMenu());
 		menus.add(new PauseMenu());
+		menus.add(new VictoryMenu());
+		menus.add(new LoseMenu());
 	}
 
 	public static synchronized DisplayState getInstance() {
@@ -62,8 +62,10 @@ public class DisplayState extends JPanel {
 				menus.get(1).update();
 				break;
 			case VICTORYMENU:
+				menus.get(2).update();
 				break;
 			case LOSEMENU:
+				menus.get(3).update();
 				break;
 			case CLOSE:
 				break;
@@ -82,13 +84,12 @@ public class DisplayState extends JPanel {
 				break;
 			case PAUSEMENU:
 				menus.get(1).draw();
-				// TODO: display pause menu overlay on top of the game
 				break;
 			case VICTORYMENU:
-				// TODO: display victory menu
+				menus.get(2).draw();
 				break;
 			case LOSEMENU:
-				// TODO: display lose menu
+				menus.get(3).draw();
 				break;
 			case CLOSE:
 				break;

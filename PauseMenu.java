@@ -2,6 +2,7 @@
  * Nerd 03/11/2017
  * Deep Patel
  * PauseMenu class that is used to display the menu on game pause.
+ * TODO: Implement restart game
  */
 
 import java.awt.event.*;
@@ -33,7 +34,7 @@ public class PauseMenu extends Menu implements KeyListener {
 
 		pauseScreen.add(Box.createRigidArea(new Dimension(windowSize.width, 20)));
 
-		String buttonTitles[] = {"Resume", "Restart", "Quit To Main Menu", "Exit Game"};
+		String buttonTitles[] = {"Resume", "Restart", "Main Menu", "Exit Game"};
 		String buttonCommands[] = {"resumeGame", "restartGame", "mainMenu", "closeGame"};
 		String regularButtonPath = "./resources/menus/pauseButton.png";
 		String hoverButtonPath = "./resources/menus/hoverPauseButton.png";

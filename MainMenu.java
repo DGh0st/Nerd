@@ -2,6 +2,9 @@
  * Nerd 03/11/2017
  * Deep Patel
  * MainMenu class that is used to display the menu on game start.
+ * TODO:
+ *  - Add Shop
+ *  - Add Settings
  */
 
 import java.awt.event.*;

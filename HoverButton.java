@@ -1,9 +1,7 @@
 /**
- * Nerd 03/04/2017
+ * Nerd 03/12/2017
  * Deep Patel
- * DisplayState class that handles drawing and updating of scene/display.
- * TODO:
- *  - Add Menus
+ * HoverButton class that is used to make custom hoverable JButtons.
  */
 
 import java.awt.*;
