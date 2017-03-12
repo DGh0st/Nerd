@@ -6,7 +6,6 @@
 
 import java.awt.event.*;
 import java.awt.*;
-import java.awt.image.*;
 import javax.swing.*;
 
 public class PauseMenu extends Menu implements KeyListener {
@@ -14,6 +13,9 @@ public class PauseMenu extends Menu implements KeyListener {
 
 	public PauseMenu() {
 		super();
+
+		this.setFocusable(true);
+		this.addKeyListener(this);
 
 		setupPauseScreen(NerdGame.windowSize);
 
@@ -53,9 +55,7 @@ public class PauseMenu extends Menu implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent event) {
-		System.out.println("keyReleased");
 		if (event.getKeyCode() == KeyEvent.VK_ESCAPE) {
-			System.out.println("Escape");
 			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.INGAME);
 			super.removeCurrentCanvasIfNeeded();
 		}
@@ -71,7 +71,6 @@ public class PauseMenu extends Menu implements KeyListener {
 	}
 
   	public void actionPerformed(ActionEvent event) {
-  		System.out.println(event.getActionCommand());
 		if (event.getActionCommand().equals("resumeGame")) {
 			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.INGAME);
 			super.removeCurrentCanvasIfNeeded();

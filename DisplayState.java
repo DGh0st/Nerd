@@ -73,7 +73,6 @@ public class DisplayState extends JPanel {
 	}
 
 	public void drawCurrentDisplayStatus() {
-		addCurrentCanvasIfNeeded();
 		switch (currentDisplayStatus) {
 			case STARTMENU:
 				menus.get(0).draw();
@@ -95,12 +94,6 @@ public class DisplayState extends JPanel {
 				break;
 			default:
 				break;
-		}
-	}
-
-	private void addCurrentCanvasIfNeeded() {
-		if (this.getParent() == null) {
-			NerdGame.getInstance().add(this);
 		}
 	}
 
