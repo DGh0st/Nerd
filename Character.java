@@ -26,7 +26,7 @@ public abstract class Character extends GameObject implements KeyListener, Colli
     }
   }
   public void moveRight(){
-    if (Location.canMoveToPosition(xPos+1, yPos) == true){
+    if (location.canMoveToPosition(xPos+1, yPos) == true){
       xPos++;
       position.setX(xPos);
     }
