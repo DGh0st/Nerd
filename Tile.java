@@ -9,7 +9,7 @@ import java.awt.Graphics;
 
 public abstract class Tile
 {
-  public static Tile[] tiles = new Tile[256];
+  public static Tile[] tiles = new Tile[50];
   public static Tile grass01Tile = new Tile_Grass01(0); 
   public static Tile grass02Tile = new Tile_Grass02(1); 
   public static Tile grass03Tile = new Tile_Grass03(2);
