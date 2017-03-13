@@ -20,12 +20,15 @@ public abstract class Location implements Drawable
   private List<MovableObstacle> moveableObjects;
   private List<StaticObstacle> staticObjects;
   
-  public Location(String path, int id){ //grabbing width and height from location.txt files
-    //this.name = name;
-    this.id = id;
-    //dimensions = new LocationDimension(width,height);
-    createLocation(path);
+  public Location(int locationId){
+    ///grabbing width and height from location.txt files in createLocation()
+    this.id = locationId; 
+    this.path = AssetsLoader.getLocationPath(locationId);
+    initializeLocation(path);
   }
+  
+  abstract public void update();
+  abstract public void draw();
   
   //getters and setters below:
   public String getPath(){
@@ -41,7 +44,12 @@ public abstract class Location implements Drawable
   public int getHeight(){
     return this.dimensions.getHeight();
   }
-  
+  public int getSpawnX(){
+    return this.spawnX;
+  }
+  public int getSpawnY(){
+    return this.spawnY;
+  }
   public Tile getTile(int x, int y){
     //protection against going outside boundary(glitches)
     if(x<0 || y<0 || x>=dimensions.getWidth() || y>=dimensions.getHeight()){
@@ -55,24 +63,19 @@ public abstract class Location implements Drawable
     return t;
   }
   
-  public boolean canMoveToPosition(int xPos, int yPos){
-    //not yet implemented
-    
+  public boolean canMoveToPosition(int xPos, int yPos){   
     //check bounds    
     return checkBounds(xPos, yPos);
   }
   public boolean checkBounds(int xPos, int yPos){
     return (xPos>0 && xPos<dimensions.getHeight())&&(yPos>0 && yPos<dimensions.getHeight());
   }
-  
-  abstract public void update();
-  abstract public void draw();
-  
-  public void createLocation(String path){
+ 
+  public void initializeLocation(String path){
     String file = Utilities.loadFileAsString(path);
-    //System.out.println("World | FILE: "+file+"\n");
-    
+    //System.out.println("Location | FILE: "+file+"\n");
     String[] tokens = file.split("\\s+");//split on space or newline
+    
     int width = Utilities.parseInt(tokens[0]);
     int height = Utilities.parseInt(tokens[1]);
     dimensions = new LocationDimension(width,height);
