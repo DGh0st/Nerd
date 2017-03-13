@@ -2,7 +2,7 @@
  * Nerd 03/12/2017
  * Deep Patel
  * VictoryMenu class that is used to display the menu on victory.
- * TODO: Add Victory Pose and implement restart game
+ * TODO: Add Victory Pose
  */
 
 import java.awt.event.*;
@@ -54,7 +54,9 @@ public class VictoryMenu extends Menu {
 
   	public void actionPerformed(ActionEvent event) {
 		if (event.getActionCommand().equals("restartGame")) {
-			// TODO: restart game
+			GameState.getInstance().start();
+			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.INGAME);
+			super.removeCurrentCanvasIfNeeded();
 		} else if (event.getActionCommand().equals("mainMenu")) {
 			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.STARTMENU);
 			super.removeCurrentCanvasIfNeeded();

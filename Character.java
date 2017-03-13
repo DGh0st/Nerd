@@ -7,7 +7,7 @@
  */
 import java.awt.event.*;
 
-public abstract class Character extends GameObject implements KeyListener, CollisionListener, Movable, Drawable, Sound {
+public abstract class Character extends GameObject implements CollisionListener, Movable, Drawable, Sound {
   private int xPos, yPos;
   Location location;
   private Position position;
@@ -53,18 +53,5 @@ public abstract class Character extends GameObject implements KeyListener, Colli
     //sends current position of object to Position class then
     //use Position instamce to grab value of x and y for comparison
     //If collision is detected stop the game??
-  }
-  
-  public void keyPressed(KeyEvent e){
-    System.out.println("KeyPressed");
-    int keyCode = e.getKeyCode();
-    if (keyCode == KeyEvent.VK_UP){moveUp();}    // handle up 
-    else if (keyCode == KeyEvent.VK_DOWN){moveDown();}  // handle down 
-    else if (keyCode ==KeyEvent.VK_LEFT){moveLeft();}  // handle left
-    else if (keyCode == KeyEvent.VK_RIGHT){moveRight();} // handle right 
-  }
-  public void keyReleased(KeyEvent e){
-  }
-  public void keyTyped(KeyEvent e){
   }
 }

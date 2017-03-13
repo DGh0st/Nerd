@@ -88,6 +88,7 @@ public class MainMenu extends Menu {
 
 	public void actionPerformed(ActionEvent event) {
 		if (event.getActionCommand().equals("startGame")) {
+			GameState.getInstance().start();
 			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.INGAME);
 			super.removeCurrentCanvasIfNeeded();
 		} else if (event.getActionCommand().equals("shopMenu")) {

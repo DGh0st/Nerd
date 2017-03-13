@@ -2,7 +2,6 @@
  * Nerd 03/11/2017
  * Deep Patel
  * PauseMenu class that is used to display the menu on game pause.
- * TODO: Implement restart game
  */
 
 import java.awt.event.*;
@@ -76,7 +75,9 @@ public class PauseMenu extends Menu implements KeyListener {
 			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.INGAME);
 			super.removeCurrentCanvasIfNeeded();
 		} else if (event.getActionCommand().equals("restartGame")) {
-			// TODO: restart game
+			GameState.getInstance().start();
+			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.INGAME);
+			super.removeCurrentCanvasIfNeeded();
 		} else if (event.getActionCommand().equals("mainMenu")) {
 			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.STARTMENU);
 			super.removeCurrentCanvasIfNeeded();

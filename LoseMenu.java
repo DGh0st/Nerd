@@ -2,7 +2,7 @@
  * Nerd 03/12/2017
  * Deep Patel
  * LoseMenu class that is used to display the menu on lose.
- * TODO: Add Lose Pose and implement restart game
+ * TODO: Add Lose Pose
  */
 
 import java.awt.event.*;
@@ -54,7 +54,9 @@ public class LoseMenu extends Menu {
 
   	public void actionPerformed(ActionEvent event) {
 		if (event.getActionCommand().equals("restartGame")) {
-			// TODO: restart game
+			GameState.getInstance().start();
+			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.INGAME);
+			super.removeCurrentCanvasIfNeeded();
 		} else if (event.getActionCommand().equals("mainMenu")) {
 			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.STARTMENU);
 			super.removeCurrentCanvasIfNeeded();

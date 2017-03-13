@@ -11,7 +11,7 @@ public class AssetsLoader
     String path;
     switch(id){
       case 0:
-        path = "C:/Users/owner/Documents/Mundii/UIC/CS 342/Group Project/resources/textures/SpriteSheet01.png"; 
+        path = "./resources/textures/SpriteSheet01.png"; 
         break;
       case 1:
         path = "./resources/textures/SpriteSheet02.png"; //generic location for the sheet
@@ -40,7 +40,7 @@ public class AssetsLoader
     String path;
     switch(id){
       case 0:
-        path = "C:/Users/owner/Documents/Mundii/UIC/CS 342/Group Project/resources/locations/Location01.txt"; 
+        path = "./resources/locations/Location01.txt"; 
         break;
       case 1:
         path = "./resources/locations/Location02.txt";

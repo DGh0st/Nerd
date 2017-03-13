@@ -8,18 +8,17 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class GameState extends JPanel implements KeyListener {
+public class GameState extends JPanel implements KeyListener, CollisionListener {
 	private static GameState instance = null;
 	private LocationArray locations;
 	private CollisionEvent collisionChecker;
-	// private Character player;
+	private Character player;
 
 	private GameState() {
+		locations = LocationArray.getInstance();
+
 		collisionChecker = new CollisionEvent();
-		// TODO: 
-		//  - add CollisionListeners
-		//  - set locations to LocationArray singleton
-		//  - initialize player
+		collisionChecker.addListener(this);
 
 		this.setBackground(Color.black);
 		this.setPreferredSize(NerdGame.windowSize);
@@ -45,14 +44,19 @@ public class GameState extends JPanel implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent event) {
-		if (event.getKeyCode() == KeyEvent.VK_ESCAPE) {
+    	int keyCode = event.getKeyCode();
+		if (keyCode == KeyEvent.VK_ESCAPE) {
 			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.PAUSEMENU);
 			removeCurrentCanvasIfNeeded();
+		} else if (keyCode == KeyEvent.VK_UP) {
+			player.moveUp();
+		} else if (keyCode == KeyEvent.VK_DOWN) {
+			player.moveDown();
+		} else if (keyCode ==KeyEvent.VK_LEFT) {
+			player.moveLeft();
+		} else if (keyCode == KeyEvent.VK_RIGHT) {
+			player.moveRight();
 		}
-		else if (keyCode == KeyEvent.VK_UP){System.out.println("0");}
-  		else if (keyCode == KeyEvent.VK_DOWN){System.out.println("1");}
-   		else if (keyCode ==KeyEvent.VK_LEFT){System.out.println("2");}
-   		else if (keyCode == KeyEvent.VK_RIGHT){System.out.println("3");}
 	}
 
 	@Override
@@ -60,16 +64,30 @@ public class GameState extends JPanel implements KeyListener {
 		// Nothing additional to do as of yet...
 	}
 
+	@Override
+	public void collisionDetected() {
+		DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.LOSEMENU);
+		removeCurrentCanvasIfNeeded();
+	}
+
+	public void start() {
+		player = new Weaboo(locations.getCurrentSpawnX(), locations.getCurrentSpawnY());
+		collisionChecker.addListener(player);
+	}
+
 	public void update() {
-		// TODO: update current location and check collisions with movable objects
+		// TODO: check collisions with movable objects
+		locations.updateCurrentLocation();
 	}
 
 	public void draw() {
 		addCurrentCanvasIfNeeded();
 		this.requestFocus();
 
-		clear(Color.green);
-		// TODO: draw current location and character
+		clear(Color.black);
+		player.draw();
+		locations.updateCurrentLocation();
+		locations.drawCurrentLocation();
 	}
 
 	private void addCurrentCanvasIfNeeded() {
