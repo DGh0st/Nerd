@@ -49,6 +49,10 @@ public class GameState extends JPanel implements KeyListener {
 			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.PAUSEMENU);
 			removeCurrentCanvasIfNeeded();
 		}
+		else if (keyCode == KeyEvent.VK_UP){System.out.println("0");}
+  		else if (keyCode == KeyEvent.VK_DOWN){System.out.println("1");}
+   		else if (keyCode ==KeyEvent.VK_LEFT){System.out.println("2");}
+   		else if (keyCode == KeyEvent.VK_RIGHT){System.out.println("3");}
 	}
 
 	@Override
