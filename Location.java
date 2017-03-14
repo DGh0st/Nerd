@@ -68,7 +68,7 @@ public abstract class Location implements Drawable
     return checkBounds(xPos, yPos);
   }
   public boolean checkBounds(int xPos, int yPos){
-    return (xPos>0 && xPos<dimensions.getHeight())&&(yPos>0 && yPos<dimensions.getHeight());
+    return (xPos>0 && xPos<dimensions.getWidth())&&(yPos>0 && yPos<dimensions.getHeight());
   }
  
   public void initializeLocation(String path){
