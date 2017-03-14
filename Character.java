@@ -8,7 +8,7 @@
 import java.awt.event.*;
 
 public abstract class Character extends GameObject implements CollisionListener, Movable, Drawable, Sound {
-  private int xPos, yPos;
+  public int xPos, yPos;
   Location location;
   private Position position;
 
@@ -16,31 +16,41 @@ public abstract class Character extends GameObject implements CollisionListener,
     this.xPos = x;
     this.yPos = y;
     position = new Position();
-    //location = new Location ();
+    position.x = x;
+    position.y = y;
+    //location = new OzLocation (0);
   }
   
   public void moveLeft(){
-    if (location.canMoveToPosition(xPos-1, yPos) == true){
-      xPos--;
-      position.setX(xPos);
+    if (xPos>0){
+    if (LocationArray.getInstance().getCurrentLocation().canMoveToPosition(xPos-64, yPos) == true){
+      xPos-=64;
+      //System.out.println("x: " + xPos + " y: " + yPos);
+      position.setPosition(xPos, yPos);
+    }
     }
   }
   public void moveRight(){
-    if (location.canMoveToPosition(xPos+1, yPos) == true){
-      xPos++;
-      position.setX(xPos);
+    if (LocationArray.getInstance().getCurrentLocation().canMoveToPosition(xPos+64, yPos) == true){
+      xPos+=64;
+      System.out.println("x: " + xPos + " y: " + yPos);
+      position.setPosition(xPos, yPos);
     }
   }
   public void moveUp(){
-    if (location.canMoveToPosition(xPos, yPos+1) == true){
-      yPos++;
-      position.setY(yPos);
+    if (yPos>0){
+    if (LocationArray.getInstance().getCurrentLocation().canMoveToPosition(xPos, yPos-64) == true){
+      yPos-=64;
+      //System.out.println("x: " + xPos + " y: " + yPos);
+      position.setPosition(xPos,yPos);
+    }
     }
   }
   public void moveDown(){
-    if (location.canMoveToPosition(xPos, yPos-1) == true){
-      yPos--;
-      position.setY(yPos);
+    if (LocationArray.getInstance().getCurrentLocation().canMoveToPosition(xPos, yPos+64) == true){
+      yPos+=64;
+      //System.out.println("x: " + xPos + " y: " + yPos);
+      position.setPosition(xPos, yPos);
     }
   }
   

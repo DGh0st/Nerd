@@ -14,19 +14,18 @@ public class Position extends GameObject{
     System.out.println("");
   }
   
-  static void getX(int posX){//takes x parameter given by Object Class and up
-    x = posX;
+  static int getXpos(){//takes x parameter given by Object Class and up
+    return x;
   }
-  static void getY(int posY){
-    y = posY;
+  static int getYpos(){
+    return y;
   }
   
-  void setX(int posX){//takes x coordinate given the parameter and updates it in Object Class.
+  int setPosition(int posX, int posY){//takes x coordinate given the parameter and updates it in Object Class.
     x = posX;
-    setPosition();
-  }
-  void setY(int posY){// Same as setX() above
     y = posY;
-    setPosition();
+    setObjectPosition(x,y);
+    
+    return 1;
   }
 }
