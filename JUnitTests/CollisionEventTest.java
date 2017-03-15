@@ -14,6 +14,7 @@ import org.junit.runner.notification.Failure;
 import org.junit.Test;
 import org.junit.Ignore;
 import org.junit.Before;
+import java.util.ArrayList;
 
 public class CollisionEventTest implements CollisionListener {
 	private boolean collisionEventRegisteredListenerWasCalled = false;
@@ -28,8 +29,13 @@ public class CollisionEventTest implements CollisionListener {
 		collisionEventRegisteredListenerWasCalled = false;
 
 		CollisionEvent cEvent = new CollisionEvent();
+		Character player = new Weaboo(0, 0);
+		player.setObjectPosition(0, 0);
+		ArrayList<MovableObstacle> mo = new ArrayList<MovableObstacle>();
+		mo.add(new Car());
+		mo.get(0).setObjectPosition(0, 0);
 
-		cEvent.checkCollision();
+		cEvent.checkCollision(player, mo);
 
 		assertEquals(false, collisionEventRegisteredListenerWasCalled);
 	}
@@ -39,11 +45,35 @@ public class CollisionEventTest implements CollisionListener {
 		collisionEventRegisteredListenerWasCalled = false;
 
 		CollisionEvent cEvent = new CollisionEvent();
+		Character player = new Weaboo(0, 0);
+		player.setObjectPosition(0, 0);
+		ArrayList<MovableObstacle> mo = new ArrayList<MovableObstacle>();
+		mo.add(new Car());
+		mo.get(0).setObjectPosition(0, 0);
 
 		cEvent.addListener(this);
-		cEvent.checkCollision();
+		cEvent.checkCollision(player, mo);
 
 		assertEquals(true, collisionEventRegisteredListenerWasCalled);
+
+		cEvent.removeListener(this);
+	}
+
+	@Test
+	public void collisionEventShouldNotTrigger() {
+		collisionEventRegisteredListenerWasCalled = false;
+
+		CollisionEvent cEvent = new CollisionEvent();
+		Character player = new Weaboo(100, 100);
+		player.getPosition[0] = player.getPosition[1] = 100;
+		ArrayList<MovableObstacle> mo = new ArrayList<MovableObstacle>();
+		mo.add(new Car());
+		mo.get(0).getPosition[0] = mo.get(0).getPosition[1] = 0;
+
+		cEvent.addListener(this);
+		cEvent.checkCollision(player, mo);
+
+		assertEquals(false, collisionEventRegisteredListenerWasCalled);
 
 		cEvent.removeListener(this);
 	}

@@ -13,9 +13,8 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
  private static GameState instance = null;
  private LocationArray locations;
  private CollisionEvent collisionChecker;
- boolean canvasLoaded = false;
+ boolean shouldRedraw = false;
  private Character player;
- public Graphics g;
 
  private GameState() {
   locations = LocationArray.getInstance();
@@ -48,31 +47,23 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
 
  @Override
  public void keyReleased(KeyEvent event) {
-     int keyCode = event.getKeyCode();
+  int keyCode = event.getKeyCode();
   if (keyCode == KeyEvent.VK_ESCAPE) {
-   DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.PAUSEMENU);
-   canvasLoaded = false;
-   removeCurrentCanvasIfNeeded();
+    DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.PAUSEMENU);
+    shouldRedraw = false;
+    removeCurrentCanvasIfNeeded();
   } else if (keyCode == KeyEvent.VK_UP) {
-   player.moveUp();
-   //clear(Color.black);
-  player.draw();
-  canvasLoaded = false;
+    player.moveUp();
+    shouldRedraw = false;
   } else if (keyCode == KeyEvent.VK_DOWN) {
-   player.moveDown();
-   //clear(Color.black);
-  player.draw();
-  canvasLoaded = false;
+    player.moveDown();
+    shouldRedraw = false;
   } else if (keyCode ==KeyEvent.VK_LEFT) {
-   player.moveLeft();
-   //clear(Color.black);
-  player.draw();
-  canvasLoaded = false;
+    player.moveLeft();
+    shouldRedraw = false;
   } else if (keyCode == KeyEvent.VK_RIGHT) {
-   player.moveRight();
-   //clear(Color.black);
-  player.draw();
-  canvasLoaded = false;
+    player.moveRight();
+    shouldRedraw = false;
   }
  }
 
@@ -93,21 +84,18 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
  }
 
  public void update() {
-  // TODO: check collisions with movable objects
+  //TODO: add collisionChecker
+  //collisionChecker.checkCollision(player, locations.getCurrentLocation().getMovableObstacles());
   locations.updateCurrentLocation();
  }
 
  public void draw() {
   addCurrentCanvasIfNeeded();
-  //player.draw();
   this.requestFocus();
 
-  //clear(Color.black);
-  locations.updateCurrentLocation();
-  //player.draw();
-  if (!canvasLoaded){
-  locations.drawCurrentLocation();
-  canvasLoaded = true;
+  if (!shouldRedraw){
+    locations.drawCurrentLocation();
+    shouldRedraw = true;
   }
   player.draw();
  }
