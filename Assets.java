@@ -1,7 +1,7 @@
 /**
  * ~ Assets.java
  * Raymond Hruby II
- * 03/13/2017
+ * 03/15/2017
  * Assets class holds sprite images, currently only worldTile data
  * TODO: Bounds check for getAsset()
  *       Change to singleton
@@ -21,7 +21,8 @@ public class Assets
     grass01,grass02,grass03,
     trail01,trail02,
     rock01,rock02,
-    obstacle01,obstacle02,obstacle03,obstacle04,obstacle05;
+    road01,road02,
+    tree01,obstacle02,obstacle03,obstacle04,obstacle05;
   
   private String path;        //path to Spritesheet 
   /*
@@ -62,9 +63,13 @@ public class Assets
     //third row
     rock01 = sheet.crop(0     , HEIGHT*2, WIDTH, HEIGHT);
     rock02 = sheet.crop(WIDTH , HEIGHT*2, WIDTH, HEIGHT);
+    
+    //fourth row
+    road01 = sheet.crop(0     , HEIGHT*3, WIDTH, HEIGHT);
+    road02 = sheet.crop(WIDTH , HEIGHT*3, WIDTH, HEIGHT);
                         
     //fifth row
-    obstacle01 = sheet.crop(0      , HEIGHT*4, WIDTH, HEIGHT);
+    tree01     = sheet.crop(0      , HEIGHT*4, WIDTH, HEIGHT);
     obstacle02 = sheet.crop(WIDTH  , HEIGHT*4, WIDTH, HEIGHT);
     obstacle03 = sheet.crop(WIDTH*2, HEIGHT*4, WIDTH, HEIGHT);
     obstacle04 = sheet.crop(WIDTH*3, HEIGHT*4, WIDTH, HEIGHT);
