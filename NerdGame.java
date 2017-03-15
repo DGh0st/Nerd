@@ -9,46 +9,46 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class NerdGame extends JFrame {
-	private static NerdGame instance = null;
-	private static DisplayState currentDisplayState;
+ private static NerdGame instance = null;
+ private static DisplayState currentDisplayState;
 
-	public final static Dimension windowSize = new Dimension(1024, 768);
+ public final static Dimension windowSize = new Dimension(1024, 768);
 
-	public static void main(String[] args) {
-		NerdGame gameWindow = getInstance();
+ public static void main(String[] args) {
+  NerdGame gameWindow = getInstance();
 
-		while (currentDisplayState.getCurrentDisplayStatus() != DisplayStatus.CLOSE) {
-			currentDisplayState.updateCurrentDisplayStatus();
-			currentDisplayState.drawCurrentDisplayStatus();
-		}
+  while (currentDisplayState.getCurrentDisplayStatus() != DisplayStatus.CLOSE) {
+   currentDisplayState.updateCurrentDisplayStatus();
+   currentDisplayState.drawCurrentDisplayStatus();
+  }
 
-		gameWindow.close();
-	}
+  gameWindow.close();
+ }
 
-	private NerdGame() {
-		currentDisplayState = DisplayState.getInstance();
-		this.add(currentDisplayState);
+ private NerdGame() {
+  currentDisplayState = DisplayState.getInstance();
+  this.add(currentDisplayState);
 
-		createWindow();
-	}
+  createWindow();
+ }
 
-	public static synchronized NerdGame getInstance() {
-		if (instance == null) {
-			instance = new NerdGame();
-		}
-		return instance;
-	}
+ public static synchronized NerdGame getInstance() {
+  if (instance == null) {
+   instance = new NerdGame();
+  }
+  return instance;
+ }
 
-	private void createWindow() {
-		this.setTitle("Nerd");
-		this.setSize(windowSize);
-		this.setBackground(Color.black);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(false);
-		this.setVisible(true);
-	}
+ private void createWindow() {
+  this.setTitle("Nerd");
+  this.setSize(windowSize);
+  this.setBackground(Color.black);
+  this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  this.setResizable(false);
+  this.setVisible(true);
+ }
 
-	public void close() {
-		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-	}
+ public void close() {
+  this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+ }
 }

@@ -31,7 +31,9 @@ public class Assets
   }
   */
   public Assets(int locationId){
+    System.out.println("inpath" + this.path);
     this.path = AssetsLoader.getAssetsPath(locationId);
+    System.out.println("inpath" + this.path);
     initialize();
   }
   

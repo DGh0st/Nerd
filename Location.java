@@ -19,6 +19,7 @@ public abstract class Location implements Drawable
   private int[][] tileCodes;       //holds the tile codes from the location.txt
   private List<MovableObstacle> moveableObjects;
   private List<StaticObstacle> staticObjects;
+  private OzLocation ozLo;
   
   public Location(int locationId){
     ///grabbing width and height from location.txt files in createLocation()
@@ -68,16 +69,17 @@ public abstract class Location implements Drawable
     return checkBounds(xPos, yPos);
   }
   public boolean checkBounds(int xPos, int yPos){
-    return (xPos>0 && xPos<dimensions.getWidth())&&(yPos>0 && yPos<dimensions.getHeight());
+    return (xPos>1 && xPos<1024)&&(yPos>1 && yPos<768);
   }
  
   public void initializeLocation(String path){
     String file = Utilities.loadFileAsString(path);
     //System.out.println("Location | FILE: "+file+"\n");
     String[] tokens = file.split("\\s+");//split on space or newline
-    
     int width = Utilities.parseInt(tokens[0]);
+    //System.out.println("width" + width);
     int height = Utilities.parseInt(tokens[1]);
+    //System.out.println("height" + height);
     dimensions = new LocationDimension(width,height);
     
     spawnX = Utilities.parseInt(tokens[2]);
