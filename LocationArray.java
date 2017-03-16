@@ -1,3 +1,11 @@
+/*
+ *  ~LocationArray.java
+ * Raymond Hruby II
+ * 03/15/2017
+ * LocationArray, holds Locations
+ */
+import java.util.ArrayList;
+
 public class LocationArray
 {
   private static LocationArray instance = null;
@@ -25,33 +33,54 @@ public class LocationArray
     return totalLocations;
   }
   
-  public int getCurrentSpawnX(){
-    return locations[currentLocation].getSpawnX();
-  }
-  public int getCurrentSpawnY(){
-    return locations[currentLocation].getSpawnY();
-  }
-  
   public Location getLocationAtIndex(int index){
     return locations[index];
   }
   public void setLocationAtIndex(Location location){
     locations[location.getId()]=location;
   }
+  
+  //CURRENT GETTERS AND SETTERS
+  public int getCurrentSpawnX(){
+    return locations[currentLocation].getSpawnX();
+  }
+  public int getCurrentSpawnY(){
+    return locations[currentLocation].getSpawnY();
+  }
   public Location getCurrentLocation(){ //return Location
-    //not yet implemented
     return locations[currentLocation];
   }
   public void setCurrentLocation(int id){
-    //not yet implemented
     currentLocation = id;
   }
   public void updateCurrentLocation(){
-    //not yet implemented
     locations[currentLocation].update();
   }
   public void drawCurrentLocation(){
-    //not yet implemented
     locations[currentLocation].draw();
   }
+  
+  /* ACCESS THROUGH locations.getCurrentLocation();
+  //OBSTACLES
+  public void addMovable(MovableObstacle obstacle){
+    locations[currentLocation].addMovable(obstacle);
+  }
+  public void addStatic(StaticObstacle obstacle){
+    locations[currentLocation].addStatic(obstacle);
+  }
+  public MovableObstacle getMovable(int index){
+    return locations[currentLocation].getMovable(index);
+  }
+  public StaticObstacle getStatic(int index){
+    return locations[currentLocation].getStatic(index);
+  }
+  */
+  //OBSTACLE LISTS
+  public ArrayList<MovableObstacle> getMovableObstacles(){
+    return locations[currentLocation].getMovableObstacles();
+  }
+  public ArrayList<StaticObstacle> getStaticObstacles(){
+    return locations[currentLocation].getStaticObstacles();
+  }
 }
+
