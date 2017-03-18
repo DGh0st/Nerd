@@ -26,7 +26,7 @@ rundebug: debug
 	$(RM) $(ALL_CLASSES)
 
 test: debug
-	$(JC) $(JFLAGS_TEST) $(JUNITTEST_FILES)
+	$(JC) $(JFLAGS_DEBUG) $(JFLAGS_TEST) $(JUNITTEST_FILES)
 
 runtest: test
 	$(J) $(JUNITTEST_RUNNER)
