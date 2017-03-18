@@ -30,10 +30,8 @@ public class CollisionEventTest implements CollisionListener {
 
 		CollisionEvent cEvent = new CollisionEvent();
 		Character player = new Weaboo(0, 0);
-		player.setObjectPosition(0, 0);
 		ArrayList<MovableObstacle> mo = new ArrayList<MovableObstacle>();
-		mo.add(new Car());
-		mo.get(0).setObjectPosition(0, 0);
+		mo.add(new Car(0, 0));
 
 		cEvent.checkCollision(player, mo);
 
@@ -46,10 +44,8 @@ public class CollisionEventTest implements CollisionListener {
 
 		CollisionEvent cEvent = new CollisionEvent();
 		Character player = new Weaboo(0, 0);
-		player.setObjectPosition(0, 0);
 		ArrayList<MovableObstacle> mo = new ArrayList<MovableObstacle>();
-		mo.add(new Car());
-		mo.get(0).setObjectPosition(0, 0);
+		mo.add(new Car(0, 0));
 
 		cEvent.addListener(this);
 		cEvent.checkCollision(player, mo);
@@ -65,10 +61,8 @@ public class CollisionEventTest implements CollisionListener {
 
 		CollisionEvent cEvent = new CollisionEvent();
 		Character player = new Weaboo(100, 100);
-		player.getPosition[0] = player.getPosition[1] = 100;
 		ArrayList<MovableObstacle> mo = new ArrayList<MovableObstacle>();
-		mo.add(new Car());
-		mo.get(0).getPosition[0] = mo.get(0).getPosition[1] = 0;
+		mo.add(new Car(0, 0));
 
 		cEvent.addListener(this);
 		cEvent.checkCollision(player, mo);

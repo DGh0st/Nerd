@@ -15,7 +15,7 @@ import java.awt.Graphics;
 public abstract class Location implements Drawable
 {
   private int id;                  //index for LocationArray, index used for theme(assetLoader)     
-  private int spawnX,spawnY;
+  private Position spawn;
   private String path;             //path to location data in .txt
   private LocationDimension dimensions;
   private int[][] tileCodes;       //holds the tile codes from the location.txt
@@ -50,10 +50,13 @@ public abstract class Location implements Drawable
     return this.dimensions.getHeight();
   }
   public int getSpawnX(){
-    return this.spawnX;
+    return this.spawn.getX();
   }
   public int getSpawnY(){
-    return this.spawnY;
+    return this.spawn.getY();
+  }
+  public Position getSpawn() {
+    return spawn;
   }
   
   //TILES
@@ -107,8 +110,9 @@ public abstract class Location implements Drawable
     int height = Utilities.parseInt(tokens[1]);
     dimensions = new LocationDimension(width,height);
     
-    spawnX = Utilities.parseInt(tokens[2]);
-    spawnY = Utilities.parseInt(tokens[3]);
+    int spawnX = Utilities.parseInt(tokens[2]);
+    int spawnY = Utilities.parseInt(tokens[3]);
+    spawn = new Position(spawnX, spawnY);
     
     tileCodes = new int[width][height];
     

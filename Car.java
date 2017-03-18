@@ -7,7 +7,8 @@
  *  - Implement play() Method
  */
 class Car extends MovableObstacle{
-  public Car(){
+  public Car(int x, int y){
+  	super(x, y);
   }
   
   public void draw(){

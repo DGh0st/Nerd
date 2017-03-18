@@ -26,7 +26,7 @@ public class LocationTest extends TestCase{
   public void testLocationObstacles(){
     LocationArray locations = new LocationArray(6); 
     
-    Car test = new Car();
+    Car test = new Car(0, 0);
     
     locations.getCurrentLocation().addMovable(test);
     

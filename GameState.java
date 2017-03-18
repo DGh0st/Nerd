@@ -84,8 +84,7 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
  }
 
  public void update() {
-  //TODO: add collisionChecker
-  //collisionChecker.checkCollision(player, locations.getCurrentLocation().getMovableObstacles());
+  collisionChecker.checkCollision(player, locations.getMovableObstacles());
   locations.updateCurrentLocation();
  }
 

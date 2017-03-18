@@ -19,10 +19,10 @@ public class CollisionEvent {
 	}
 
 	public void checkCollision(Character player, List<MovableObstacle> moveableObstacles) {
-		int playerPos[] = player.getPosition;
+		Position playerPos = player.getPosition();
 		for (MovableObstacle mo : moveableObstacles) {
-			int moPos[] = mo.getPosition;
-			if (playerPos[0] == moPos[0] && playerPos[1] == moPos[1]) {
+			Position moPos = mo.getPosition();
+			if (playerPos.equals(moPos)) {
 				for (CollisionListener listener : listeners) {
 					if (listener != null) {
 						listener.collisionDetected();

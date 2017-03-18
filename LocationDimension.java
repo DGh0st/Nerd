@@ -2,7 +2,7 @@ import java.awt.Dimension;
 
 public class LocationDimension
 {
-  Dimension dimensions;
+  private Dimension dimensions;
   
   public LocationDimension(int width, int height){
     assert dimensionIsNonNegative(width,height);

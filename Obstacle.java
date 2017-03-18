@@ -6,6 +6,11 @@
  * TODO: Implement collisionDetected() Method
  */
 public abstract class Obstacle extends GameObject implements CollisionListener, Drawable, Sound {
+
+public Obstacle(int x, int y) {
+	super(x, y);
+}
+
 abstract public void update();  
 abstract public void draw();
 abstract public void play();

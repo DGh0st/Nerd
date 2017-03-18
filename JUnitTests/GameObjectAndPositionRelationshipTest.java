@@ -14,8 +14,8 @@ public class GameObjectAndPositionRelationshipTest extends TestCase{
     
     position = new Position();
     position.setPosition(2,2);
-    assertEquals(object.xPos,2);
-    assertEquals(object.yPos,2);
+    assertEquals(position.getX(),2);
+    assertEquals(position.getY(),2);
     
   }
   
@@ -24,10 +24,11 @@ public class GameObjectAndPositionRelationshipTest extends TestCase{
   public void testGameObjectgetFromPositionGet(){
     
     position = new Position();
-    object = position;
-    object.getPosition();
-    assertEquals(object.getPosition[0],position.x);
-    assertEquals(object.getPosition[1],position.y);
+    //object = position;
+    //object.getPosition();
+    object = new Weaboo(0, 0);
+    assertEquals(object.getPosition().getX(),position.getX());
+    assertEquals(object.getPosition().getX(),position.getY());
     
   }
   

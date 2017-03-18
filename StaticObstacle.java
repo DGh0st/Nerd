@@ -5,6 +5,11 @@
  * TODO:Implement update() Method
  */
 public abstract class StaticObstacle extends Obstacle{
+
+  public StaticObstacle(int x, int y) {
+  	super(x, y);
+  }
+
   public void update(){
    //TODO
   }

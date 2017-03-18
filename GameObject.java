@@ -5,25 +5,24 @@
  */
 import javax.swing.*;
 
-public abstract class GameObject extends JPanel{
-  static int xPos, yPos;
-  int [] getPosition = new int[2];
-  private Position currentPosition;
+public abstract class GameObject {
+  protected Position position;
   
   public GameObject(){
+    position = new Position();
+  }
+
+  public GameObject(int x, int y) {
+    position = new Position(x, y);
   }
   
-  int [] getPosition(){
-    
-    getPosition[0] = Position.getXpos();
-    getPosition[1] = Position.getYpos();
-    
-    return getPosition;
+  Position getPosition(){
+    return position;
   }
-  int setObjectPosition(int x, int y){
-      xPos = x;
-      yPos = y;
-      
-      return 1;
+  void setObjectPosition(int x, int y){
+      position.setPosition(x, y);
+  }
+  void setObjectPosition(Position newPosition){
+    position = newPosition;
   }
 }

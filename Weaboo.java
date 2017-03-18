@@ -11,7 +11,6 @@ import java.awt.Graphics;
 import java.awt.Color;
 
 class Weaboo extends Character{
-  Position position;
   int RECT_WIDTH = 64, RECT_HEIGHT = 64;
   
   public Weaboo(int x, int y){
@@ -23,7 +22,7 @@ class Weaboo extends Character{
     if (GameState.getInstance().getGraphics() != null){
      Graphics g = GameState.getInstance().getGraphics();
      //System.out.println("x "+position.x+" y "+position.y);
-     g.drawImage(Assets.player01,position.x-10, position.y-13, this);
+     g.drawImage(Assets.player01,position.getX()-10, position.getY()-13, null);
     }
   }
   

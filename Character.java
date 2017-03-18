@@ -8,20 +8,14 @@
 import java.awt.event.*;
 
 public abstract class Character extends GameObject implements CollisionListener, Movable, Drawable, Sound {
-  public int xPos, yPos;
-  Location location;
-  private Position position;
 
   public Character(int x, int y){
-    this.xPos = x;
-    this.yPos = y;
-    position = new Position();
-    position.x = x;
-    position.y = y;
-    //location = new OzLocation (0);
+    super(x, y);
   }
   
   public void moveLeft(){
+    int xPos = position.getX();
+    int yPos = position.getY();
     if (xPos>0){
     if (LocationArray.getInstance().getCurrentLocation().canMoveToPosition(xPos-64, yPos) == true){
       xPos-=64;
@@ -31,6 +25,8 @@ public abstract class Character extends GameObject implements CollisionListener,
     }
   }
   public void moveRight(){
+    int xPos = position.getX();
+    int yPos = position.getY();
     if (LocationArray.getInstance().getCurrentLocation().canMoveToPosition(xPos+64, yPos) == true){
       xPos+=64;
       System.out.println("x: " + xPos + " y: " + yPos);
@@ -38,6 +34,8 @@ public abstract class Character extends GameObject implements CollisionListener,
     }
   }
   public void moveUp(){
+    int xPos = position.getX();
+    int yPos = position.getY();
     if (yPos>0){
     if (LocationArray.getInstance().getCurrentLocation().canMoveToPosition(xPos, yPos-64) == true){
       yPos-=64;
@@ -47,6 +45,8 @@ public abstract class Character extends GameObject implements CollisionListener,
     }
   }
   public void moveDown(){
+    int xPos = position.getX();
+    int yPos = position.getY();
     if (LocationArray.getInstance().getCurrentLocation().canMoveToPosition(xPos, yPos+64) == true){
       yPos+=64;
       //System.out.println("x: " + xPos + " y: " + yPos);

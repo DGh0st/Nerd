@@ -7,7 +7,8 @@
  *  - Implement play() Method
  */
 class Tree extends StaticObstacle{
-  public Tree(){
+  public Tree(int x, int y) {
+  	super(x, y);
   }
   public void draw(){
    //TODO
