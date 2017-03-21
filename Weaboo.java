@@ -19,10 +19,13 @@ class Weaboo extends Character{
   }
   
   public void draw(){
-    if (GameState.getInstance().getGraphics() != null){
-     Graphics g = GameState.getInstance().getGraphics();
-     //System.out.println("x "+position.x+" y "+position.y);
-     g.drawImage(Assets.player01,position.getX()-10, position.getY()-13, null);
+    draw(GameState.getInstance().getGraphics());
+    //System.out.println("x "+position.x+" y "+position.y);
+  }
+
+  public void draw(Graphics g){
+    if (g != null) {
+      g.drawImage(Assets.player01,position.getX()-10, position.getY()-13, null);
     }
   }
   

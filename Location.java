@@ -34,6 +34,7 @@ public abstract class Location implements Drawable
   
   abstract public void update();
   abstract public void draw();
+  abstract public void draw(Graphics g);
   
   //getters and setters below:
   public String getPath(){

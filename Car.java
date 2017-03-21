@@ -6,6 +6,9 @@
  *  - Implement draw() Method
  *  - Implement play() Method
  */
+
+import java.awt.Graphics;
+
 class Car extends MovableObstacle{
   public Car(int x, int y){
   	super(x, y);
@@ -13,6 +16,9 @@ class Car extends MovableObstacle{
   
   public void draw(){
    //TODO 
+  }
+  public void draw(Graphics g){
+   //TODO
   }
   public void play(){
    //TODO

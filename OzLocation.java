@@ -14,7 +14,9 @@ public class OzLocation extends Location{
   public void draw(){  
     //inefficient method, will render every tile even if out of screen
     //will work for OzLocation
-    Graphics g = GameState.getInstance().getGraphics();
+    draw(GameState.getInstance().getGraphics());
+  }
+  public void draw(Graphics g){
     for(int y=0; y<super.getHeight(); y++){
       for(int x=0; x<super.getWidth(); x++){
         getTile(x, y).draw(g, (int)(x*Tile.TILE_WIDTH), (int)(y*Tile.TILE_HEIGHT));
