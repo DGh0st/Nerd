@@ -30,6 +30,8 @@ public class NerdGame extends JFrame {
   this.add(currentDisplayState);
 
   createWindow();
+
+  currentDisplayState.startBackgroundMusic();
  }
 
  public static synchronized NerdGame getInstance() {
@@ -49,6 +51,7 @@ public class NerdGame extends JFrame {
  }
 
  public void close() {
+  currentDisplayState.stopBackgroundMusic();
   this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
  }
 }

@@ -10,8 +10,9 @@
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.*;
 
-public class MainMenu extends Menu {
+public class MainMenu extends Menu implements ChangeListener {
 	private JPanel mainScreen;
 	private JPanel shopScreen;
 	private JPanel settingsScreen;
@@ -50,7 +51,7 @@ public class MainMenu extends Menu {
 	}
 
 	private void setupShopScreen(Dimension windowSize) {
-		shopScreen = createScreen(windowSize, new FlowLayout());
+		shopScreen = createScreen(windowSize, new FlowLayout(FlowLayout.LEFT));
 
 		addHeader(shopScreen, "Nerd Shop", "mainFromShop", windowSize);
 
@@ -59,24 +60,29 @@ public class MainMenu extends Menu {
 		// TODO: remove under construction
 		Font constructionFont = new Font(Font.SERIF, Font.PLAIN, 32);
 		JLabel underConstruction = createLabel("Under Construction", constructionFont);
-		shopScreen.add(Box.createRigidArea(new Dimension(windowSize.width / 2 - (int)(underConstruction.getPreferredSize().getWidth() - 30), 20)));
+		shopScreen.add(Box.createRigidArea(new Dimension(windowSize.width / 2 - (int)(underConstruction.getPreferredSize().getWidth() / 2), 20)));
 		shopScreen.add(underConstruction);
-		shopScreen.add(Box.createRigidArea(new Dimension(windowSize.width / 2 - (int)(underConstruction.getPreferredSize().getWidth() + 30), 20)));
+		shopScreen.add(Box.createRigidArea(new Dimension(windowSize.width / 2 - (int)(underConstruction.getPreferredSize().getWidth() / 2), 20)));
 	}
 
 	private void setupSettingsScreen(Dimension windowSize) {
-		settingsScreen = createScreen(windowSize, new FlowLayout());
+		settingsScreen = createScreen(windowSize, new FlowLayout(FlowLayout.LEFT));
 
 		addHeader(settingsScreen, "Settings", "mainFromSet", windowSize);
 
-		// TODO: Add settings
+		addSubHeader(settingsScreen, "Volume", windowSize);
 
-		// TODO: remove under construction
-		Font constructionFont = new Font(Font.SERIF, Font.PLAIN, 32);
-		JLabel underConstruction = createLabel("Under Construction", constructionFont);
-		settingsScreen.add(Box.createRigidArea(new Dimension(windowSize.width / 2 - (int)(underConstruction.getPreferredSize().getWidth() - 30), 20)));
-		settingsScreen.add(underConstruction);
-		settingsScreen.add(Box.createRigidArea(new Dimension(windowSize.width / 2 - (int)(underConstruction.getPreferredSize().getWidth() + 30), 20)));
+		settingsScreen.add(Box.createRigidArea(new Dimension(40, 20)));
+
+		JSlider volumeControlSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 75);
+		volumeControlSlider.addChangeListener(this);
+		volumeControlSlider.setPreferredSize(new Dimension(windowSize.width - 100, 40));
+		volumeControlSlider.setBackground(Color.black);
+		settingsScreen.add(volumeControlSlider);
+
+		settingsScreen.add(Box.createRigidArea(new Dimension(windowSize.width, 20)));
+
+		// TODO: Add more settings
 	}
 
 	private void addHeader(JPanel panel, String displayTitle, String backButtonCommand, Dimension windowSize) {
@@ -84,17 +90,31 @@ public class MainMenu extends Menu {
 		Font buttonFont = new Font(Font.SERIF, Font.PLAIN, 32);
 		Font backFont = new Font(Font.SERIF, Font.PLAIN, 16);
 
+		panel.add(Box.createRigidArea(new Dimension(20, 20)));
+
 		HoverButton backButton = createHoverButton("", backButtonCommand, backFont, "./resources/menus/backButton.png", "./resources/menus/hoverBackButton.png");
 		backButton.setPreferredSize(new Dimension(64, 64));
 		panel.add(backButton);
 
 		JLabel title = createLabel(displayTitle, titleFont);
 
-		panel.add(Box.createRigidArea(new Dimension(windowSize.width / 2 - (int)(title.getPreferredSize().getWidth() / 2) - (int)(backButton.getPreferredSize().getWidth()), 20)));
+		panel.add(Box.createRigidArea(new Dimension(windowSize.width / 2 - (int)(title.getPreferredSize().getWidth() / 2) - (int)(backButton.getPreferredSize().getWidth()) - 20, 20)));
 
 		panel.add(title);
 
 		panel.add(Box.createRigidArea(new Dimension(windowSize.width / 2 - (int)(title.getPreferredSize().getWidth() / 2) - (int)(backButton.getPreferredSize().getWidth()), 20)));
+	}
+
+	private void addSubHeader(JPanel panel, String displayTitle, Dimension windowSize) {
+		Font titleFont = new Font(Font.SERIF, Font.PLAIN, 56);
+
+		JLabel title = createLabel(displayTitle, titleFont);
+
+		panel.add(Box.createRigidArea(new Dimension(40, 20)));
+
+		panel.add(title);
+
+		panel.add(Box.createRigidArea(new Dimension(windowSize.width, 20)));
 	}
 
 	public void update() {
@@ -123,6 +143,10 @@ public class MainMenu extends Menu {
 		} else if (event.getActionCommand().equals("mainFromSet")) {
 			changeScreen(settingsScreen, mainScreen);
 		}
+	}
+
+	public void stateChanged(ChangeEvent event) {
+		DisplayState.getInstance().setBackgroundMusicVolume(((JSlider)event.getSource()).getValue() / 100.0f);
 	}
 
 	private void changeScreen(JPanel fromScreen, JPanel toScreen) {

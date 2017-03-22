@@ -7,12 +7,14 @@
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.sound.sampled.*;
 
 public class DisplayState extends JPanel {
 	private static DisplayState instance = null;
 	private DisplayStatus currentDisplayStatus;
 	private GameState gameCanvas;
 	private ArrayList<Menu> menus = new ArrayList<Menu>();
+	private Clip backgroundMusicClip;
 
 	private DisplayState() {
 		currentDisplayStatus = DisplayStatus.STARTMENU;
@@ -25,6 +27,9 @@ public class DisplayState extends JPanel {
 
 		FlowLayout layout = (FlowLayout)getLayout();
 		layout.setVgap(0);
+
+		backgroundMusicClip = ClipLoader.loadClip("./resources/music/backgroundMusic.wav");
+		setBackgroundMusicVolume(0.75f);
 	}
 	
 	private void setupMenus() {
@@ -39,6 +44,35 @@ public class DisplayState extends JPanel {
 			instance = new DisplayState();
 		}
 		return instance;
+	}
+
+	public void startBackgroundMusic() {
+		try {
+			backgroundMusicClip.start();
+		} catch (Exception e) {
+			backgroundMusicClip = ClipLoader.loadClip("./resources/music/backgroundMusic.wav");
+			setBackgroundMusicVolume(0.75f);
+			backgroundMusicClip.start();
+		}
+	}
+
+	public void setBackgroundMusicVolume(float newVolume) {
+		try {
+			FloatControl gainControl = (FloatControl)backgroundMusicClip.getControl(FloatControl.Type.MASTER_GAIN);
+			float range = gainControl.getMaximum() - gainControl.getMinimum() / 2;
+			float gain = (range * newVolume) + gainControl.getMinimum() / 2;
+			gainControl.shift(gainControl.getValue(), gain, 3000);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+	}
+
+	public void stopBackgroundMusic() {
+		try {
+			backgroundMusicClip.stop();
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
 	}
 
 	public DisplayStatus getCurrentDisplayStatus() {
