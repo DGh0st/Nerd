@@ -1,7 +1,7 @@
 /*
  *  ~ NerdTester.java
  * Raymond Hruby II
- * 03/15/2017
+ * 03/22/2017
  * Description: tester to collectively and extensively test each class 
  */
 
@@ -16,8 +16,13 @@ public class LocationTest extends TestCase{
   @Test
   public void testLocationGetters(){
     OzLocation test = new OzLocation(0);
+    
     assertEquals(test.getWidth(),22);
     assertEquals(test.getHeight(),14);
+    
+    assertEquals(test.getSpawnX(),10);
+    assertEquals(test.getSpawnY(),13);
+    
     assertEquals(test.getId(),0);  
   }
   
@@ -26,14 +31,11 @@ public class LocationTest extends TestCase{
   public void testLocationObstacles(){
     LocationArray locations = new LocationArray(6); 
     
-    Car test = new Car(0, 0);
-    
+    Car test = new Car(0, 0);  
     locations.getCurrentLocation().addMovable(test);
-    
     Car test2 = (Car)locations.getCurrentLocation().getMovable(0);
     
     assertEquals(test,test2);
-    //assertNotEquals(locations.getMovable(0),null);
   }
   /*
   @Ignore
