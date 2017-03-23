@@ -1,7 +1,7 @@
 /*
  *  ~Location.java
  * Raymond Hruby II
- * 03/13/2017
+ * 03/22/2017
  * Location - holds tileCodes and dimension of location
  * 
  * TODO: Checkbounds back to location height and width, 
@@ -96,12 +96,32 @@ public abstract class Location implements Drawable
   }
   
   public boolean canMoveToPosition(int xPos, int yPos){       
-    return checkBounds(xPos, yPos);
+    boolean checkBounds = checkBounds(xPos, yPos);
+    boolean checkMovables = checkMovables(xPos, yPos);
+    boolean checkStatics = checkStatics(xPos, yPos);
+    
+    return checkBounds && checkMovables && checkStatics;
   }
   public boolean checkBounds(int xPos, int yPos){
     return (xPos>1 && xPos<1024)&&(yPos>1 && yPos<768);
   }
- 
+  public boolean checkMovables(int xPos, int yPos){
+    for( MovableObstacle mObs : movableObstacles ){
+      if( mObs.getPosition().getX() == xPos || mObs.getPosition().getY() == yPos){
+        return false; //no go, will collide with current object
+      }
+    }
+    return true;     //no collisions, proceed
+  }
+  public boolean checkStatics(int xPos, int yPos){
+    for( StaticObstacle sObs : staticObstacles ){
+      if( sObs.getPosition().getX() == xPos || sObs.getPosition().getY() == yPos){
+        return false; //no go, will collide with current object
+      }
+    }
+    return true;     //no collisions, proceed
+  }
+
   public void initializeLocation(String path){
     String file = Utilities.loadFileAsString(path);
     //System.out.println("Location | FILE: "+file+"\n");
