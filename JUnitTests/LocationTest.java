@@ -1,7 +1,7 @@
 /*
  *  ~ NerdTester.java
  * Raymond Hruby II
- * 03/22/2017
+ * 03/30/2017
  * Description: tester to collectively and extensively test each class 
  */
 
@@ -11,7 +11,7 @@ import org.junit.Test;
 import junit.framework.TestCase;
 
 public class LocationTest extends TestCase{
-  
+  //LOCATION
   @Ignore
   @Test
   public void testLocationGetters(){
@@ -26,10 +26,33 @@ public class LocationTest extends TestCase{
     assertEquals(test.getId(),0);  
   }
   
+  //LOCATION ARRAY
   @Ignore
   @Test
-  public void testLocationObstacles(){
-    LocationArray locations = new LocationArray(6); 
+  public void testLocationArrayAsSingleton(){
+    LocationArray test = LocationArray.getInstance();
+    LocationArray test2 = LocationArray.getInstance();
+    
+    assertEquals(test,test2);
+  }
+  
+  @Ignore
+  @Test
+  public void testLocationArrayGettersAndSetters(){
+    LocationArray locations = LocationArray.getInstance();
+    
+    int spawnX = locations.getCurrentSpawnX();
+    int spawnY = locations.getCurrentSpawnY();
+    int spawnX2 = locations.getCurrentLocation().getSpawnX();
+    int spawnY2 = locations.getCurrentLocation().getSpawnY();
+    assertEquals(spawnX,spawnX2);
+    assertEquals(spawnY2,spawnY2);
+  }
+  
+  @Ignore
+  @Test
+  public void testLocationWithObstacles(){
+    LocationArray locations = new LocationArray(7); 
     
     Car test = new Car(0, 0);  
     locations.getCurrentLocation().addMovable(test);
@@ -37,27 +60,5 @@ public class LocationTest extends TestCase{
     
     assertEquals(test,test2);
   }
-  /*
-  @Ignore
-  @Test
-  //LOCATION ARRAY | TOTAL | LOCATIONINDEX 
-  public void testLocationArray(){
-    LocationArray locations = new LocationArray(7);    
-    assertEquals(locations.getTotal(),7);
-    //assertEquals(locations.getCurrentLocation(),null);
-  }
-  
-  @Ignore
-  @Test
-  //LOCATION ARRAY | TOTAL | LOCATIONINDEX 
-  public void testLocationInsertion(){
-    LocationArray locations = new LocationArray(7);    
-    //assertEquals(locations.getCurrentLocation());
-    
-    //Location test = new Location("",0,50,50);
-    //locations.addLocation(test);
-    //assertEquals(locations.getLocation(0),test);
-  }
-  */
 };                 
                                       
