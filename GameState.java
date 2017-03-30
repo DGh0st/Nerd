@@ -1,5 +1,5 @@
 /**
- * Nerd 03/05/2017
+ * Nerd 03/30/2017
  * Deep Patel
  * DisplayState class that handles drawing and updating of scene/display.
  */
@@ -18,10 +18,10 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
 
  private GameState() {
   locations = LocationArray.getInstance();
+  Assets assets = Assets.getInstance(); //needs to be under locationArray (dependent)
 
   collisionChecker = new CollisionEvent();
   collisionChecker.addListener(this);
-  Assets asset = new Assets(0);
 
   this.setBackground(Color.black);
   this.setPreferredSize(NerdGame.windowSize);
