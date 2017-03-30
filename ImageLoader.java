@@ -1,7 +1,7 @@
 /**
  * ~ ImageLoader.java
  * Raymond Hruby II
- * 03/06/2017
+ * 03/30/2017
  * 
  * ImageLoader - encapsulation for ImageIO
  */
@@ -14,11 +14,10 @@ public class ImageLoader
 {
   public static BufferedImage loadImage(String path){
     try{
-      //return ImageIO.read(ImageLoader.class.getResource(path));
       return ImageIO.read(new File(path));
     }catch(IOException e){
       e.printStackTrace();
-      System.exit(1); //exits everything
+      System.out.println("ImageLoader | loadImage() Error");
     }
     return null;  //gets rid of errors
   }

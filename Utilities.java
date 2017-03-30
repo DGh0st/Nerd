@@ -1,7 +1,7 @@
 /**
  * ~ Utilities.java
  * Raymond Hruby II
- * 03/13/2017
+ * 03/30/2017
  * 
  * Util - place for useful but miscellaneous commands
  */
@@ -22,9 +22,9 @@ public class Utilities{
         }       
         br.close();               
     }catch(IOException e){
-      //e.printStackTrace();
-      System.out.println("Utilities | loadFileAsString() fucked up\n");
-      System.exit(1);
+      e.printStackTrace();
+      System.out.println("Utilities | loadFileAsString() Error");
+      return null;
     }
     return builder.toString();
   }
@@ -33,8 +33,8 @@ public class Utilities{
     try{
       return Integer.parseInt(number);
     }catch(NumberFormatException e){
-      //e.printStackTrace();
-      System.out.println("Utilities | parseInt() fucked up\n");
+      e.printStackTrace();
+      System.out.println("Utilities | parseInt() Error");
       return 0;
     }
   }
