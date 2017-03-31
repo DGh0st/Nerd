@@ -39,12 +39,21 @@ public class MainMenu extends Menu implements ChangeListener {
 		String buttonTitles[] = {"Start", "Shop", "Settings", "Exit"};
 		String buttonCommands[] = {"startGame", "shopMenu", "settingsMenu", "closeGame"};
 		String regularButtonPath = "./resources/menus/mainButton.png";
+		String destructiveButtonPath = "./resources/menus/mainDestructiveButton.png";
 		String hoverButtonPath = "./resources/menus/hoverMainButton.png";
+		String destructiveHoverButtonPath = "./resources/menus/hoverDestructiveButton.png";
 
 		for (int i = 0; i < 4; i++) {
 			mainScreen.add(Box.createRigidArea(new Dimension(windowSize.width, 20)));
 
-			HoverButton hb = createHoverButton(buttonTitles[i], buttonCommands[i], buttonFont, regularButtonPath, hoverButtonPath);
+			String path = regularButtonPath;
+			String hoverPath = hoverButtonPath;
+			if (buttonTitles[i].equals("Exit")) {
+				path = destructiveButtonPath;
+				hoverPath = destructiveHoverButtonPath;
+			}
+
+			HoverButton hb = createHoverButton(buttonTitles[i], buttonCommands[i], buttonFont, path, hoverPath);
 			hb.setPreferredSize(new Dimension(windowSize.width / 4, hb.getPreferredSize().height));
 			mainScreen.add(hb);
 		}

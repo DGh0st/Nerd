@@ -33,15 +33,24 @@ public class PauseMenu extends Menu implements KeyListener {
 
 		pauseScreen.add(Box.createRigidArea(new Dimension(windowSize.width, 20)));
 
-		String buttonTitles[] = {"Resume", "Restart", "Main Menu", "Exit Game"};
-		String buttonCommands[] = {"resumeGame", "restartGame", "mainMenu", "closeGame"};
+		String buttonTitles[] = {"Resume", "Restart", "Main Menu"};
+		String buttonCommands[] = {"resumeGame", "restartGame", "mainMenu"};
 		String regularButtonPath = "./resources/menus/pauseButton.png";
+		String pauseDestructivePath = "./resources/menus/pauseDestructiveButton.png";
 		String hoverButtonPath = "./resources/menus/hoverPauseButton.png";
+		String hoverDestructivePath = "./resources/menus/pauseHoverDestructiveButton.png";
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 3; i++) {
 			pauseScreen.add(Box.createRigidArea(new Dimension(windowSize.width, 20)));
 
-			HoverButton hb = createHoverButton(buttonTitles[i], buttonCommands[i], buttonFont, regularButtonPath, hoverButtonPath);
+			String path = regularButtonPath;
+			String hoverPath = hoverButtonPath;
+			if (buttonTitles[i].equals("Main Menu")) {
+				path = pauseDestructivePath;
+				hoverPath = hoverDestructivePath;
+			}
+
+			HoverButton hb = createHoverButton(buttonTitles[i], buttonCommands[i], buttonFont, path, hoverPath);
 			hb.setPreferredSize(new Dimension(windowSize.width / 2, hb.getPreferredSize().height));
 			hb.setHorizontalAlignment(SwingConstants.CENTER);
 			pauseScreen.add(hb);
@@ -81,8 +90,6 @@ public class PauseMenu extends Menu implements KeyListener {
 		} else if (event.getActionCommand().equals("mainMenu")) {
 			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.STARTMENU);
 			super.removeCurrentCanvasIfNeeded();
-		} else if (event.getActionCommand().equals("closeGame")) {
-			NerdGame.getInstance().close();
 		}
   	}
 }
