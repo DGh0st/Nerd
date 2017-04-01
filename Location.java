@@ -103,7 +103,7 @@ public abstract class Location implements Drawable
     return checkBounds && checkMovables && checkStatics;
   }
   public boolean checkBounds(int xPos, int yPos){
-    return (xPos>1 && xPos<1024)&&(yPos>1 && yPos<768);
+    return (xPos>=0 && xPos<dimensions.getWidth())&&(yPos>=0 && yPos<dimensions.getHeight());
   }
   public boolean checkMovables(int xPos, int yPos){
     for( MovableObstacle mObs : movableObstacles ){

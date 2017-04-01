@@ -17,39 +17,43 @@ public abstract class Character extends GameObject implements CollisionListener,
   public void moveLeft(){
     int xPos = position.getX();
     int yPos = position.getY();
-    if (xPos>0){
-    if (LocationArray.getInstance().getCurrentLocation().canMoveToPosition(xPos-64, yPos) == true){
-      xPos-=64;
+    //if (xPos>0){
+    if (LocationArray.getInstance().getCurrentLocation().canMoveToPosition(xPos-1, yPos) == true){
+      //xPos-=64;
+      xPos--;
       //System.out.println("x: " + xPos + " y: " + yPos);
       position.setPosition(xPos, yPos);
     }
-    }
+    //}
   }
   public void moveRight(){
     int xPos = position.getX();
     int yPos = position.getY();
-    if (LocationArray.getInstance().getCurrentLocation().canMoveToPosition(xPos+64, yPos) == true){
-      xPos+=64;
-      System.out.println("x: " + xPos + " y: " + yPos);
+    if (LocationArray.getInstance().getCurrentLocation().canMoveToPosition(xPos+1, yPos) == true){
+      //xPos+=64;
+      xPos++;
+      //System.out.println("x: " + xPos + " y: " + yPos);
       position.setPosition(xPos, yPos);
     }
   }
   public void moveUp(){
     int xPos = position.getX();
     int yPos = position.getY();
-    if (yPos>0){
-    if (LocationArray.getInstance().getCurrentLocation().canMoveToPosition(xPos, yPos-64) == true){
-      yPos-=64;
+    //if (yPos>0){
+    if (LocationArray.getInstance().getCurrentLocation().canMoveToPosition(xPos, yPos-1) == true){
+      //yPos-=64;
+      yPos--;
       //System.out.println("x: " + xPos + " y: " + yPos);
       position.setPosition(xPos,yPos);
     }
-    }
+    //}
   }
   public void moveDown(){
     int xPos = position.getX();
     int yPos = position.getY();
-    if (LocationArray.getInstance().getCurrentLocation().canMoveToPosition(xPos, yPos+64) == true){
-      yPos+=64;
+    if (LocationArray.getInstance().getCurrentLocation().canMoveToPosition(xPos, yPos+1) == true){
+      //yPos+=64;
+      yPos++;
       //System.out.println("x: " + xPos + " y: " + yPos);
       position.setPosition(xPos, yPos);
     }

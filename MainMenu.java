@@ -4,7 +4,6 @@
  * MainMenu class that is used to display the menu on game start.
  * TODO:
  *  - Add Shop
- *  - Add Settings
  */
 
 import java.awt.event.*;
@@ -65,6 +64,7 @@ public class MainMenu extends Menu implements ChangeListener {
 		addHeader(shopScreen, "Nerd Shop", "mainFromShop", windowSize);
 
 		// TODO: Add characters to buy
+		
 
 		// TODO: remove under construction
 		Font constructionFont = new Font(Font.SERIF, Font.PLAIN, 32);
