@@ -60,8 +60,7 @@ public class HoverButton extends JButton {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		super.repaint();
-		int width = (int)this.getPreferredSize().getWidth();
+		int width = this.getWidth();
 		if (getModel().isPressed()) {
 			if (shouldCenter) {
 				g.drawImage(pressedImage, width / 2 - pressedImage.getWidth() / 2, 0, null);
@@ -109,6 +108,11 @@ public class HoverButton extends JButton {
 	}
 
 	public void setShouldCenter(boolean center) {
+		if (center) {
+			this.setHorizontalAlignment(SwingConstants.CENTER);
+		} else {
+			this.setHorizontalAlignment(SwingConstants.LEFT);
+		}
 		shouldCenter = center;
 	}
 

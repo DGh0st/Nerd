@@ -46,6 +46,9 @@ public abstract class Character extends GameObject implements CollisionListener,
       //System.out.println("x: " + xPos + " y: " + yPos);
       position.setPosition(xPos,yPos);
     }
+    if (yPos == 0) {
+      GameState.getInstance().victory();
+    }
     //}
   }
   public void moveDown(){

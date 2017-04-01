@@ -78,6 +78,11 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
   removeCurrentCanvasIfNeeded();
  }
 
+ public void victory() {
+  DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.VICTORYMENU);
+  removeCurrentCanvasIfNeeded();
+ }
+
  public void start() {
   player = new Weaboo(locations.getCurrentSpawnX(), locations.getCurrentSpawnY());
   collisionChecker.addListener(player);

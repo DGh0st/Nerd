@@ -16,10 +16,14 @@ public class MainMenu extends Menu implements ChangeListener {
 	private JPanel mainScreen;
 	private JPanel shopScreen;
 	private JPanel settingsScreen;
-	private HoverButton selectedCharacter;
+	private String selectedCharacter;
+	private HoverButton selectedCharacterButton;
 	
 	public MainMenu() {
 		super();
+
+		selectedCharacter = "selectWeaboo";
+		selectedCharacterButton = null;
 
 		setupMainScreen(NerdGame.windowSize);
 
@@ -68,23 +72,33 @@ public class MainMenu extends Menu implements ChangeListener {
 
 		addHeader(shopScreen, "Nerd Shop", "mainFromShop", windowSize);
 
-		charactersScreen = createScreen(windowSize, new FlowLayout(FlowLayout.CENTER));
-
-		BufferedImage characters[] = {Assets.player01, Assets.player01, Assets.player01};
-		String buttonCommands[] = {"selectKermit", "selectPepe", "selectBubbles"};
-		String names[] = {"Mr. Kermit", "Pepe", "Bubbles"};
+		// TODO: Add more characters
+		BufferedImage characters[] = {Assets.player01};
+		String buttonCommands[] = {"selectWeaboo"};
+		String names[] = {"Weaboo"};
 
 		for (int i = 0; i < characters.length; i++) {
 			mainScreen.add(Box.createRigidArea(new Dimension(20, 20)));
 
-			HoverButton characterButton = new HoverButton(names[i]);
+			String title = names[i];
+			if (selectedCharacter.equals(buttonCommands[i])) {
+				title = names[i] + " selected";
+			}
+
+			HoverButton characterButton = new HoverButton(title);
+
+			if (selectedCharacter.equals(buttonCommands[i])) {
+				selectedCharacterButton = characterButton;
+			}
+
 			characterButton.addActionListener(this);
 			characterButton.setActionCommand(buttonCommands[i]);
 			characterButton.setFont(characterFont);
 			characterButton.setImage(characters[i]);
 			characterButton.setHoverImage(characters[i]);
 			characterButton.setPressedImage(characters[i]);
-			characterButton.setPreferredSize(new Dimension(characterButton.getPreferredSize().width, characters[i].getHeight()));
+			characterButton.setShouldCenter(true);
+			characterButton.setPreferredSize(new Dimension(windowSize.width / 6, characters[i].getHeight()));
 
 			shopScreen.add(characterButton);
 		}
@@ -152,9 +166,7 @@ public class MainMenu extends Menu implements ChangeListener {
 			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.INGAME);
 			super.removeCurrentCanvasIfNeeded();
 		} else if (event.getActionCommand().equals("shopMenu")) {
-			if (shopScreen == null) {
-				setupShopScreen(NerdGame.windowSize);
-			}
+			setupShopScreen(NerdGame.windowSize);
 			changeScreen(mainScreen, shopScreen);
 		} else if (event.getActionCommand().equals("settingsMenu")) {
 			if (settingsScreen == null) {
@@ -168,7 +180,14 @@ public class MainMenu extends Menu implements ChangeListener {
 		} else if (event.getActionCommand().equals("mainFromSet")) {
 			changeScreen(settingsScreen, mainScreen);
 		} else {
-			System.out.println(event.getActionCommand());
+			if (selectedCharacter != event.getActionCommand()) {
+				selectedCharacterButton.setText(selectedCharacterButton.getText().replace(" selected", ""));
+				selectedCharacterButton.repaint();
+				selectedCharacter = event.getActionCommand();
+				selectedCharacterButton = (HoverButton)event.getSource();
+				selectedCharacterButton.setText(selectedCharacterButton.getText() + " selected");
+				selectedCharacterButton.repaint();
+			}
 		}
 	}
 
