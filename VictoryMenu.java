@@ -38,7 +38,7 @@ public class VictoryMenu extends Menu {
 		String regularButtonPath = "./resources/menus/pauseButton.png";
 		String hoverButtonPath = "./resources/menus/hoverPauseButton.png";
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < buttonTitles.length; i++) {
 			victoryScreen.add(Box.createRigidArea(new Dimension(windowSize.width, 20)));
 
 			HoverButton hb = createHoverButton(buttonTitles[i], buttonCommands[i], buttonFont, regularButtonPath, hoverButtonPath);

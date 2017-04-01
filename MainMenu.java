@@ -10,11 +10,13 @@ import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
+import java.awt.image.BufferedImage;
 
 public class MainMenu extends Menu implements ChangeListener {
 	private JPanel mainScreen;
 	private JPanel shopScreen;
 	private JPanel settingsScreen;
+	private HoverButton selectedCharacter;
 	
 	public MainMenu() {
 		super();
@@ -42,7 +44,7 @@ public class MainMenu extends Menu implements ChangeListener {
 		String hoverButtonPath = "./resources/menus/hoverMainButton.png";
 		String destructiveHoverButtonPath = "./resources/menus/hoverDestructiveButton.png";
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < buttonTitles.length; i++) {
 			mainScreen.add(Box.createRigidArea(new Dimension(windowSize.width, 20)));
 
 			String path = regularButtonPath;
@@ -54,6 +56,7 @@ public class MainMenu extends Menu implements ChangeListener {
 
 			HoverButton hb = createHoverButton(buttonTitles[i], buttonCommands[i], buttonFont, path, hoverPath);
 			hb.setPreferredSize(new Dimension(windowSize.width / 4, hb.getPreferredSize().height));
+			hb.setShouldCenter(false);
 			mainScreen.add(hb);
 		}
 	}
@@ -61,17 +64,30 @@ public class MainMenu extends Menu implements ChangeListener {
 	private void setupShopScreen(Dimension windowSize) {
 		shopScreen = createScreen(windowSize, new FlowLayout(FlowLayout.LEFT));
 
+		Font characterFont = new Font(Font.SERIF, Font.PLAIN, 24);
+
 		addHeader(shopScreen, "Nerd Shop", "mainFromShop", windowSize);
 
-		// TODO: Add characters to buy
-		
+		charactersScreen = createScreen(windowSize, new FlowLayout(FlowLayout.CENTER));
 
-		// TODO: remove under construction
-		Font constructionFont = new Font(Font.SERIF, Font.PLAIN, 32);
-		JLabel underConstruction = createLabel("Under Construction", constructionFont);
-		shopScreen.add(Box.createRigidArea(new Dimension(windowSize.width / 2 - (int)(underConstruction.getPreferredSize().getWidth() / 2), 20)));
-		shopScreen.add(underConstruction);
-		shopScreen.add(Box.createRigidArea(new Dimension(windowSize.width / 2 - (int)(underConstruction.getPreferredSize().getWidth() / 2), 20)));
+		BufferedImage characters[] = {Assets.player01, Assets.player01, Assets.player01};
+		String buttonCommands[] = {"selectKermit", "selectPepe", "selectBubbles"};
+		String names[] = {"Mr. Kermit", "Pepe", "Bubbles"};
+
+		for (int i = 0; i < characters.length; i++) {
+			mainScreen.add(Box.createRigidArea(new Dimension(20, 20)));
+
+			HoverButton characterButton = new HoverButton(names[i]);
+			characterButton.addActionListener(this);
+			characterButton.setActionCommand(buttonCommands[i]);
+			characterButton.setFont(characterFont);
+			characterButton.setImage(characters[i]);
+			characterButton.setHoverImage(characters[i]);
+			characterButton.setPressedImage(characters[i]);
+			characterButton.setPreferredSize(new Dimension(characterButton.getPreferredSize().width, characters[i].getHeight()));
+
+			shopScreen.add(characterButton);
+		}
 	}
 
 	private void setupSettingsScreen(Dimension windowSize) {
@@ -151,6 +167,8 @@ public class MainMenu extends Menu implements ChangeListener {
 			changeScreen(shopScreen, mainScreen);
 		} else if (event.getActionCommand().equals("mainFromSet")) {
 			changeScreen(settingsScreen, mainScreen);
+		} else {
+			System.out.println(event.getActionCommand());
 		}
 	}
 

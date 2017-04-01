@@ -24,8 +24,8 @@ class Weaboo extends Character{
   }
 
   public void draw(Graphics g){
-    int x = position.getX() * 64;
-    int y = position.getY() * 64;
+    int x = position.getX() * RECT_WIDTH;
+    int y = position.getY() * RECT_HEIGHT;
     if (g != null) {
       g.drawImage(Assets.player01,x, y, null);
     }

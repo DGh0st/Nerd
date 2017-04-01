@@ -97,17 +97,17 @@ public abstract class Location implements Drawable
   
   public boolean canMoveToPosition(int xPos, int yPos){       
     boolean checkBounds = checkBounds(xPos, yPos);
-    boolean checkMovables = checkMovables(xPos, yPos);
+    //boolean checkMovables = checkMovables(xPos, yPos);
     boolean checkStatics = checkStatics(xPos, yPos);
     
-    return checkBounds && checkMovables && checkStatics;
+    return checkBounds && /*checkMovables &&*/ checkStatics;
   }
   public boolean checkBounds(int xPos, int yPos){
     return (xPos>=0 && xPos<dimensions.getWidth())&&(yPos>=0 && yPos<dimensions.getHeight());
   }
   public boolean checkMovables(int xPos, int yPos){
     for( MovableObstacle mObs : movableObstacles ){
-      if( mObs.getPosition().getX() == xPos || mObs.getPosition().getY() == yPos){
+      if( mObs.getPosition().getX() == xPos && mObs.getPosition().getY() == yPos){
         return false; //no go, will collide with current object
       }
     }
@@ -115,7 +115,7 @@ public abstract class Location implements Drawable
   }
   public boolean checkStatics(int xPos, int yPos){
     for( StaticObstacle sObs : staticObstacles ){
-      if( sObs.getPosition().getX() == xPos || sObs.getPosition().getY() == yPos){
+      if( sObs.getPosition().getX() == xPos && sObs.getPosition().getY() == yPos){
         return false; //no go, will collide with current object
       }
     }

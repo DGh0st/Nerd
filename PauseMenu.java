@@ -40,7 +40,7 @@ public class PauseMenu extends Menu implements KeyListener {
 		String hoverButtonPath = "./resources/menus/hoverPauseButton.png";
 		String hoverDestructivePath = "./resources/menus/pauseHoverDestructiveButton.png";
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < buttonTitles.length; i++) {
 			pauseScreen.add(Box.createRigidArea(new Dimension(windowSize.width, 20)));
 
 			String path = regularButtonPath;
