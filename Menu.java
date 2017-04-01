@@ -26,6 +26,7 @@ public abstract class Menu extends JPanel implements ActionListener {
 	public void draw() {
 		addCurrentCanvasIfNeeded();
 		this.requestFocus();
+		this.repaint();
 	}
 
 	protected void addCurrentCanvasIfNeeded() {

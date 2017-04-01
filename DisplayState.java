@@ -29,7 +29,7 @@ public class DisplayState extends JPanel {
 		layout.setVgap(0);
 
 		backgroundMusicClip = ClipLoader.loadClip("./resources/music/backgroundMusic.wav");
-		setBackgroundMusicVolume(0.75f);
+		setBackgroundMusicVolume(0.25f);
 	}
 	
 	private void setupMenus() {
@@ -51,7 +51,7 @@ public class DisplayState extends JPanel {
 			backgroundMusicClip.start();
 		} catch (Exception e) {
 			backgroundMusicClip = ClipLoader.loadClip("./resources/music/backgroundMusic.wav");
-			setBackgroundMusicVolume(0.75f);
+			setBackgroundMusicVolume(0.25f);
 			backgroundMusicClip.start();
 		}
 	}

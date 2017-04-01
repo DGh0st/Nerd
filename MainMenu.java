@@ -113,7 +113,7 @@ public class MainMenu extends Menu implements ChangeListener {
 
 		settingsScreen.add(Box.createRigidArea(new Dimension(40, 20)));
 
-		JSlider volumeControlSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 75);
+		JSlider volumeControlSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 25);
 		volumeControlSlider.addChangeListener(this);
 		volumeControlSlider.setPreferredSize(new Dimension(windowSize.width - 100, 40));
 		volumeControlSlider.setBackground(Color.black);
@@ -179,7 +179,7 @@ public class MainMenu extends Menu implements ChangeListener {
 			changeScreen(shopScreen, mainScreen);
 		} else if (event.getActionCommand().equals("mainFromSet")) {
 			changeScreen(settingsScreen, mainScreen);
-		} else {
+		} else if (event.getActionCommand().contains("select")) {
 			if (selectedCharacter != event.getActionCommand()) {
 				selectedCharacterButton.setText(selectedCharacterButton.getText().replace(" selected", ""));
 				selectedCharacterButton.repaint();

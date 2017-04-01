@@ -33,15 +33,24 @@ public class VictoryMenu extends Menu {
 
 		// TODO: Add Victory Pose
 
-		String buttonTitles[] = {"Restart", "Main Menu", "Exit Game"};
-		String buttonCommands[] = {"restartGame", "mainMenu", "closeGame"};
+		String buttonTitles[] = {"Restart", "Main Menu"};
+		String buttonCommands[] = {"restartGame", "mainMenu"};
 		String regularButtonPath = "./resources/menus/pauseButton.png";
+		String pauseDestructivePath = "./resources/menus/pauseDestructiveButton.png";
 		String hoverButtonPath = "./resources/menus/hoverPauseButton.png";
+		String hoverDestructivePath = "./resources/menus/pauseHoverDestructiveButton.png";
 
 		for (int i = 0; i < buttonTitles.length; i++) {
 			victoryScreen.add(Box.createRigidArea(new Dimension(windowSize.width, 20)));
 
-			HoverButton hb = createHoverButton(buttonTitles[i], buttonCommands[i], buttonFont, regularButtonPath, hoverButtonPath);
+			String path = regularButtonPath;
+			String hoverPath = hoverButtonPath;
+			if (buttonTitles[i].equals("Main Menu")) {
+				path = pauseDestructivePath;
+				hoverPath = hoverDestructivePath;
+			}
+
+			HoverButton hb = createHoverButton(buttonTitles[i], buttonCommands[i], buttonFont, path, hoverPath);
 			hb.setPreferredSize(new Dimension(windowSize.width / 2, hb.getPreferredSize().height));
 			hb.setHorizontalAlignment(SwingConstants.CENTER);
 			victoryScreen.add(hb);
@@ -60,8 +69,6 @@ public class VictoryMenu extends Menu {
 		} else if (event.getActionCommand().equals("mainMenu")) {
 			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.STARTMENU);
 			super.removeCurrentCanvasIfNeeded();
-		} else if (event.getActionCommand().equals("closeGame")) {
-			NerdGame.getInstance().close();
 		}
   	}
 }
