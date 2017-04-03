@@ -48,8 +48,8 @@ public class Tile
   
   public void draw(Graphics g, int x, int y){
     //g.drawImage( tiles.get(id).sprite, x, y, TILE_WIDTH, TILE_HEIGHT, null ); 
-    //g.drawImage(tiles[id].sprite, x, y, TILE_WIDTH, TILE_HEIGHT, null); 
-    g.drawImage(Assets.getInstance().getSprite(id), x, y, TILE_WIDTH, TILE_HEIGHT, null);
+    g.drawImage(tiles[id].sprite, x, y, TILE_WIDTH, TILE_HEIGHT, null); 
+    //g.drawImage(Assets.getInstance().getSprite(id), x, y, TILE_WIDTH, TILE_HEIGHT, null);
   }
 
   //getters and setters
