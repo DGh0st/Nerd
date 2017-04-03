@@ -2,7 +2,7 @@
  * Nerd 03/12/2017
  * Deep Patel
  * VictoryMenu class that is used to display the menu on victory.
- * TODO: Add Victory Pose
+ * TODO: Add Victory Pose and change level
  */
 
 import java.awt.event.*;
@@ -33,8 +33,8 @@ public class VictoryMenu extends Menu {
 
 		// TODO: Add Victory Pose
 
-		String buttonTitles[] = {"Restart", "Main Menu"};
-		String buttonCommands[] = {"restartGame", "mainMenu"};
+		String buttonTitles[] = {"Next Level", "Restart", "Main Menu"};
+		String buttonCommands[] = {"nextLevel", "restartGame", "mainMenu"};
 		String regularButtonPath = "./resources/menus/pauseButton.png";
 		String pauseDestructivePath = "./resources/menus/pauseDestructiveButton.png";
 		String hoverButtonPath = "./resources/menus/hoverPauseButton.png";
@@ -68,6 +68,11 @@ public class VictoryMenu extends Menu {
 			super.removeCurrentCanvasIfNeeded();
 		} else if (event.getActionCommand().equals("mainMenu")) {
 			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.STARTMENU);
+			super.removeCurrentCanvasIfNeeded();
+		} else if (event.getActionCommand().equals("nextLevel")) {
+			// TODO: change location to next level
+			GameState.getInstance().start();
+			DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.INGAME);
 			super.removeCurrentCanvasIfNeeded();
 		}
   	}
