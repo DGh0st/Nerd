@@ -1,17 +1,19 @@
 /**
- * ~ OzLocation.java
+ * ~ AlphaLocation.java
  * Raymond Hruby II
  * 04/03/2017
- * Test location for use in Oz demonstration
+ * Test location for use in Alpha demonstration
  */
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-public class OzLocation extends Location{
-  public OzLocation(int id){
+public class AlphaLocation extends Location{
+  public AlphaLocation(int id){
     super(id);
   }
   public void draw(){  
+    //inefficient method, will render every tile even if out of screen
+    //will work for OzLocation
     draw(GameState.getInstance().getGraphics());
   }
   public void draw(Graphics g){
@@ -22,14 +24,8 @@ public class OzLocation extends Location{
       }
     }
   }
-  public void update(){ //updates obstacles
-    for(MovableObstacle m: super.getMovableObstacles()){
-      m.draw();
-    }
-    for(StaticObstacle s: super.getStaticObstacles()){
-      s.draw();
-    }
-    
+  public void update(){
+    //not yet implemented
   }
 
 

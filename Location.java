@@ -1,7 +1,7 @@
 /*
  *  ~Location.java
  * Raymond Hruby II
- * 03/22/2017
+ * 04/02/2017
  * Location - holds tileCodes and dimension of location
  * 
  * TODO: Checkbounds back to location height and width, 
@@ -72,6 +72,9 @@ public abstract class Location implements Drawable
       return Tile.grass01Tile;
     }
     return t;
+  }
+  public int getTileCode(int x,int y){
+    return tileCodes[x][y];
   }
   
   //OBSTACLES

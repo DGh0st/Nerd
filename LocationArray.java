@@ -26,7 +26,9 @@ public class LocationArray
     
     //currentLocation defaulted to index 0
     OzLocation loc01 = new OzLocation(0);
+    AlphaLocation loc02 = new AlphaLocation(1);
     locations[0] = loc01;
+    locations[1] = loc02;
     currentLocation = 0;
   }
   
@@ -48,16 +50,22 @@ public class LocationArray
   public int getCurrentSpawnY(){
     return locations[currentLocation].getSpawnY();
   }
-  public Location getCurrentLocation(){ //return Location
+  public Location getCurrentLocation(){
     return locations[currentLocation];
   }
-  public void setCurrentLocation(int id){
-    currentLocation = id;
+  public void incrementCurrentLocation(){ //call if changing location
+    if(currentLocation > 0){ //since we only have two levels setup, will repeat levels
+      currentLocation = -1;  //adds one on next line (=0)
+    }
+    currentLocation += 1;
+    
+    Assets.getInstance().update();
   }
   public int getCurrentLocationIndex(){
     return currentLocation;
   }
   public void updateCurrentLocation(){
+    //not implemented in specific locations
     locations[currentLocation].update();
   }
   public void drawCurrentLocation(){

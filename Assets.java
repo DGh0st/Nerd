@@ -1,7 +1,7 @@
 /**
  * ~ Assets.java
  * Raymond Hruby II
- * 03/31/2017
+ * 04/03/2017
  * Assets class holds sprite images, currently only worldTile data
  */
 import java.awt.image.BufferedImage;
@@ -16,15 +16,6 @@ public class Assets
   //changed 2d array to 1d array so index acts as id for sprite image
   //changed 1d array to individual sprites to attach sprites to name
   //changed back to 1d array so Assets can be only assets class, and will update and use one arrayList
-  public static BufferedImage 
-    //OZ LOCATION
-    player01,player_Death,
-    grass01,grass02,grass03,
-    trail01,trail02,
-    rock01,rock02,
-    road01,road02,
-    tree01,obstacle02,obstacle03,obstacle04,obstacle05;
-  
   public static ArrayList<BufferedImage> sprites;
   private String path;        //path to Spritesheet 
 
@@ -43,28 +34,15 @@ public class Assets
   public void initialize(){
     SpriteSheet sheet = new SpriteSheet(this.path);
     sprites = new ArrayList<BufferedImage>(ROWS*COLS);
-
-    //keeping individual sprites so OzLocation works
-    if( LocationArray.getInstance().getCurrentLocationIndex() == 0 ){
-      
-      //first row
-      player01 =     sheet.crop(0    , 0, WIDTH, HEIGHT);
-      player_Death = sheet.crop(WIDTH, 0, WIDTH, HEIGHT);
-
-      for (int i = 0; i < ROWS; i++){
+    
+    for (int i = 0; i < ROWS; i++){
         for (int j = 0; j < COLS; j++){
           sprites.add( i*ROWS+j, sheet.crop( j*WIDTH, i*HEIGHT, WIDTH, HEIGHT ) );
         }
       }
-    }
-    else{
-      for (int i = 0; i < ROWS; i++){
-        for (int j = 0; j < COLS; j++){
-          sprites.add( i*ROWS+j, sheet.crop( j*WIDTH, i*HEIGHT, WIDTH, HEIGHT ) );
-        }
-      }
-    }
   }
+  
+  //Only call if there is a new locaiton
   public void update(){
     int newLocationId = LocationArray.getInstance().getCurrentLocationIndex();
     
