@@ -1,5 +1,5 @@
 /**
- * Nerd 02/24/2017
+ * Nerd 04/03/2017
  * Deep Patel
  * NerdGame class which instantiates and displays a window.
  */
@@ -12,7 +12,7 @@ public class NerdGame extends JFrame {
  private static NerdGame instance = null;
  private static DisplayState currentDisplayState;
 
- public final static Dimension windowSize = new Dimension(1408, 932);
+ public final static Dimension windowSize = new Dimension(Tile.TILE_WIDTH*21,Tile.TILE_WIDTH*12);
 
  public static void main(String[] args) {
   NerdGame gameWindow = getInstance();
