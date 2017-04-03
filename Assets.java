@@ -1,9 +1,8 @@
 /**
  * ~ Assets.java
  * Raymond Hruby II
- * 03/30/2017
+ * 03/31/2017
  * Assets class holds sprite images, currently only worldTile data
- * TODO: Bounds check for getAsset() 
  */
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ public class Assets
     }
     return instance;
   }
-  public Assets(int locationId){
+  private Assets(int locationId){ //private constructor for Singleton pattern, use getInstance()
     System.out.println("inpath" + this.path);
     this.path = AssetsLoader.getAssetsPath(locationId);
     System.out.println("inpath" + this.path);
@@ -47,36 +46,21 @@ public class Assets
 
     //keeping individual sprites so OzLocation works
     if( LocationArray.getInstance().getCurrentLocationIndex() == 0 ){
+      
       //first row
       player01 =     sheet.crop(0    , 0, WIDTH, HEIGHT);
       player_Death = sheet.crop(WIDTH, 0, WIDTH, HEIGHT);
-      
-      //second row
-      grass01 = sheet.crop(0      , HEIGHT, WIDTH, HEIGHT);
-      grass02 = sheet.crop(WIDTH  , HEIGHT, WIDTH, HEIGHT);
-      grass03 = sheet.crop(WIDTH*2, HEIGHT, WIDTH, HEIGHT);
-      trail01 = sheet.crop(WIDTH*3, HEIGHT, WIDTH, HEIGHT); 
-      trail02 = sheet.crop(WIDTH*4, HEIGHT, WIDTH, HEIGHT);
-      
-      //third row
-      rock01 = sheet.crop(0     , HEIGHT*2, WIDTH, HEIGHT);
-      rock02 = sheet.crop(WIDTH , HEIGHT*2, WIDTH, HEIGHT);
-      
-      //fourth row
-      road01 = sheet.crop(0     , HEIGHT*3, WIDTH, HEIGHT);
-      road02 = sheet.crop(WIDTH , HEIGHT*3, WIDTH, HEIGHT);
-      
-      //fifth row
-      tree01     = sheet.crop(0      , HEIGHT*4, WIDTH, HEIGHT);
-      obstacle02 = sheet.crop(WIDTH  , HEIGHT*4, WIDTH, HEIGHT);
-      obstacle03 = sheet.crop(WIDTH*2, HEIGHT*4, WIDTH, HEIGHT);
-      obstacle04 = sheet.crop(WIDTH*3, HEIGHT*4, WIDTH, HEIGHT);
-      obstacle05 = sheet.crop(WIDTH*4, HEIGHT*4, WIDTH, HEIGHT);
+
+      for (int i = 0; i < ROWS; i++){
+        for (int j = 0; j < COLS; j++){
+          sprites.add( i*ROWS+j, sheet.crop( j*WIDTH, i*HEIGHT, WIDTH, HEIGHT ) );
+        }
+      }
     }
     else{
       for (int i = 0; i < ROWS; i++){
         for (int j = 0; j < COLS; j++){
-          sprites.add( i*ROWS+j,sheet.crop( i*WIDTH, j*HEIGHT, WIDTH, HEIGHT ) );
+          sprites.add( i*ROWS+j, sheet.crop( j*WIDTH, i*HEIGHT, WIDTH, HEIGHT ) );
         }
       }
     }

@@ -20,7 +20,7 @@ public class LocationArray
     return instance;
   }
   
-  LocationArray(int totalLocations){
+  private LocationArray(int totalLocations){
     this.totalLocations = totalLocations;
     locations = new Location[totalLocations];
     
