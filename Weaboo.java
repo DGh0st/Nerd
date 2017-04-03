@@ -11,7 +11,7 @@ import java.awt.Graphics;
 import java.awt.Color;
 
 class Weaboo extends Character{
-  int RECT_WIDTH = 64, RECT_HEIGHT = 64;
+  int RECT_WIDTH = Tile.TILE_WIDTH, RECT_HEIGHT = Tile.TILE_HEIGHT;
   
   public Weaboo(int x, int y){
     super(x,y);
@@ -27,7 +27,7 @@ class Weaboo extends Character{
     int x = position.getX() * RECT_WIDTH;
     int y = position.getY() * RECT_HEIGHT;
     if (g != null) {
-      g.drawImage(Assets.player01,x, y, null);
+      g.drawImage(Assets.getInstance().getSprite(0),x, y, RECT_WIDTH, RECT_HEIGHT, null);
     }
   }
   

@@ -12,7 +12,7 @@ public class NerdGame extends JFrame {
  private static NerdGame instance = null;
  private static DisplayState currentDisplayState;
 
- public final static Dimension windowSize = new Dimension(Tile.TILE_WIDTH*21,Tile.TILE_WIDTH*12);
+ public final static Dimension windowSize = new Dimension(Tile.TILE_WIDTH*22,Tile.TILE_HEIGHT*12);
 
  public static void main(String[] args) {
   NerdGame gameWindow = getInstance();
