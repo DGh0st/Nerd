@@ -31,7 +31,7 @@ class Car extends MovableObstacle{
   }
   
   public void setSpeed(int speed){
-   SPEED = ThreadLocalRandom.current().nextInt(speed, speed+5);
+   SPEED = ThreadLocalRandom.current().nextInt(speed, speed+RECT_WIDTH / 4);
   }
   
   public void moveLeft(){

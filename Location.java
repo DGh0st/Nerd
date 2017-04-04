@@ -31,9 +31,6 @@ public abstract class Location implements Drawable
     ///grabbing width and height from location.txt files in createLocation()
     this.id = locationId; 
     this.path = AssetsLoader.getLocationPath(locationId);
-    this.movableObstacles = new ArrayList<MovableObstacle>();
-    this.staticObstacles = new ArrayList<StaticObstacle>();
-    this.redrawLocations = new ArrayList<Position>();
 
     initializeLocation(path);
   }
@@ -151,6 +148,10 @@ public abstract class Location implements Drawable
   }
 
   public void initializeLocation(String path){
+    this.movableObstacles = new ArrayList<MovableObstacle>();
+    this.staticObstacles = new ArrayList<StaticObstacle>();
+    this.redrawLocations = new ArrayList<Position>();
+    
     String file = Utilities.loadFileAsString(path);
     int statics = ObjectQuantities.getMaxStatic(id);
     int movables = ObjectQuantities.getMaxMovables(1);
