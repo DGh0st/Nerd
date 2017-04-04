@@ -15,6 +15,7 @@ class Car extends MovableObstacle{
   int carType = ThreadLocalRandom.current().nextInt(21, 23);
   public Car(int x, int y){
    super(x, y);
+   this.x = x;
   }
   
   public void draw(){
@@ -30,14 +31,21 @@ class Car extends MovableObstacle{
   }
   
   public void setSpeed(int speed){
-   SPEED = ThreadLocalRandom.current().nextInt(speed, speed+Tile.TILE_WIDTH / 2);
+   SPEED = ThreadLocalRandom.current().nextInt(speed, speed+5);
   }
   
   public void moveLeft(){
     int xPos = position.getX();
     int yPos = position.getY(); 
-    if (xPos < 0){xPos = x; yPos = ThreadLocalRandom.current().nextInt(3, 8);}
-    if (tileLimit <= 0) {tileLimit = 64; xPos--;}
+    LocationArray.getInstance().getCurrentLocation().redrawPos(new Position(xPos + 1, yPos));
+    if (xPos < 0){
+      xPos = x;
+      yPos = ThreadLocalRandom.current().nextInt(3, 8);
+    }
+    if (tileLimit <= 0) {
+      tileLimit = 64;
+      xPos--;
+    }
     tileLimit-=SPEED;
     position.setPosition(xPos, yPos);
   }

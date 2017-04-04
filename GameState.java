@@ -52,12 +52,16 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
     DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.PAUSEMENU);
     removeCurrentCanvasIfNeeded();
   } else if (keyCode == KeyEvent.VK_UP) {
+    locations.getCurrentLocation().drawTileAtPos(player.getPosition(), getGraphics());
     player.moveUp();
   } else if (keyCode == KeyEvent.VK_DOWN) {
+    locations.getCurrentLocation().drawTileAtPos(player.getPosition(), getGraphics());
     player.moveDown();
   } else if (keyCode ==KeyEvent.VK_LEFT) {
+    locations.getCurrentLocation().drawTileAtPos(player.getPosition(), getGraphics());
     player.moveLeft();
   } else if (keyCode == KeyEvent.VK_RIGHT) {
+    locations.getCurrentLocation().drawTileAtPos(player.getPosition(), getGraphics());
     player.moveRight();
   }
  }
@@ -81,6 +85,7 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
  public void start() {
   player = new Weaboo(locations.getCurrentSpawnX(), locations.getCurrentSpawnY());
   collisionChecker.addListener(player);
+  locations.getCurrentLocation().initializeLocation(locations.getCurrentLocation().getPath());
  }
 
  public void update() {

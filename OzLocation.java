@@ -15,12 +15,15 @@ public class OzLocation extends Location{
     draw(GameState.getInstance().getGraphics());
   }
   public void draw(Graphics g){
-    for(int y=0; y<super.getHeight(); y++){
-      for(int x=0; x<super.getWidth(); x++){
+    //for(int y=0; y<super.getHeight(); y++){
+      //for(int x=0; x<super.getWidth(); x++){
         //FROM TILES
-        super.getTile(x, y).draw(g, (int)(x*Tile.TILE_WIDTH), (int)(y*Tile.TILE_HEIGHT));
-      }
-    }
+        for (Position pos : redrawLocations) {
+          super.drawTileAtPos(pos, g);
+        }
+        redrawLocations.clear();
+      //}
+    //}
     for(MovableObstacle m: super.getMovableObstacles()){
       m.draw();
     }
