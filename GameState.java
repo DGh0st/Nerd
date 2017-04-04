@@ -14,7 +14,6 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
  private static GameState instance = null;
  private LocationArray locations;
  private CollisionEvent collisionChecker;
- boolean shouldRedraw = false;
  private Character player;
 
  private GameState() {
@@ -51,20 +50,15 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
   int keyCode = event.getKeyCode();
   if (keyCode == KeyEvent.VK_ESCAPE) {
     DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.PAUSEMENU);
-    shouldRedraw = false;
     removeCurrentCanvasIfNeeded();
   } else if (keyCode == KeyEvent.VK_UP) {
     player.moveUp();
-    shouldRedraw = false;
   } else if (keyCode == KeyEvent.VK_DOWN) {
     player.moveDown();
-    shouldRedraw = false;
   } else if (keyCode ==KeyEvent.VK_LEFT) {
     player.moveLeft();
-    shouldRedraw = false;
   } else if (keyCode == KeyEvent.VK_RIGHT) {
     player.moveRight();
-    shouldRedraw = false;
   }
  }
 
@@ -98,10 +92,7 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
   addCurrentCanvasIfNeeded();
   this.requestFocus();
 
-  if (!shouldRedraw){
-    locations.drawCurrentLocation();
-    shouldRedraw = true;
-  }
+  locations.drawCurrentLocation();
   player.draw();
  }
 

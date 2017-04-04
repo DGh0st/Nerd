@@ -21,18 +21,12 @@ public class OzLocation extends Location{
         super.getTile(x, y).draw(g, (int)(x*Tile.TILE_WIDTH), (int)(y*Tile.TILE_HEIGHT));
       }
     }
-  }
-  public void update(){ //updates obstacles
     for(MovableObstacle m: super.getMovableObstacles()){
-      //System.out.println("mo");
       m.draw();
     }
     for(StaticObstacle s: super.getStaticObstacles()){
-      //System.out.println("so");
       s.draw();
     }
-    
   }
-
-
+  
 }

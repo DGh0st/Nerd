@@ -14,11 +14,10 @@ class Car extends MovableObstacle{
   int RECT_WIDTH = Tile.TILE_WIDTH, RECT_HEIGHT = Tile.TILE_HEIGHT, tileLimit = Tile.TILE_WIDTH, x;
   public Car(int x, int y){
    super(x, y);
-   this.x = x;
   }
   
   public void draw(){
-   moveLeft();
+   //moveLeft();
    draw(GameState.getInstance().getGraphics());
   }
   public void draw(Graphics g){
@@ -30,7 +29,7 @@ class Car extends MovableObstacle{
   }
   
   public void setSpeed(int speed){
-   SPEED = ThreadLocalRandom.current().nextInt(speed, speed+5);
+   SPEED = ThreadLocalRandom.current().nextInt(speed, speed+Tile.TILE_WIDTH / 2);
   }
   
   public void moveLeft(){

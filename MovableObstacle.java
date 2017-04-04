@@ -11,9 +11,16 @@ public abstract class MovableObstacle extends Obstacle{
   }
 
   public void update(){
-   
+   	moveLeft();
+   	moveDown();
+   	moveUp();
+   	moveRight();
   }
   
   abstract public void setSpeed(int speed);
   
+  abstract public void moveLeft();
+  abstract public void moveDown();
+  abstract public void moveUp();
+  abstract public void moveRight();
 }

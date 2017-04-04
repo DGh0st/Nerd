@@ -36,7 +36,15 @@ public abstract class Location implements Drawable
     initializeLocation(path);
   }
   
-  abstract public void update();
+  public void update() {
+    for(MovableObstacle m: movableObstacles){
+      m.update();
+    }
+    for(StaticObstacle s: staticObstacles){
+      s.update();
+    }
+  }
+  
   abstract public void draw();
   abstract public void draw(Graphics g);
   
