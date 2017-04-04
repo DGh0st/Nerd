@@ -5,15 +5,12 @@
  * TODO:Implement Update() Method
  */
 public abstract class MovableObstacle extends Obstacle{
-  int SPEED;
+
   public MovableObstacle(int x, int y) {
-   super(x, y);
+  	super(x, y);
   }
 
   public void update(){
-   
+   //TODO
   }
-  
-  abstract public void setSpeed(int speed);
-  
 }

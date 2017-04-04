@@ -8,7 +8,6 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.Graphics;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class GameState extends JPanel implements KeyListener, CollisionListener {
  private static GameState instance = null;

@@ -132,7 +132,7 @@ public abstract class Location implements Drawable
   public void initializeLocation(String path){
     String file = Utilities.loadFileAsString(path);
     int statics = ObjectQuantities.getMaxStatic(id);
-    int movables = ObjectQuantities.getMaxMovables(1);
+    int movables = ObjectQuantities.getMaxMovables(id);
     
     tree = new StaticObstacle[statics];
     car = new MovableObstacle[movables];

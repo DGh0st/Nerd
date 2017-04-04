@@ -10,19 +10,14 @@
 import java.awt.Graphics;
 
 class Tree extends StaticObstacle{
-  int RECT_WIDTH = Tile.TILE_WIDTH, RECT_HEIGHT = Tile.TILE_HEIGHT;
   public Tree(int x, int y) {
-   super(x, y);
+  	super(x, y);
   }
   public void draw(){
-   draw(GameState.getInstance().getGraphics());
+   //TODO
   }
   public void draw(Graphics g){
-   int x = position.getX() * RECT_WIDTH;
-   int y = position.getY() * RECT_HEIGHT;
-   if (g != null) {
-      g.drawImage(Assets.getInstance().getSprite(20),x, y, RECT_WIDTH, RECT_HEIGHT, null);
-    }
+   //TODO
   }
   public void play(){
    //TODO
