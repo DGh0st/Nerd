@@ -12,6 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 class Car extends MovableObstacle{
   int RECT_WIDTH = Tile.TILE_WIDTH, RECT_HEIGHT = Tile.TILE_HEIGHT, tileLimit = Tile.TILE_WIDTH, x;
+  int carType = ThreadLocalRandom.current().nextInt(21, 23);
   public Car(int x, int y){
    super(x, y);
   }
@@ -24,7 +25,7 @@ class Car extends MovableObstacle{
    int xPos = position.getX();
    int yPos = position.getY();
    if (g != null) {
-      g.drawImage(Assets.getInstance().getSprite(1), xPos*RECT_WIDTH+tileLimit, yPos*RECT_HEIGHT, RECT_WIDTH, RECT_HEIGHT, null);
+      g.drawImage(Assets.getInstance().getSprite(carType), xPos*RECT_WIDTH+tileLimit, yPos*RECT_HEIGHT, RECT_WIDTH, RECT_HEIGHT, null);
     }
   }
   
