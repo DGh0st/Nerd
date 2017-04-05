@@ -70,7 +70,6 @@ public class VictoryMenu extends Menu {
      DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.STARTMENU);
      super.removeCurrentCanvasIfNeeded();
    } else if (event.getActionCommand().equals("nextLevel")) {
-     // TODO: change location to next level
      LocationArray.getInstance().incrementCurrentLocation();
      GameState.getInstance().start();
      DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.INGAME);

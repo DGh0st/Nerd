@@ -11,22 +11,4 @@ public class AlphaLocation extends Location{
   public AlphaLocation(int id){
     super(id);
   }
-  public void draw(){  
-    //inefficient method, will render every tile even if out of screen
-    //will work for OzLocation
-    draw(GameState.getInstance().getGraphics());
-  }
-  public void draw(Graphics g){
-    for(int y=0; y<super.getHeight(); y++){
-      for(int x=0; x<super.getWidth(); x++){
-        //FROM TILES
-        super.getTile(x, y).draw(g, (int)(x*Tile.TILE_WIDTH), (int)(y*Tile.TILE_HEIGHT));
-      }
-    }
-  }
-  public void update(){
-    //not yet implemented
-  }
-
-
 }

@@ -13,6 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 class Car extends MovableObstacle{
   int RECT_WIDTH = Tile.TILE_WIDTH, RECT_HEIGHT = Tile.TILE_HEIGHT, tileLimit = Tile.TILE_WIDTH, x;
   int carType = ThreadLocalRandom.current().nextInt(21, 23);
+
   public Car(int x, int y){
    super(x, y);
    this.x = x;
@@ -37,7 +38,6 @@ class Car extends MovableObstacle{
   public void moveLeft(){
     int xPos = position.getX();
     int yPos = position.getY();
-    //LocationArray.getInstance().getCurrentLocation().redrawTileAtPos(new Position(xPos + 1, yPos), GameState.getInstance().getGraphics());
     if (xPos < 0){
       xPos = x;
       yPos = ThreadLocalRandom.current().nextInt(3, 8);

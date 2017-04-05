@@ -9,6 +9,7 @@
 import java.util.ArrayList;
 import java.awt.Graphics;
 import java.util.concurrent.ThreadLocalRandom;
+import java.awt.image.BufferedImage;
 
 //TODO: - implement string parser to get dimensions from location.txt file 
   
@@ -22,9 +23,7 @@ public abstract class Location implements Drawable
   private int[][] tileCodes;       //holds the tile codes from the location.txt
   private ArrayList<MovableObstacle> movableObstacles;
   private ArrayList<StaticObstacle> staticObstacles;
-  private OzLocation ozLo;
-  private StaticObstacle[] tree;
-  protected MovableObstacle[] car;
+  private BufferedImage locationBackgroundImage = null;
   
   public Location(int locationId){
     ///grabbing width and height from location.txt files in createLocation()
@@ -35,11 +34,31 @@ public abstract class Location implements Drawable
   }
   
   public void update() {
+    int imageWidth = getWidth() * Tile.TILE_WIDTH;
+    int imageHeight = getHeight() * Tile.TILE_HEIGHT;
+    locationBackgroundImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+    Graphics g2 = locationBackgroundImage.getGraphics();
+    for(int y=0; y<getHeight(); y++){
+      for(int x=0; x<getWidth(); x++){
+        //FROM TILES
+        redrawTileAtPos(new Position(x, y), g2);
+      }
+    }
+
     for(MovableObstacle m: movableObstacles){
       m.update();
+      m.draw(g2);
     }
     for(StaticObstacle s: staticObstacles){
       s.update();
+      s.draw(g2);
+    }
+  }
+
+  public void drawPlayer(Character player) {
+    if (locationBackgroundImage != null) {
+      Graphics g2 = locationBackgroundImage.getGraphics();
+      player.draw(g2);
     }
   }
 
@@ -50,8 +69,16 @@ public abstract class Location implements Drawable
     getTile(x, y).draw(g, (int)(x*Tile.TILE_WIDTH), (int)(y*Tile.TILE_HEIGHT));
   }
   
-  abstract public void draw();
-  abstract public void draw(Graphics g);
+  public void draw() {
+    draw(GameState.getInstance().getGraphics());
+  }
+
+  public void draw(Graphics g) {
+    if (locationBackgroundImage == null) {
+      return;
+    }
+    g.drawImage(locationBackgroundImage, 0, 0, null);
+  }
   
   //getters and setters below:
   public String getPath(){
@@ -150,6 +177,8 @@ public abstract class Location implements Drawable
     int statics = ObjectQuantities.getMaxStatic(id);
     int movables = ObjectQuantities.getMaxMovables(1);
     
+    StaticObstacle[] tree;
+    MovableObstacle[] car;
     tree = new StaticObstacle[statics];
     car = new MovableObstacle[movables];
     //System.out.println("Location | FILE: "+file+"\n");
@@ -164,7 +193,6 @@ public abstract class Location implements Drawable
     spawn = new Position(spawnX, spawnY);
     
     tileCodes = new int[width][height];
-    
     
     //System.out.println(statics);
     
@@ -183,7 +211,7 @@ public abstract class Location implements Drawable
       car[i].setSpeed(ObjectQuantities.getSpeed(id));
       addMovable(car[i]);
     }
-    
+
     for(int y=0; y<height; y++){
       for(int x=0; x<width; x++){
         //add 4 becuase of previous set values (four values)

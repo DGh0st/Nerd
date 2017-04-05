@@ -15,8 +15,6 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
  private LocationArray locations;
  private CollisionEvent collisionChecker;
  private Character player;
- private ObstacleState obstacleCanvas;
- private boolean shouldRedraw = true;
 
  private GameState() {
   super();
@@ -36,8 +34,6 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
 
   FlowLayout layout = (FlowLayout)getLayout();
   layout.setVgap(0);
-
-  obstacleCanvas = new ObstacleState();
  }
 
  public static synchronized GameState getInstance() {
@@ -58,18 +54,13 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
   if (keyCode == KeyEvent.VK_ESCAPE) {
     DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.PAUSEMENU);
     removeCurrentCanvasIfNeeded();
-    shouldRedraw = true;
   } else if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
-    locations.getCurrentLocation().redrawTileAtPos(player.getPosition(), getGraphics());
     player.moveUp();
   } else if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
-    locations.getCurrentLocation().redrawTileAtPos(player.getPosition(), getGraphics());
     player.moveDown();
   } else if (keyCode ==KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
-    locations.getCurrentLocation().redrawTileAtPos(player.getPosition(), getGraphics());
     player.moveLeft();
   } else if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
-    locations.getCurrentLocation().redrawTileAtPos(player.getPosition(), getGraphics());
     player.moveRight();
   }
  }
@@ -91,12 +82,9 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
  }
 
  public void start() {
-  addCurrentCanvasIfNeeded();
-
+  locations.getCurrentLocation().initializeLocation(locations.getCurrentLocation().getPath());
   player = new Weaboo(locations.getCurrentSpawnX(), locations.getCurrentSpawnY());
   collisionChecker.addListener(player);
-  locations.getCurrentLocation().initializeLocation(locations.getCurrentLocation().getPath());
-  shouldRedraw = true;
  }
 
  public void update() {
@@ -108,20 +96,13 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
   addCurrentCanvasIfNeeded();
   this.requestFocus();
 
-  if (shouldRedraw) {
-    this.paintComponent(getGraphics());
-    shouldRedraw = false;
-  }
-
-  obstacleCanvas.draw(player, locations);
+  locations.getCurrentLocation().drawPlayer(player);
+  locations.drawCurrentLocation();
  }
 
  private void addCurrentCanvasIfNeeded() {
   if (this.getParent() == null) {
     DisplayState.getInstance().add(this);
-  }
-  if (obstacleCanvas.getParent() == null) {
-    DisplayState.getInstance().add(obstacleCanvas);
   }
  }
 
@@ -130,19 +111,5 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
   if (this.getParent() != null && this.getParent() == currentDisplayState) {
    currentDisplayState.remove(this);
   }
-  if (obstacleCanvas.getParent() != null && obstacleCanvas.getParent() == currentDisplayState) {
-   currentDisplayState.remove(obstacleCanvas);
-  }
- }
-
- protected void paintComponent(Graphics g) {
-  super.paintComponent(g);
-
-  locations.drawCurrentLocation();
-  for(StaticObstacle s : locations.getCurrentLocation().getStaticObstacles()){
-    s.draw();
-  }
-
-  g.dispose();
  }
 }
