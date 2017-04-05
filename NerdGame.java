@@ -16,13 +16,6 @@ public class NerdGame extends JFrame {
 
  public static void main(String[] args) {
   NerdGame gameWindow = getInstance();
-
-  while (currentDisplayState.getCurrentDisplayStatus() != DisplayStatus.CLOSE) {
-   currentDisplayState.updateCurrentDisplayStatus();
-   currentDisplayState.drawCurrentDisplayStatus();
-  }
-
-  gameWindow.close();
  }
 
  private NerdGame() {
@@ -32,6 +25,14 @@ public class NerdGame extends JFrame {
   createWindow();
 
   currentDisplayState.startBackgroundMusic();
+
+  Timer t = new Timer(25, new ActionListener() {
+    public void actionPerformed(ActionEvent event) {
+      currentDisplayState.updateCurrentDisplayStatus();
+      currentDisplayState.drawCurrentDisplayStatus();
+    }
+  });
+  t.start();
  }
 
  public static synchronized NerdGame getInstance() {

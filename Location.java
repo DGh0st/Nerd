@@ -25,7 +25,6 @@ public abstract class Location implements Drawable
   private OzLocation ozLo;
   private StaticObstacle[] tree;
   protected MovableObstacle[] car;
-  protected ArrayList<Position> redrawLocations;
   
   public Location(int locationId){
     ///grabbing width and height from location.txt files in createLocation()
@@ -37,7 +36,6 @@ public abstract class Location implements Drawable
   
   public void update() {
     for(MovableObstacle m: movableObstacles){
-      redrawLocations.add(m.getPosition());
       m.update();
     }
     for(StaticObstacle s: staticObstacles){
@@ -45,14 +43,11 @@ public abstract class Location implements Drawable
     }
   }
 
-  public void drawTileAtPos(Position pos, Graphics g) {
+  public void redrawTileAtPos(Position pos, Graphics g) {
     int x = pos.getX();
     int y = pos.getY();
-    getTile(x, y).draw(g, (int)(x*Tile.TILE_WIDTH), (int)(y*Tile.TILE_HEIGHT));
-  }
 
-  public void redrawPos(Position pos) {
-    redrawLocations.add(pos);
+    getTile(x, y).draw(g, (int)(x*Tile.TILE_WIDTH), (int)(y*Tile.TILE_HEIGHT));
   }
   
   abstract public void draw();
@@ -150,7 +145,6 @@ public abstract class Location implements Drawable
   public void initializeLocation(String path){
     this.movableObstacles = new ArrayList<MovableObstacle>();
     this.staticObstacles = new ArrayList<StaticObstacle>();
-    this.redrawLocations = new ArrayList<Position>();
     
     String file = Utilities.loadFileAsString(path);
     int statics = ObjectQuantities.getMaxStatic(id);
@@ -194,7 +188,6 @@ public abstract class Location implements Drawable
       for(int x=0; x<width; x++){
         //add 4 becuase of previous set values (four values)
         tileCodes[x][y] = Utilities.parseInt( tokens[(x+y*width)+4] );
-        redrawLocations.add(new Position(x, y));
       }
     }
   }

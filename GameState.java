@@ -15,8 +15,12 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
  private LocationArray locations;
  private CollisionEvent collisionChecker;
  private Character player;
+ private ObstacleState obstacleCanvas;
+ private boolean shouldRedraw = true;
 
  private GameState() {
+  super();
+
   locations = LocationArray.getInstance();
   Assets assets = Assets.getInstance(); //needs to be under locationArray (dependent)
 
@@ -28,9 +32,12 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
   this.setSize(NerdGame.windowSize);
   this.setFocusable(true);
   this.addKeyListener(this);
+  this.setOpaque(true);
 
   FlowLayout layout = (FlowLayout)getLayout();
   layout.setVgap(0);
+
+  obstacleCanvas = new ObstacleState();
  }
 
  public static synchronized GameState getInstance() {
@@ -51,17 +58,18 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
   if (keyCode == KeyEvent.VK_ESCAPE) {
     DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.PAUSEMENU);
     removeCurrentCanvasIfNeeded();
-  } else if (keyCode == KeyEvent.VK_UP) {
-    locations.getCurrentLocation().drawTileAtPos(player.getPosition(), getGraphics());
+    shouldRedraw = true;
+  } else if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
+    locations.getCurrentLocation().redrawTileAtPos(player.getPosition(), getGraphics());
     player.moveUp();
-  } else if (keyCode == KeyEvent.VK_DOWN) {
-    locations.getCurrentLocation().drawTileAtPos(player.getPosition(), getGraphics());
+  } else if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
+    locations.getCurrentLocation().redrawTileAtPos(player.getPosition(), getGraphics());
     player.moveDown();
-  } else if (keyCode ==KeyEvent.VK_LEFT) {
-    locations.getCurrentLocation().drawTileAtPos(player.getPosition(), getGraphics());
+  } else if (keyCode ==KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
+    locations.getCurrentLocation().redrawTileAtPos(player.getPosition(), getGraphics());
     player.moveLeft();
-  } else if (keyCode == KeyEvent.VK_RIGHT) {
-    locations.getCurrentLocation().drawTileAtPos(player.getPosition(), getGraphics());
+  } else if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
+    locations.getCurrentLocation().redrawTileAtPos(player.getPosition(), getGraphics());
     player.moveRight();
   }
  }
@@ -83,9 +91,12 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
  }
 
  public void start() {
+  addCurrentCanvasIfNeeded();
+
   player = new Weaboo(locations.getCurrentSpawnX(), locations.getCurrentSpawnY());
   collisionChecker.addListener(player);
   locations.getCurrentLocation().initializeLocation(locations.getCurrentLocation().getPath());
+  shouldRedraw = true;
  }
 
  public void update() {
@@ -97,13 +108,20 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
   addCurrentCanvasIfNeeded();
   this.requestFocus();
 
-  locations.drawCurrentLocation();
-  player.draw();
+  if (shouldRedraw) {
+    this.paintComponent(getGraphics());
+    shouldRedraw = false;
+  }
+
+  obstacleCanvas.draw(player, locations);
  }
 
  private void addCurrentCanvasIfNeeded() {
   if (this.getParent() == null) {
-   DisplayState.getInstance().add(this);
+    DisplayState.getInstance().add(this);
+  }
+  if (obstacleCanvas.getParent() == null) {
+    DisplayState.getInstance().add(obstacleCanvas);
   }
  }
 
@@ -112,14 +130,19 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
   if (this.getParent() != null && this.getParent() == currentDisplayState) {
    currentDisplayState.remove(this);
   }
+  if (obstacleCanvas.getParent() != null && obstacleCanvas.getParent() == currentDisplayState) {
+   currentDisplayState.remove(obstacleCanvas);
+  }
  }
 
- private void clear(Color color) {
-  Graphics g = getGraphics();
-  Dimension canvasSize = getSize();
-  if (g != null) {
-   g.setColor(color);
-   g.fillRect(0, 0, (int)canvasSize.getWidth(), (int)canvasSize.getHeight());
+ protected void paintComponent(Graphics g) {
+  super.paintComponent(g);
+
+  locations.drawCurrentLocation();
+  for(StaticObstacle s : locations.getCurrentLocation().getStaticObstacles()){
+    s.draw();
   }
+
+  g.dispose();
  }
 }

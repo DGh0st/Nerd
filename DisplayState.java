@@ -17,6 +17,8 @@ public class DisplayState extends JPanel {
 	private Clip backgroundMusicClip;
 
 	private DisplayState() {
+		super();
+
 		currentDisplayStatus = DisplayStatus.STARTMENU;
 		gameCanvas = GameState.getInstance();
 		setupMenus();
@@ -82,14 +84,6 @@ public class DisplayState extends JPanel {
 	public void setCurrentDisplayStatus(DisplayStatus newDisplayStatus) {
 		currentDisplayStatus = newDisplayStatus;
 		clear(Color.black);
-		if (newDisplayStatus == DisplayStatus.INGAME) {
-			Location loc = LocationArray.getInstance().getCurrentLocation();
-			for(int y=0; y<loc.getHeight(); y++){
-				for(int x=0; x<loc.getWidth(); x++){
-					loc.redrawPos(new Position(x, y));
-				}
-			}
-		}
 	}
 
 	public void updateCurrentDisplayStatus() {

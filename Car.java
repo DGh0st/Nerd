@@ -36,8 +36,8 @@ class Car extends MovableObstacle{
   
   public void moveLeft(){
     int xPos = position.getX();
-    int yPos = position.getY(); 
-    LocationArray.getInstance().getCurrentLocation().redrawPos(new Position(xPos + 1, yPos));
+    int yPos = position.getY();
+    //LocationArray.getInstance().getCurrentLocation().redrawTileAtPos(new Position(xPos + 1, yPos), GameState.getInstance().getGraphics());
     if (xPos < 0){
       xPos = x;
       yPos = ThreadLocalRandom.current().nextInt(3, 8);
