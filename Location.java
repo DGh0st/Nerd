@@ -24,6 +24,7 @@ public abstract class Location implements Drawable
   private ArrayList<MovableObstacle> movableObstacles;
   private ArrayList<StaticObstacle> staticObstacles;
   private BufferedImage locationBackgroundImage = null;
+  private Position playerPosition;
   
   public Location(int locationId){
     ///grabbing width and height from location.txt files in createLocation()
@@ -59,6 +60,7 @@ public abstract class Location implements Drawable
     if (locationBackgroundImage != null) {
       Graphics g2 = locationBackgroundImage.getGraphics();
       player.draw(g2);
+      playerPosition = player.getPosition();
     }
   }
 
@@ -77,7 +79,16 @@ public abstract class Location implements Drawable
     if (locationBackgroundImage == null) {
       return;
     }
-    g.drawImage(locationBackgroundImage, 0, 0, null);
+    int playerY = playerPosition.getY();
+    int y = 0;
+    if (playerY <= 10) {
+      y = 0;
+    } else if (playerY >= getHeight() - 2) {
+      y = getHeight() - 12;
+    } else {
+      y = playerY - 10;
+    }
+    g.drawImage(locationBackgroundImage, 0, -(y * Tile.TILE_HEIGHT), null);
   }
   
   //getters and setters below:
