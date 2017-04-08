@@ -63,14 +63,17 @@ public class HoverButton extends JButton {
 		int width = this.getWidth();
 		if (getModel().isPressed()) {
 			if (shouldCenter) {
+				g.drawImage(regularImage, width / 2 - regularImage.getWidth() / 2, 0, null);
 				g.drawImage(pressedImage, width / 2 - pressedImage.getWidth() / 2, 0, null);
 			} else {
+				g.drawImage(regularImage, 0, 0, null);
 				g.drawImage(pressedImage, 0, 0, null);
 			}
 		} else if (getModel().isRollover()) {
 			if (shouldCenter) {
 				g.drawImage(hoverImage, width / 2 - hoverImage.getWidth() / 2, 0, null);
 			} else {
+				g.drawImage(regularImage, 0, 0, null);
 				g.drawImage(hoverImage, 0, 0, null);
 			}
 		} else {
