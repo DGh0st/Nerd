@@ -15,6 +15,7 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
  private LocationArray locations;
  private CollisionEvent collisionChecker;
  private Character player;
+ private Class selectedCharacterClass = Weaboo.class;
 
  private GameState() {
   super();
@@ -83,8 +84,14 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
 
  public void start() {
   locations.getCurrentLocation().initializeLocation(locations.getCurrentLocation().getPath());
-  player = new Weaboo(locations.getCurrentSpawnX(), locations.getCurrentSpawnY());
+  if (selectedCharacterClass == Weaboo.class) {
+    player = new Weaboo(locations.getCurrentSpawnX(), locations.getCurrentSpawnY());
+  } // TODO: Add more character classes
   collisionChecker.addListener(player);
+ }
+
+ public void setSelectedCharacterClass(Class newCharacterClass) {
+  selectedCharacterClass = newCharacterClass;
  }
 
  public void update() {

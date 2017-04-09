@@ -2,8 +2,7 @@
  * Nerd 04/03/2017
  * Deep Patel
  * MainMenu class that is used to display the menu on game start.
- * TODO:
- *  - Add Shop
+ * TODO: Add more characters and settings
  */
 
 import java.awt.event.*;
@@ -16,10 +15,12 @@ public class MainMenu extends Menu implements ChangeListener {
   // TODO: Add more characters
  private static final BufferedImage characters[] = {Assets.getInstance().getSprite(0)};
  private static final String charactersCommands[] = {"0"};
+ private static final Class charactersClass[] = {Weaboo.class};
 
  private JPanel mainScreen;
  private JPanel shopScreen;
  private JPanel settingsScreen;
+ private JPanel helpScreen;
  private String selectedCharacter;
  private HoverButton selectedCharacterButton;
  
@@ -44,8 +45,8 @@ public class MainMenu extends Menu implements ChangeListener {
   mainScreen.add(Box.createRigidArea(new Dimension(windowSize.width - title.getPreferredSize().width * 5 / 4, 0)));
   mainScreen.add(title);
 
-  String buttonTitles[] = {"Start", "Shop", "Settings", "Exit"};
-  String buttonCommands[] = {"startGame", "shopMenu", "settingsMenu", "closeGame"};
+  String buttonTitles[] = {"Start", "Shop", "Settings", "Help", "Exit"};
+  String buttonCommands[] = {"startGame", "shopMenu", "settingsMenu", "helpMenu", "closeGame"};
   BufferedImage regularButtonImage = MainMenuAssets.getInstance().getSprite(7);
   BufferedImage destructiveButtonImage = MainMenuAssets.getInstance().getSprite(8);
   BufferedImage hoverButtonImage = MainMenuAssets.getInstance().getSprite(6);
@@ -129,6 +130,21 @@ public class MainMenu extends Menu implements ChangeListener {
   // TODO: Add more settings
  }
 
+ private void setupHelpScreen(Dimension windowSize) {
+  Font constructionFont = new Font(Font.SERIF, Font.PLAIN, 32);
+
+  helpScreen = createScreen(windowSize, new FlowLayout(FlowLayout.LEFT));
+
+  addHeader(helpScreen, "Help", "mainFromHelp", windowSize);
+
+  // TODO: Add help information and remove under construction
+
+  JLabel title = createLabel("Under Construction", constructionFont);
+  helpScreen.add(Box.createRigidArea(new Dimension(windowSize.width / 2 - (int)(title.getPreferredSize().getWidth() / 2), 20)));
+  helpScreen.add(title);
+  helpScreen.add(Box.createRigidArea(new Dimension(windowSize.width / 2 - (int)(title.getPreferredSize().getWidth() / 2), 20)));
+ }
+
  private void addHeader(JPanel panel, String displayTitle, String backButtonCommand, Dimension windowSize) {
   Font titleFont = new Font(Font.SERIF, Font.PLAIN, 80);
   Font buttonFont = new Font(Font.SERIF, Font.PLAIN, 32);
@@ -173,42 +189,51 @@ public class MainMenu extends Menu implements ChangeListener {
    DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.INGAME);
    super.removeCurrentCanvasIfNeeded();
   } else if (event.getActionCommand().equals("shopMenu")) {
-   setupShopScreen(NerdGame.windowSize);
+   if (shopScreen == null) {
+    setupShopScreen(NerdGame.windowSize);
+   }
    changeScreen(mainScreen, shopScreen);
   } else if (event.getActionCommand().equals("settingsMenu")) {
    if (settingsScreen == null) {
     setupSettingsScreen(NerdGame.windowSize);
    }
    changeScreen(mainScreen, settingsScreen);
+  } else if (event.getActionCommand().equals("helpMenu")) {
+    if (helpScreen == null) {
+      setupHelpScreen(NerdGame.windowSize);
+    }
+    changeScreen(mainScreen, helpScreen);
   } else if (event.getActionCommand().equals("closeGame")) {
    NerdGame.getInstance().close();
   } else if (event.getActionCommand().equals("mainFromShop")) {
    changeScreen(shopScreen, mainScreen);
   } else if (event.getActionCommand().equals("mainFromSet")) {
    changeScreen(settingsScreen, mainScreen);
-  } else {
-   if (selectedCharacter != event.getActionCommand()) {
-    int i = Integer.parseInt(selectedCharacter);
-    BufferedImage normalCharacter = new BufferedImage(characters[i].getWidth(), characters[i].getHeight(), characters[i].getType());
-    Graphics g = normalCharacter.getGraphics();
-    g.drawImage(characters[i], 0, 0, null);
-    g.drawImage(MainMenuAssets.getInstance().getSprite(2), 0, 0, null);
-    g.dispose();
+  } else if (event.getActionCommand().equals("mainFromHelp")) {
+   changeScreen(helpScreen, mainScreen);
+  } else if (selectedCharacter != event.getActionCommand()) {
+   int i = Integer.parseInt(selectedCharacter);
+   BufferedImage normalCharacter = new BufferedImage(characters[i].getWidth(), characters[i].getHeight(), characters[i].getType());
+   Graphics g = normalCharacter.getGraphics();
+   g.drawImage(characters[i], 0, 0, null);
+   g.drawImage(MainMenuAssets.getInstance().getSprite(2), 0, 0, null);
+   g.dispose();
 
-    i = Integer.parseInt(event.getActionCommand());
-    BufferedImage selectCharacter = new BufferedImage(characters[i].getWidth(), characters[i].getHeight(), characters[i].getType());
-    Graphics g2 = selectCharacter.getGraphics();
-    g2.drawImage(characters[i], 0, 0, null);
-    g2.drawImage(MainMenuAssets.getInstance().getSprite(4), 0, 0, null);
-    g2.dispose();
+   i = Integer.parseInt(event.getActionCommand());
+   BufferedImage selectCharacter = new BufferedImage(characters[i].getWidth(), characters[i].getHeight(), characters[i].getType());
+   Graphics g2 = selectCharacter.getGraphics();
+   g2.drawImage(characters[i], 0, 0, null);
+   g2.drawImage(MainMenuAssets.getInstance().getSprite(4), 0, 0, null);
+   g2.dispose();
 
-    selectedCharacterButton.setImage(normalCharacter);
-    selectedCharacterButton.repaint();
-    selectedCharacter = event.getActionCommand();
-    selectedCharacterButton = (HoverButton)event.getSource();
-    selectedCharacterButton.setImage(selectCharacter);
-    selectedCharacterButton.repaint();
-   }
+   selectedCharacterButton.setImage(normalCharacter);
+   selectedCharacterButton.repaint();
+   selectedCharacter = event.getActionCommand();
+   selectedCharacterButton = (HoverButton)event.getSource();
+   selectedCharacterButton.setImage(selectCharacter);
+   selectedCharacterButton.repaint();
+
+   GameState.getInstance().setSelectedCharacterClass(charactersClass[i]);
   }
  }
 
