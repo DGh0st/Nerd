@@ -7,6 +7,7 @@
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 
 public abstract class Menu extends JPanel implements ActionListener {
 
@@ -44,11 +45,14 @@ public abstract class Menu extends JPanel implements ActionListener {
 		}
 	}
 
-	protected HoverButton createHoverButton(String title, String actionCommand, Font font, String regularButtonPath, String hoverButtonPath) {
-		HoverButton hb = new HoverButton(title, regularButtonPath, hoverButtonPath);
+	protected HoverButton createHoverButton(String title, String actionCommand, Font font, BufferedImage regularButtonImage, BufferedImage hoverButtonImage) {
+		HoverButton hb = new HoverButton(title);
 		hb.addActionListener(this);
 		hb.setActionCommand(actionCommand);
 		hb.setFont(font);
+		hb.setImage(regularButtonImage);
+		hb.setHoverImage(hoverButtonImage);
+		hb.setPressedImage(hoverButtonImage);
 		return hb;
 	}
 

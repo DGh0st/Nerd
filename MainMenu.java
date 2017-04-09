@@ -13,6 +13,10 @@ import javax.swing.event.*;
 import java.awt.image.BufferedImage;
 
 public class MainMenu extends Menu implements ChangeListener {
+  // TODO: Add more characters
+ private static final BufferedImage characters[] = {Assets.getInstance().getSprite(0)};
+ private static final String charactersCommands[] = {"0"};
+
  private JPanel mainScreen;
  private JPanel shopScreen;
  private JPanel settingsScreen;
@@ -22,7 +26,7 @@ public class MainMenu extends Menu implements ChangeListener {
  public MainMenu() {
   super();
 
-  selectedCharacter = "selectWeaboo";
+  selectedCharacter = charactersCommands[0];
   selectedCharacterButton = null;
 
   setupMainScreen(NerdGame.windowSize);
@@ -36,30 +40,29 @@ public class MainMenu extends Menu implements ChangeListener {
   Font titleFont = new Font(Font.SERIF, Font.PLAIN, 128);
   Font buttonFont = new Font(Font.SERIF, Font.PLAIN, 48);
 
-  mainScreen.add(Box.createRigidArea(new Dimension(windowSize.width * 5 / 7, 0)));
-
   JLabel title = createLabel("Nerd", titleFont);
+  mainScreen.add(Box.createRigidArea(new Dimension(windowSize.width - title.getPreferredSize().width * 5 / 4, 0)));
   mainScreen.add(title);
 
   String buttonTitles[] = {"Start", "Shop", "Settings", "Exit"};
   String buttonCommands[] = {"startGame", "shopMenu", "settingsMenu", "closeGame"};
-  String regularButtonPath = "./resources/menus/mainButton.png";
-  String destructiveButtonPath = "./resources/menus/mainDestructiveButton.png";
-  String hoverButtonPath = "./resources/menus/hoverMainButton.png";
-  String destructiveHoverButtonPath = "./resources/menus/hoverDestructiveButton.png";
+  BufferedImage regularButtonImage = MainMenuAssets.getInstance().getSprite(7);
+  BufferedImage destructiveButtonImage = MainMenuAssets.getInstance().getSprite(8);
+  BufferedImage hoverButtonImage = MainMenuAssets.getInstance().getSprite(6);
+  BufferedImage destructiveHoverButtonImage = MainMenuAssets.getInstance().getSprite(5);
 
   for (int i = 0; i < buttonTitles.length; i++) {
    mainScreen.add(Box.createRigidArea(new Dimension(windowSize.width, 20)));
 
-   String path = regularButtonPath;
-   String hoverPath = hoverButtonPath;
-   if (buttonTitles[i].equals("Exit")) {
-    path = destructiveButtonPath;
-    hoverPath = destructiveHoverButtonPath;
+   BufferedImage image = regularButtonImage;
+   BufferedImage hoverImage = hoverButtonImage;
+   if (i == buttonTitles.length - 1) {
+    image = destructiveButtonImage;
+    hoverImage = destructiveHoverButtonImage;
    }
 
-   HoverButton hb = createHoverButton(buttonTitles[i], buttonCommands[i], buttonFont, path, hoverPath);
-   hb.setPreferredSize(new Dimension(windowSize.width / 4, hb.getPreferredSize().height));
+   HoverButton hb = createHoverButton(buttonTitles[i], buttonCommands[i], buttonFont, image, hoverImage);
+   hb.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
    hb.setShouldCenter(false);
    mainScreen.add(hb);
   }
@@ -72,35 +75,37 @@ public class MainMenu extends Menu implements ChangeListener {
 
   addHeader(shopScreen, "Nerd Shop", "mainFromShop", windowSize);
 
-  // TODO: Add more characters
-  BufferedImage characters[] = {Assets.getInstance().getSprite(0)};
-  String buttonCommands[] = {"selectWeaboo"};
-  String names[] = {"Weaboo"};
+  addSubHeader(shopScreen, "Characters:", windowSize);
+
+  shopScreen.add(Box.createRigidArea(new Dimension(40, 20)));
+
+  BufferedImage regularButtonImage = MainMenuAssets.getInstance().getSprite(2);
+  BufferedImage hoverButtonImage = MainMenuAssets.getInstance().getSprite(3);
+  BufferedImage selectedButtonImage = MainMenuAssets.getInstance().getSprite(4);
 
   for (int i = 0; i < characters.length; i++) {
-   mainScreen.add(Box.createRigidArea(new Dimension(20, 20)));
+    BufferedImage character = new BufferedImage(characters[i].getWidth(), characters[i].getHeight(), characters[i].getType());
+    Graphics g = character.getGraphics();
+    g.drawImage(characters[i], 0, 0, null);
+    if (selectedCharacter.equals(charactersCommands[i])) {
+      g.drawImage(selectedButtonImage, 0, 0, null);
+    } else {
+      g.drawImage(regularButtonImage, 0, 0, null);
+    }
+    g.dispose();
 
-   String title = names[i];
-   if (selectedCharacter.equals(buttonCommands[i])) {
-    title = names[i] + " selected";
-   }
+    shopScreen.add(Box.createRigidArea(new Dimension(20, 20)));
 
-   HoverButton characterButton = new HoverButton(title);
+    HoverButton characterButton = createHoverButton("", charactersCommands[i], characterFont, character, hoverButtonImage);
 
-   if (selectedCharacter.equals(buttonCommands[i])) {
-    selectedCharacterButton = characterButton;
-   }
+    if (selectedCharacter.equals(charactersCommands[i])) {
+      selectedCharacterButton = characterButton;
+    }
 
-   characterButton.addActionListener(this);
-   characterButton.setActionCommand(buttonCommands[i]);
-   characterButton.setFont(characterFont);
-   characterButton.setImage(characters[i]);
-   characterButton.setHoverImage(characters[i]);
-   characterButton.setPressedImage(characters[i]);
-   characterButton.setShouldCenter(true);
-   characterButton.setPreferredSize(new Dimension(windowSize.width / 6, characters[i].getHeight()));
+    characterButton.setShouldCenter(true);
+    characterButton.setPreferredSize(new Dimension(character.getWidth(), character.getHeight()));
 
-   shopScreen.add(characterButton);
+    shopScreen.add(characterButton);
   }
  }
 
@@ -109,7 +114,7 @@ public class MainMenu extends Menu implements ChangeListener {
 
   addHeader(settingsScreen, "Settings", "mainFromSet", windowSize);
 
-  addSubHeader(settingsScreen, "Volume", windowSize);
+  addSubHeader(settingsScreen, "Volume:", windowSize);
 
   settingsScreen.add(Box.createRigidArea(new Dimension(40, 20)));
 
@@ -131,8 +136,10 @@ public class MainMenu extends Menu implements ChangeListener {
 
   panel.add(Box.createRigidArea(new Dimension(20, 20)));
 
-  HoverButton backButton = createHoverButton("", backButtonCommand, backFont, "./resources/menus/backButton.png", "./resources/menus/hoverBackButton.png");
-  backButton.setPreferredSize(new Dimension(64, 64));
+  BufferedImage image = MainMenuAssets.getInstance().getSprite(0);
+  BufferedImage hoverImage = MainMenuAssets.getInstance().getSprite(1);
+  HoverButton backButton = createHoverButton("", backButtonCommand, backFont, image, hoverImage);
+  backButton.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
   panel.add(backButton);
 
   JLabel title = createLabel(displayTitle, titleFont);
@@ -179,13 +186,27 @@ public class MainMenu extends Menu implements ChangeListener {
    changeScreen(shopScreen, mainScreen);
   } else if (event.getActionCommand().equals("mainFromSet")) {
    changeScreen(settingsScreen, mainScreen);
-  } else if (event.getActionCommand().contains("select")) {
+  } else {
    if (selectedCharacter != event.getActionCommand()) {
-    selectedCharacterButton.setText(selectedCharacterButton.getText().replace(" selected", ""));
+    int i = Integer.parseInt(selectedCharacter);
+    BufferedImage normalCharacter = new BufferedImage(characters[i].getWidth(), characters[i].getHeight(), characters[i].getType());
+    Graphics g = normalCharacter.getGraphics();
+    g.drawImage(characters[i], 0, 0, null);
+    g.drawImage(MainMenuAssets.getInstance().getSprite(2), 0, 0, null);
+    g.dispose();
+
+    i = Integer.parseInt(event.getActionCommand());
+    BufferedImage selectCharacter = new BufferedImage(characters[i].getWidth(), characters[i].getHeight(), characters[i].getType());
+    Graphics g2 = selectCharacter.getGraphics();
+    g2.drawImage(characters[i], 0, 0, null);
+    g2.drawImage(MainMenuAssets.getInstance().getSprite(4), 0, 0, null);
+    g2.dispose();
+
+    selectedCharacterButton.setImage(normalCharacter);
     selectedCharacterButton.repaint();
     selectedCharacter = event.getActionCommand();
     selectedCharacterButton = (HoverButton)event.getSource();
-    selectedCharacterButton.setText(selectedCharacterButton.getText() + " selected");
+    selectedCharacterButton.setImage(selectCharacter);
     selectedCharacterButton.repaint();
    }
   }

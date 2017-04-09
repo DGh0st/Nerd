@@ -7,6 +7,7 @@
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 
 public class PauseMenu extends Menu implements KeyListener {
 	private JPanel pauseScreen;
@@ -35,23 +36,23 @@ public class PauseMenu extends Menu implements KeyListener {
 
 		String buttonTitles[] = {"Resume", "Restart", "Main Menu"};
 		String buttonCommands[] = {"resumeGame", "restartGame", "mainMenu"};
-		String regularButtonPath = "./resources/menus/pauseButton.png";
-		String pauseDestructivePath = "./resources/menus/pauseDestructiveButton.png";
-		String hoverButtonPath = "./resources/menus/hoverPauseButton.png";
-		String hoverDestructivePath = "./resources/menus/pauseHoverDestructiveButton.png";
+		BufferedImage regularButtonImage = AllMenuAssets.getInstance().getSprite(1);
+		BufferedImage destructiveButtonImage = AllMenuAssets.getInstance().getSprite(2);
+		BufferedImage hoverButtonImage = AllMenuAssets.getInstance().getSprite(0);
+		BufferedImage destructiveHoverButtonImage = AllMenuAssets.getInstance().getSprite(3);
 
 		for (int i = 0; i < buttonTitles.length; i++) {
 			pauseScreen.add(Box.createRigidArea(new Dimension(windowSize.width, 20)));
 
-			String path = regularButtonPath;
-			String hoverPath = hoverButtonPath;
-			if (buttonTitles[i].equals("Main Menu")) {
-				path = pauseDestructivePath;
-				hoverPath = hoverDestructivePath;
+			BufferedImage image = regularButtonImage;
+			BufferedImage hoverImage = hoverButtonImage;
+			if (i == buttonTitles.length - 1) {
+				image = destructiveButtonImage;
+				hoverImage = destructiveHoverButtonImage;
 			}
 
-			HoverButton hb = createHoverButton(buttonTitles[i], buttonCommands[i], buttonFont, path, hoverPath);
-			hb.setPreferredSize(new Dimension(windowSize.width / 2, hb.getPreferredSize().height));
+			HoverButton hb = createHoverButton(buttonTitles[i], buttonCommands[i], buttonFont, image, hoverImage);
+   			hb.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
 			hb.setHorizontalAlignment(SwingConstants.CENTER);
 			pauseScreen.add(hb);
 		}

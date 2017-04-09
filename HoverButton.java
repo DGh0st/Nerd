@@ -61,26 +61,28 @@ public class HoverButton extends JButton {
 	@Override
 	public void paintComponent(Graphics g) {
 		int width = this.getWidth();
+		int height = this.getHeight();
 		if (getModel().isPressed()) {
 			if (shouldCenter) {
-				g.drawImage(regularImage, width / 2 - regularImage.getWidth() / 2, 0, null);
-				g.drawImage(pressedImage, width / 2 - pressedImage.getWidth() / 2, 0, null);
+				g.drawImage(regularImage, width / 2 - regularImage.getWidth() / 2, height / 2 - regularImage.getHeight() / 2, null);
+				g.drawImage(pressedImage, width / 2 - pressedImage.getWidth() / 2, height / 2 - pressedImage.getHeight() / 2, null);
 			} else {
-				g.drawImage(regularImage, 0, 0, null);
-				g.drawImage(pressedImage, 0, 0, null);
+				g.drawImage(regularImage, 0, height / 2 - regularImage.getHeight() / 2, null);
+				g.drawImage(pressedImage, 0, height / 2 - pressedImage.getHeight() / 2, null);
 			}
 		} else if (getModel().isRollover()) {
 			if (shouldCenter) {
-				g.drawImage(hoverImage, width / 2 - hoverImage.getWidth() / 2, 0, null);
+				g.drawImage(regularImage, width / 2 - regularImage.getWidth() / 2, height / 2 - regularImage.getHeight() / 2, null);
+				g.drawImage(hoverImage, width / 2 - hoverImage.getWidth() / 2, height / 2 - hoverImage.getHeight() / 2, null);
 			} else {
-				g.drawImage(regularImage, 0, 0, null);
-				g.drawImage(hoverImage, 0, 0, null);
+				g.drawImage(regularImage, 0, height / 2 - regularImage.getHeight() / 2, null);
+				g.drawImage(hoverImage, 0, height / 2 - hoverImage.getHeight() / 2, null);
 			}
 		} else {
 			if (shouldCenter) {
-				g.drawImage(regularImage, width / 2 - regularImage.getWidth() / 2, 0, null);
+				g.drawImage(regularImage, width / 2 - regularImage.getWidth() / 2, height / 2 - regularImage.getHeight() / 2, null);
 			} else {
-				g.drawImage(regularImage, 0, 0, null);
+				g.drawImage(regularImage, 0, height / 2 - regularImage.getHeight() / 2, null);
 			}
 		}
 		super.paintComponent(g);
