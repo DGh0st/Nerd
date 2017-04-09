@@ -49,18 +49,34 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
  @Override
  public void keyPressed(KeyEvent event) {
   int keyCode = event.getKeyCode();
-  if (lastKeyCode == keyCode && System.currentTimeMillis() - lastCharacterMillis <= 150) {
-    return;
-  }
-  lastCharacterMillis = System.currentTimeMillis();
-  lastKeyCode = keyCode;
+  long elapsedTime = System.currentTimeMillis() - lastCharacterMillis;
   if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
+    if ((lastKeyCode == KeyEvent.VK_UP || lastKeyCode == KeyEvent.VK_W) && elapsedTime <= 150) {
+      return;
+    }
+    lastCharacterMillis = System.currentTimeMillis();
+    lastKeyCode = keyCode;
     player.moveUp();
   } else if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
+    if ((lastKeyCode == KeyEvent.VK_DOWN || lastKeyCode == KeyEvent.VK_S) && elapsedTime <= 150) {
+      return;
+    }
+    lastCharacterMillis = System.currentTimeMillis();
+    lastKeyCode = keyCode;
     player.moveDown();
   } else if (keyCode ==KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
+    if ((lastKeyCode == KeyEvent.VK_LEFT || lastKeyCode == KeyEvent.VK_A) && elapsedTime <= 150) {
+      return;
+    }
+    lastCharacterMillis = System.currentTimeMillis();
+    lastKeyCode = keyCode;
     player.moveLeft();
   } else if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
+    if ((lastKeyCode == KeyEvent.VK_RIGHT || lastKeyCode == KeyEvent.VK_D) && elapsedTime <= 150) {
+      return;
+    }
+    lastCharacterMillis = System.currentTimeMillis();
+    lastKeyCode = keyCode;
     player.moveRight();
   }
  }
