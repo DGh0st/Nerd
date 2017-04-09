@@ -16,6 +16,8 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
  private CollisionEvent collisionChecker;
  private Character player;
  private Class selectedCharacterClass = Weaboo.class;
+ private long lastCharacterMillis;
+ private int lastKeyCode;
 
  private GameState() {
   super();
@@ -46,16 +48,13 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
 
  @Override
  public void keyPressed(KeyEvent event) {
-  // Nothing additional to do as of yet...
- }
-
- @Override
- public void keyReleased(KeyEvent event) {
   int keyCode = event.getKeyCode();
-  if (keyCode == KeyEvent.VK_ESCAPE) {
-    DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.PAUSEMENU);
-    removeCurrentCanvasIfNeeded();
-  } else if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
+  if (lastKeyCode == keyCode && System.currentTimeMillis() - lastCharacterMillis <= 150) {
+    return;
+  }
+  lastCharacterMillis = System.currentTimeMillis();
+  lastKeyCode = keyCode;
+  if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
     player.moveUp();
   } else if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
     player.moveDown();
@@ -63,6 +62,14 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
     player.moveLeft();
   } else if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
     player.moveRight();
+  }
+ }
+
+ @Override
+ public void keyReleased(KeyEvent event) {
+  if (event.getKeyCode() == KeyEvent.VK_ESCAPE) {
+    DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.PAUSEMENU);
+    removeCurrentCanvasIfNeeded();
   }
  }
 
@@ -88,6 +95,8 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
     player = new Weaboo(locations.getCurrentSpawnX(), locations.getCurrentSpawnY());
   } // TODO: Add more character classes
   collisionChecker.addListener(player);
+  lastCharacterMillis = System.currentTimeMillis();
+  lastKeyCode = KeyEvent.VK_ESCAPE;
  }
 
  public void setSelectedCharacterClass(Class newCharacterClass) {
