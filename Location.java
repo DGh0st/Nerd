@@ -1,18 +1,14 @@
 /*
  *  ~Location.java
  * Raymond Hruby II
- * 04/02/2017
+ * 04/09/2017
  * Location - holds tileCodes and dimension of location
- * 
- * TODO: Checkbounds back to location height and width, 
  */
 import java.util.ArrayList;
 import java.awt.Graphics;
 import java.util.concurrent.ThreadLocalRandom;
 import java.awt.image.BufferedImage;
 
-//TODO: - implement string parser to get dimensions from location.txt file 
-  
 //Location class to store data for locations
 public abstract class Location implements Drawable
 {
@@ -23,7 +19,7 @@ public abstract class Location implements Drawable
   private int[][] tileCodes;       //holds the tile codes from the location.txt
   private ArrayList<MovableObstacle> movableObstacles;
   private ArrayList<StaticObstacle> staticObstacles;
-  private BufferedImage locationBackgroundImage = null;
+  private BufferedImage locationBackgroundImage = null; //drawing buffer 
   private Position playerPosition;
   
   public Location(int locationId){
@@ -33,7 +29,7 @@ public abstract class Location implements Drawable
 
     initializeLocation(path);
   }
-  
+
   public void update() {
     int imageWidth = getWidth() * Tile.TILE_WIDTH;
     int imageHeight = getHeight() * Tile.TILE_HEIGHT;
@@ -41,7 +37,6 @@ public abstract class Location implements Drawable
     Graphics g2 = locationBackgroundImage.getGraphics();
     for(int y=0; y<getHeight(); y++){
       for(int x=0; x<getWidth(); x++){
-        //FROM TILES
         redrawTileAtPos(new Position(x, y), g2);
       }
     }
@@ -88,17 +83,16 @@ public abstract class Location implements Drawable
     } else {
       y = playerY - 10;
     }
-    g.drawImage(locationBackgroundImage, 0, -(y * Tile.TILE_HEIGHT), null);
+    g.drawImage( locationBackgroundImage, 0, -(y * Tile.TILE_HEIGHT), null );
   }
   
-  //getters and setters below:
+  //GETTERS AND SETTERS
   public String getPath(){
     return this.path;
   }
   public int getId(){
     return this.id;
-  }
-  
+  }  
   public int getWidth(){
     return this.dimensions.getWidth();
   } 
@@ -153,6 +147,7 @@ public abstract class Location implements Drawable
     return staticObstacles;
   }
   
+  //BOUNDS CHECKING
   public boolean canMoveToPosition(int xPos, int yPos){       
     boolean checkBounds = checkBounds(xPos, yPos);
     //boolean checkMovables = checkMovables(xPos, yPos);
@@ -192,6 +187,8 @@ public abstract class Location implements Drawable
     MovableObstacle[] car;
     tree = new StaticObstacle[statics];
     car = new MovableObstacle[movables];
+    
+    //FILE PARSING
     //System.out.println("Location | FILE: "+file+"\n");
     String[] tokens = file.split("\\s+");//split on space or newline
     
@@ -209,7 +206,7 @@ public abstract class Location implements Drawable
     
     for(int i = 0; i<statics; i++){
       int randX = ThreadLocalRandom.current().nextInt(0, 22);
-      int randY = ThreadLocalRandom.current().nextInt(0, 12);
+      int randY = ThreadLocalRandom.current().nextInt(0, 20);
       if(randY <4){randY = ThreadLocalRandom.current().nextInt(0, 2);}
       else{randY = ThreadLocalRandom.current().nextInt(9, 11);}
       if(randX == 10 && randY == 10){randX = ThreadLocalRandom.current().nextInt(0, 22);}
@@ -218,7 +215,7 @@ public abstract class Location implements Drawable
     }
     
     for(int i = 0; i<movables; i++){
-      car[i] = new Car((ThreadLocalRandom.current().nextInt(22, 32)),(ThreadLocalRandom.current().nextInt(3, 8)));
+      car[i] = new Car((ThreadLocalRandom.current().nextInt(22, 32)),(ThreadLocalRandom.current().nextInt(5, 9)));
       car[i].setSpeed(ObjectQuantities.getSpeed(id));
       addMovable(car[i]);
     }
