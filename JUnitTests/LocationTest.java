@@ -1,8 +1,7 @@
 /*
- *  ~ NerdTester.java
+ *  ~ LocationTest.java
  * Raymond Hruby II
- * 03/30/2017
- * Description: tester to collectively and extensively test each class 
+ * 04/09/2017
  */
 
 import static org.junit.Assert.*;
@@ -15,15 +14,15 @@ public class LocationTest extends TestCase{
   @Ignore
   @Test
   public void testLocationGetters(){
-    OzLocation test = new OzLocation(0);
+    LocationArray test = LocationArray.getInstance();
     
-    assertEquals(test.getWidth(),22);
-    assertEquals(test.getHeight(),14);
+    assertEquals(test.getCurrentLocation().getWidth(),22);
+    assertEquals(test.getCurrentLocation().getHeight(),14);
     
-    assertEquals(test.getSpawnX(),10);
-    assertEquals(test.getSpawnY(),13);
+    assertEquals(test.getCurrentLocation().getSpawnX(),10);
+    assertEquals(test.getCurrentLocation().getSpawnY(),13);
     
-    assertEquals(test.getId(),0);  
+    assertEquals(test.getCurrentLocation().getId(),0);  
   }
   
   //LOCATION ARRAY
@@ -52,7 +51,7 @@ public class LocationTest extends TestCase{
   @Ignore
   @Test
   public void testLocationWithObstacles(){
-    LocationArray locations = new LocationArray(7); 
+    LocationArray locations = LocationArray.getInstance(); 
     
     Car test = new Car(0, 0);  
     locations.getCurrentLocation().addMovable(test);
