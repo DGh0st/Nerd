@@ -1,15 +1,16 @@
 /**
  * ~ Assets.java
  * Raymond Hruby II
- * 04/09/2017
- * Assets class holds sprite images, currently only worldTile data
+ * 04/10/2017
+ * Assets class holds sprite images
  */
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Assets
 {
-  private static final int WIDTH=64, HEIGHT=64, ROWS=7,COLS=5;
+  private static int WIDTH=64, HEIGHT=64, 
+    ROWS,COLS;
   
   private static Assets instance = null;
   
@@ -27,6 +28,8 @@ public class Assets
     System.out.println("inpath" + this.path);
     this.path = AssetsLoader.getAssetsPath(locationId);
     System.out.println("inpath" + this.path);
+    
+    updateRowsAndCols(locationId);
     initialize();
   }
   public void initialize(){
@@ -57,8 +60,21 @@ public class Assets
     this.path = AssetsLoader.getAssetsPath(newLocationId);
     System.out.println("inpath" + this.path);
     
+    updateRowsAndCols(newLocationId);
     initialize();
   }
+  public void updateRowsAndCols(int id){
+    switch (id){
+      case 0:  ROWS = 7; COLS = 5;
+      break;
+      case 1:  ROWS = 5; COLS = 5;
+      break;
+      default: ROWS = 5; COLS = 5;
+      break;
+    }
+  }
+  
+  //GETTERS
   public BufferedImage getSprite(int index){
     return sprites.get(index);
   }
