@@ -1,8 +1,10 @@
 /*
  *  ~Location.java
  * Raymond Hruby II
- * 04/09/2017
+ * 04/10/2017
  * Location - holds tileCodes and dimension of location
+ * 
+ * TODO: Getting ranges from methods
  */
 import java.util.ArrayList;
 import java.awt.Graphics;
@@ -22,6 +24,11 @@ public abstract class Location implements Drawable
   private BufferedImage locationBackgroundImage = null; //drawing buffer 
   private Position playerPosition;
   
+  private int totalStaticRanges;
+  private int totalMovableRanges;
+  private ArrayList<Integer> staticRanges;
+  private ArrayList<Integer>movableRanges;
+  
   public Location(int locationId){
     ///grabbing width and height from location.txt files in createLocation()
     this.id = locationId; 
@@ -37,7 +44,7 @@ public abstract class Location implements Drawable
     Graphics g2 = locationBackgroundImage.getGraphics();
     for(int y=0; y<getHeight(); y++){
       for(int x=0; x<getWidth(); x++){
-        redrawTileAtPos(new Position(x, y), g2);
+        redrawTileAtPos( new Position(x,y), g2 );
       }
     }
 
@@ -78,9 +85,9 @@ public abstract class Location implements Drawable
     int y = 0;
     if (playerY <= 10) {
       y = 0;
-    } else if (playerY >= getHeight() - 2) {
+    }else if (playerY >= getHeight() - 2) {
       y = getHeight() - 12;
-    } else {
+    }else {
       y = playerY - 10;
     }
     g.drawImage( locationBackgroundImage, 0, -(y * Tile.TILE_HEIGHT), null );
@@ -108,6 +115,18 @@ public abstract class Location implements Drawable
   public Position getSpawn() {
     return spawn;
   }
+  public int getTotalStaticRanges(){
+    return totalStaticRanges;
+  }
+  public int getTotalMovableRanges(){
+    return totalMovableRanges;
+  }
+  public ArrayList<Integer> getStaticRanges(){
+    return staticRanges;
+  }
+  public ArrayList<Integer> getMovableRanges(){
+    return movableRanges;
+  }
   
   //TILES
   public Tile getTile(int x, int y){
@@ -115,8 +134,8 @@ public abstract class Location implements Drawable
     if(x<0 || y<0 || x>=dimensions.getWidth() || y>=dimensions.getHeight()){
       return Tile.grass01Tile;
     }
-    
-    Tile t = Tile.tiles[ tileCodes[x][y] ];
+    int tileCode = tileCodes[x][y];
+    Tile t = Tile.tiles[ tileCode ];
     if(t==null){  //default to grassTile if error occured
       return Tile.grass01Tile;
     }
@@ -176,6 +195,7 @@ public abstract class Location implements Drawable
   }
 
   public void initializeLocation(String path){
+    System.out.println("initializeLocation()...");
     this.movableObstacles = new ArrayList<MovableObstacle>();
     this.staticObstacles = new ArrayList<StaticObstacle>();
     
@@ -188,6 +208,8 @@ public abstract class Location implements Drawable
     tree = new StaticObstacle[statics];
     car = new MovableObstacle[movables];
     
+    int index = 0;
+    
     //FILE PARSING
     //System.out.println("Location | FILE: "+file+"\n");
     String[] tokens = file.split("\\s+");//split on space or newline
@@ -195,13 +217,32 @@ public abstract class Location implements Drawable
     int width = Utilities.parseInt(tokens[0]);   
     int height = Utilities.parseInt(tokens[1]);
     dimensions = new LocationDimension(width,height);
+    tileCodes = new int[width][height];
+    System.out.println("width: " + width);
+    System.out.println("height: " + height);
     
     int spawnX = Utilities.parseInt(tokens[2]);
     int spawnY = Utilities.parseInt(tokens[3]);
     spawn = new Position(spawnX, spawnY);
     
-    tileCodes = new int[width][height];
+    staticRanges = new ArrayList<Integer>();
+    movableRanges = new ArrayList<Integer>();
     
+    totalStaticRanges = Utilities.parseInt(tokens[4]);
+    totalMovableRanges = Utilities.parseInt(tokens[5]);
+    System.out.println("totalStaticRanges: " + totalStaticRanges);
+    System.out.println("totalMovableRanges: " + totalMovableRanges);
+    
+    for(int i = 0; i<totalStaticRanges*2; i++){  //start 6 | end 11
+      staticRanges.add( Utilities.parseInt(tokens[6+i]) ); 
+    }
+    index = 6 + (totalStaticRanges*2); //12
+   
+    for(int i = 0; i<totalMovableRanges*2; i++){ //start 12 | end 15
+      movableRanges.add( Utilities.parseInt(tokens[index+i]) );
+    }   
+    index = index + totalMovableRanges*2; //16
+    System.out.println("index: " + index);
     //System.out.println(statics);
     
     for(int i = 0; i<statics; i++){
@@ -219,11 +260,13 @@ public abstract class Location implements Drawable
       car[i].setSpeed(ObjectQuantities.getSpeed(id));
       addMovable(car[i]);
     }
-
+    
+    int tile;
     for(int y=0; y<height; y++){
       for(int x=0; x<width; x++){
-        //add 4 becuase of previous set values (four values)
-        tileCodes[x][y] = Utilities.parseInt( tokens[(x+y*width)+4] );
+        //add index because of previous set values 
+        tile = Utilities.parseInt( tokens[(x+y*width) + index] );                           
+        tileCodes[x][y] = tile;
       }
     }
   }
