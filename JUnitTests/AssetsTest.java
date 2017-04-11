@@ -27,11 +27,7 @@ public class AssetsTest extends TestCase{
   @Ignore
   @Test
   public void testAssetsStaticSprites(){
-    LocationArray locations = LocationArray.getInstance();
-    
-    Assets assets = Assets.getInstance(); //needs LocationArray instance to grab location index
-    BufferedImage test = assets.player01;
-    assertEquals(test,assets.player01);
+
   }
   
   @Ignore
@@ -39,7 +35,7 @@ public class AssetsTest extends TestCase{
   public void testAssetsGetSprite(){
     LocationArray locations = LocationArray.getInstance();
     
-    Assets assets = new Assets(1);
+    Assets assets =Assets.getInstance();
     assertEquals(assets.getSprite(0),assets.getSprite(0));
   }
 };                 
