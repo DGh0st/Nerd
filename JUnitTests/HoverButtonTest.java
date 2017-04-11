@@ -25,7 +25,7 @@ public class HoverButtonTest {
 
 	@Test
 	public void twoParamsShouldHaveSameNonNullImage() {
-		HoverButton tester = new HoverButton("hi", "./resources/menus/backButton.png");
+		HoverButton tester = new HoverButton("hi", MainMenuAssets.getInstance().getSprite(0));
 
 		assertNotEquals(tester.getImage(), null);
 		assertEquals(tester.getImage(), tester.getHoverImage());
@@ -34,7 +34,7 @@ public class HoverButtonTest {
 
 	@Test
 	public void threeParamsShouldHaveSameHoverAndPressedImage() {
-		HoverButton tester = new HoverButton("hi", "./resources/menus/backButton.png", "./resources/menus/pauseButton.png");
+		HoverButton tester = new HoverButton("hi", MainMenuAssets.getInstance().getSprite(0), AllMenuAssets.getInstance().getSprite(1));
 
 		assertNotEquals(tester.getImage(), null);
 		assertNotEquals(tester.getImage(), tester.getHoverImage());
@@ -47,15 +47,15 @@ public class HoverButtonTest {
 		HoverButton tester = new HoverButton();
 
 		assertEquals(tester.getImage(), null);
-		tester.setImage(ImageLoader.loadImage("./resources/menus/backButton.png"));
+		tester.setImage(AllMenuAssets.getInstance().getSprite(0));
 		assertNotEquals(tester.getImage(), null);
 
 		assertEquals(tester.getHoverImage(), null);
-		tester.setHoverImage(ImageLoader.loadImage("./resources/menus/backButton.png"));
+		tester.setHoverImage(AllMenuAssets.getInstance().getSprite(1));
 		assertNotEquals(tester.getHoverImage(), null);
 
 		assertEquals(tester.getPressedImage(), null);
-		tester.setPressedImage(ImageLoader.loadImage("./resources/menus/backButton.png"));
+		tester.setPressedImage(AllMenuAssets.getInstance().getSprite(0));
 		assertNotEquals(tester.getPressedImage(), null);
 	}
 }

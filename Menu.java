@@ -46,13 +46,10 @@ public abstract class Menu extends JPanel implements ActionListener {
 	}
 
 	protected HoverButton createHoverButton(String title, String actionCommand, Font font, BufferedImage regularButtonImage, BufferedImage hoverButtonImage) {
-		HoverButton hb = new HoverButton(title);
+		HoverButton hb = new HoverButton(title, regularButtonImage, hoverButtonImage);
 		hb.addActionListener(this);
 		hb.setActionCommand(actionCommand);
 		hb.setFont(font);
-		hb.setImage(regularButtonImage);
-		hb.setHoverImage(hoverButtonImage);
-		hb.setPressedImage(hoverButtonImage);
 		return hb;
 	}
 

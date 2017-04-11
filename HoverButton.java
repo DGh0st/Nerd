@@ -31,20 +31,20 @@ public class HoverButton extends JButton {
 		shouldCenter = true;
 	}
 
-	public HoverButton(String title, String path) {
+	public HoverButton(String title, BufferedImage image) {
 		super(title);
 		setupButtonAttributes();
-		regularImage =  ImageLoader.loadImage(path);
+		regularImage =  image;
 		hoverImage = regularImage;
 		pressedImage = regularImage;
 		shouldCenter = true;
 	}
 
-	public HoverButton(String title, String regularImagePath, String hoverImagePath) {
+	public HoverButton(String title, BufferedImage image, BufferedImage hImage) {
 		super(title);
 		setupButtonAttributes();
-		regularImage = ImageLoader.loadImage(regularImagePath);
-		hoverImage =  ImageLoader.loadImage(hoverImagePath);
+		regularImage = image;
+		hoverImage =  hImage;
 		pressedImage = hoverImage;
 		shouldCenter = true;
 	}
