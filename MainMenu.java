@@ -131,18 +131,20 @@ public class MainMenu extends Menu implements ChangeListener {
  }
 
  private void setupHelpScreen(Dimension windowSize) {
-  Font constructionFont = new Font(Font.SERIF, Font.PLAIN, 32);
-
   helpScreen = createScreen(windowSize, new FlowLayout(FlowLayout.LEFT));
 
   addHeader(helpScreen, "Help", "mainFromHelp", windowSize);
 
-  // TODO: Add help information and remove under construction
+  addSubHeader(helpScreen, "Keys:", windowSize);
 
-  JLabel title = createLabel("Under Construction", constructionFont);
-  helpScreen.add(Box.createRigidArea(new Dimension(windowSize.width / 2 - (int)(title.getPreferredSize().getWidth() / 2), 20)));
-  helpScreen.add(title);
-  helpScreen.add(Box.createRigidArea(new Dimension(windowSize.width / 2 - (int)(title.getPreferredSize().getWidth() / 2), 20)));
+  helpScreen.add(Box.createRigidArea(new Dimension(40, 20)));
+
+  KeysImagePanel ip = new KeysImagePanel(HelpMenuAssets.getInstance().getSprite(0), HelpMenuAssets.getInstance().getSprite(1), HelpMenuAssets.getInstance().getSprite(2), HelpMenuAssets.getInstance().getSprite(3), HelpMenuAssets.getInstance().getSprite(4));
+  helpScreen.add(ip);
+
+  helpScreen.add(Box.createRigidArea(new Dimension(windowSize.width, 20)));
+
+  // TODO: Add more help information
  }
 
  private void addHeader(JPanel panel, String displayTitle, String backButtonCommand, Dimension windowSize) {

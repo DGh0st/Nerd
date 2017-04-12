@@ -26,7 +26,7 @@ public class NerdGame extends JFrame {
 
   currentDisplayState.startBackgroundMusic();
 
-  Timer t = new Timer(25, new ActionListener() {
+  Timer t = new Timer(16, new ActionListener() { // ~60 fps
     public void actionPerformed(ActionEvent event) {
       currentDisplayState.updateCurrentDisplayStatus();
       currentDisplayState.drawCurrentDisplayStatus();
