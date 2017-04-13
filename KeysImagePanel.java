@@ -10,6 +10,7 @@ import javax.swing.*;
 
 public class KeysImagePanel extends JPanel {
 	private BufferedImage selectedImage;
+	private BufferedImage drawingImage;
 	private BufferedImage regular, up, left, down, right;
 	private int counter;
 	private Position playerPixelPosition;
@@ -28,6 +29,7 @@ public class KeysImagePanel extends JPanel {
 		} else if (right != null) {
 			selectedImage = right;
 		}
+		drawingImage = selectedImage;
 
 		if (selectedImage != null) {
 			this.setPreferredSize(new Dimension(selectedImage.getWidth() + 256, selectedImage.getHeight()));
@@ -50,10 +52,10 @@ public class KeysImagePanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		g.drawImage(Assets.getInstance().getSprite(0), playerPixelPosition.getX(), playerPixelPosition.getY(), this);
 		super.paintComponent(g);
-		g.drawImage(selectedImage, 0, 0, this);
+		g.drawImage(drawingImage, 0, 0, this);
 		counter++;
 
-		if (counter == 5) {
+		if (counter == 3) {
 			if (selectedImage == up) {
 				playerPixelPosition.setY(playerPixelPosition.getY() - 64);
 			} else if (selectedImage == left) {
@@ -64,7 +66,10 @@ public class KeysImagePanel extends JPanel {
 				playerPixelPosition.setX(playerPixelPosition.getX() + 64);
 			}
 			return;
-		} else if (counter < 20) {
+		} else if (counter < 10) {
+			return;
+		}else if (counter >= 10 && counter < 20) {
+			drawingImage = regular;
 			return;
 		} else {
 			counter = 0;
@@ -81,5 +86,6 @@ public class KeysImagePanel extends JPanel {
 		} else {
 			selectedImage = regular;
 		}
+		drawingImage = selectedImage;
 	}
 }
