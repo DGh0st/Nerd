@@ -52,6 +52,7 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
     lastCharacterMillis = System.currentTimeMillis();
     lastKeyCode = keyCode;
     player.moveUp();
+    HelpAssets.getInstance().updateCurrentSprite(keyCode);
   } else if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
     if ((lastKeyCode == KeyEvent.VK_DOWN || lastKeyCode == KeyEvent.VK_S) && elapsedTime <= 150) {
       return;
@@ -59,6 +60,7 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
     lastCharacterMillis = System.currentTimeMillis();
     lastKeyCode = keyCode;
     player.moveDown();
+    HelpAssets.getInstance().updateCurrentSprite(keyCode);
   } else if (keyCode ==KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
     if ((lastKeyCode == KeyEvent.VK_LEFT || lastKeyCode == KeyEvent.VK_A) && elapsedTime <= 150) {
       return;
@@ -66,6 +68,7 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
     lastCharacterMillis = System.currentTimeMillis();
     lastKeyCode = keyCode;
     player.moveLeft();
+    HelpAssets.getInstance().updateCurrentSprite(keyCode);
   } else if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
     if ((lastKeyCode == KeyEvent.VK_RIGHT || lastKeyCode == KeyEvent.VK_D) && elapsedTime <= 150) {
       return;
@@ -73,14 +76,24 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
     lastCharacterMillis = System.currentTimeMillis();
     lastKeyCode = keyCode;
     player.moveRight();
+    HelpAssets.getInstance().updateCurrentSprite(keyCode);
   }
  }
 
  @Override
  public void keyReleased(KeyEvent event) {
-  if (event.getKeyCode() == KeyEvent.VK_ESCAPE) {
+  int keyCode = event.getKeyCode();
+  if (keyCode == KeyEvent.VK_ESCAPE) {
     DisplayState.getInstance().setCurrentDisplayStatus(DisplayStatus.PAUSEMENU);
     removeCurrentCanvasIfNeeded();
+  } else if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
+    HelpAssets.getInstance().updateCurrentSprite(KeyEvent.VK_ESCAPE); // any keycode other than the ones used for movement
+  } else if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
+    HelpAssets.getInstance().updateCurrentSprite(KeyEvent.VK_ESCAPE); // any keycode other than the ones used for movement
+  } else if (keyCode ==KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
+    HelpAssets.getInstance().updateCurrentSprite(KeyEvent.VK_ESCAPE); // any keycode other than the ones used for movement
+  } else if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
+    HelpAssets.getInstance().updateCurrentSprite(KeyEvent.VK_ESCAPE); // any keycode other than the ones used for movement
   }
  }
 

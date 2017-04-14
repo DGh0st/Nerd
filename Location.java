@@ -21,13 +21,13 @@ public abstract class Location implements Drawable
   private int[][] tileCodes;       //holds the tile codes from the location.txt
   private ArrayList<MovableObstacle> movableObstacles;
   private ArrayList<StaticObstacle> staticObstacles;
-  private BufferedImage locationBackgroundImage = null; //drawing buffer 
-  private Position playerPosition;
+  protected BufferedImage locationBackgroundImage = null; //drawing buffer 
+  protected Position playerPosition;
   
   private int totalStaticRanges;
   private int totalMovableRanges;
-  private ArrayList<Integer> staticRanges;
-  private ArrayList<Integer>movableRanges;
+  protected ArrayList<Integer> staticRanges;
+  protected ArrayList<Integer>movableRanges;
   
   public Location(int locationId){
     ///grabbing width and height from location.txt files in createLocation()

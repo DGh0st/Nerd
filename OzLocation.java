@@ -4,9 +4,10 @@
  * 04/09/2017
  * Test location for use in Oz demonstration
  */
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.image.*;
 
 public class OzLocation extends Location{
   int movableTotalRanges = 2; //two ranges(roads) for statics
@@ -52,6 +53,44 @@ public class OzLocation extends Location{
     movableRanges.add(16);
     movableRanges.add(18);  
     */
+  }
+
+  public void drawPlayer(Character player) {
+    super.drawPlayer(player);
+
+    int gridY = 19;
+    int gridY2 = 15;
+    int gridY3 = 11;
+
+    Graphics g = locationBackgroundImage.getGraphics();
+    g.setColor(Color.white);
+    g.setFont(new Font(Font.SERIF, Font.PLAIN, 48));
+    
+    int playerY = playerPosition.getY();
+    int playerX = playerPosition.getX();
+
+    if (playerY > gridY) {
+      g.drawString("Avoid being hit by cars.", NerdGame.windowSize.width * 7 / 20, gridY * Tile.TILE_HEIGHT - Tile.TILE_HEIGHT / 5);
+    } else if (playerY < gridY2 && playerY > gridY3) {
+      g.drawString("You can't climb trees.", NerdGame.windowSize.width * 7 / 20, gridY3 * Tile.TILE_HEIGHT - Tile.TILE_HEIGHT / 5);
+    }
+
+    int y = 0;
+    if (playerY <= 10) {
+      y = 10;
+    }else if (playerY >= getHeight() - 2) {
+      y = getHeight() - 2;
+    }else {
+      y = playerY;
+    }
+
+    BufferedImage keysImage = HelpAssets.getInstance().getCurrentSprite();
+    int x = NerdGame.windowSize.width - keysImage.getWidth() - 64;
+    if (playerX * Tile.TILE_WIDTH > NerdGame.windowSize.width / 2) {
+      x = 64;
+    }
+
+    g.drawImage(keysImage, x, y * Tile.TILE_HEIGHT - keysImage.getHeight() / 2, null);
   }
   
   public int getMovableTotalRanges(){

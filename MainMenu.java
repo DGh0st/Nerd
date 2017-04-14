@@ -60,8 +60,8 @@ public class MainMenu extends Menu implements ChangeListener {
   mainScreen.add(Box.createRigidArea(new Dimension(windowSize.width - title.getPreferredSize().width * 5 / 4, 0)));
   mainScreen.add(title);
 
-  String buttonTitles[] = {"Start", "Shop", "Settings", "Help", "Exit"};
-  String buttonCommands[] = {"startGame", "shopMenu", "settingsMenu", "helpMenu", "closeGame"};
+  String buttonTitles[] = {"Start", "Shop", "Settings", "Exit"};
+  String buttonCommands[] = {"startGame", "shopMenu", "settingsMenu", "closeGame"};
   BufferedImage regularButtonImage = MainMenuAssets.getInstance().getSprite(7);
   BufferedImage destructiveButtonImage = MainMenuAssets.getInstance().getSprite(8);
   BufferedImage hoverButtonImage = MainMenuAssets.getInstance().getSprite(6);

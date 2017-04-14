@@ -24,7 +24,7 @@ public class Tile
   public static Tile road01Tile = new Tile(Assets.getInstance().getSprite(15),15);
   public static Tile road02Tile = new Tile(Assets.getInstance().getSprite(16),16);
   
-  public static final int TILE_WIDTH = 60, TILE_HEIGHT = 60;
+  public static final int TILE_WIDTH = 64, TILE_HEIGHT = 64;
   /*
   public static BufferedImage getImage(int id){
     return tiles.get(id).sprite;
