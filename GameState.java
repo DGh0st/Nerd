@@ -28,15 +28,10 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
   collisionChecker = new CollisionEvent();
   collisionChecker.addListener(this);
 
-  this.setBackground(Color.black);
   this.setPreferredSize(NerdGame.windowSize);
   this.setSize(NerdGame.windowSize);
   this.setFocusable(true);
   this.addKeyListener(this);
-  this.setOpaque(true);
-
-  FlowLayout layout = (FlowLayout)getLayout();
-  layout.setVgap(0);
  }
 
  public static synchronized GameState getInstance() {

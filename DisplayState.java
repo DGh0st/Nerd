@@ -23,12 +23,9 @@ public class DisplayState extends JPanel {
 		gameCanvas = GameState.getInstance();
 		setupMenus();
 
-		this.setBackground(Color.black);
 		this.setPreferredSize(NerdGame.windowSize);
 		this.setSize(NerdGame.windowSize);
-
-		FlowLayout layout = (FlowLayout)getLayout();
-		layout.setVgap(0);
+		this.setBackground(Color.black);
 
 		backgroundMusicClip = ClipLoader.loadClip("./resources/music/backgroundMusic.wav");
 		setBackgroundMusicVolume(0.25f);
@@ -83,7 +80,7 @@ public class DisplayState extends JPanel {
 
 	public void setCurrentDisplayStatus(DisplayStatus newDisplayStatus) {
 		currentDisplayStatus = newDisplayStatus;
-		clear(Color.black);
+		clear(this.getBackground());
 	}
 
 	public void updateCurrentDisplayStatus() {

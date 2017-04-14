@@ -12,11 +12,8 @@ import java.awt.image.BufferedImage;
 public abstract class Menu extends JPanel implements ActionListener {
 
 	public Menu() {
-		this.setPreferredSize(NerdGame.windowSize);
 		this.setSize(NerdGame.windowSize);
-
-		FlowLayout layout = (FlowLayout)getLayout();
-		layout.setVgap(0);
+		this.setOpaque(false);
 	}
 
 	@Override

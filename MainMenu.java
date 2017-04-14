@@ -10,6 +10,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.image.BufferedImage;
+import java.net.*;
 
 public class MainMenu extends Menu implements ChangeListener {
   // TODO: Add more characters
@@ -23,6 +24,20 @@ public class MainMenu extends Menu implements ChangeListener {
  private JPanel helpScreen;
  private String selectedCharacter;
  private HoverButton selectedCharacterButton;
+
+ private static class ImagePanel extends JPanel {
+  private Image image;
+
+  public ImagePanel(Image image) {
+    this.image = image;
+  }
+
+  @Override
+  public void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    g.drawImage(image,0,0,getWidth(),getHeight(),this);
+  }
+ }
  
  public MainMenu() {
   super();
@@ -132,17 +147,15 @@ public class MainMenu extends Menu implements ChangeListener {
 
  private void setupHelpScreen(Dimension windowSize) {
   helpScreen = createScreen(windowSize, new FlowLayout(FlowLayout.LEFT));
+  
+  Image helpImage = Toolkit.getDefaultToolkit().getImage("./resources/menus/help.gif");
+  ImagePanel imagePanel = new ImagePanel(helpImage);
+  imagePanel.setPreferredSize(new Dimension(windowSize.width, windowSize.height));
+  imagePanel.setSize(new Dimension(windowSize.width, windowSize.height));
 
-  addHeader(helpScreen, "Help", "mainFromHelp", windowSize);
+  addHeader(imagePanel, "Help", "mainFromHelp", windowSize);
 
-  addSubHeader(helpScreen, "Keys:", windowSize);
-
-  helpScreen.add(Box.createRigidArea(new Dimension(40, 20)));
-
-  KeysImagePanel ip = new KeysImagePanel(HelpMenuAssets.getInstance().getSprite(0), HelpMenuAssets.getInstance().getSprite(1), HelpMenuAssets.getInstance().getSprite(2), HelpMenuAssets.getInstance().getSprite(3), HelpMenuAssets.getInstance().getSprite(4));
-  helpScreen.add(ip);
-
-  helpScreen.add(Box.createRigidArea(new Dimension(windowSize.width, 20)));
+  helpScreen.add(imagePanel);
 
   // TODO: Add more help information
  }

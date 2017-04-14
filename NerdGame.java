@@ -12,7 +12,7 @@ public class NerdGame extends JFrame {
  private static NerdGame instance = null;
  private static DisplayState currentDisplayState;
 
- public final static Dimension windowSize = new Dimension(Tile.TILE_WIDTH*22,Tile.TILE_HEIGHT*12 + Tile.TILE_HEIGHT / 2);
+ public final static Dimension windowSize = new Dimension(Tile.TILE_WIDTH*22,Tile.TILE_HEIGHT*12);
 
  public static void main(String[] args) {
   NerdGame gameWindow = getInstance();
@@ -20,7 +20,6 @@ public class NerdGame extends JFrame {
 
  private NerdGame() {
   currentDisplayState = DisplayState.getInstance();
-  this.add(currentDisplayState);
 
   createWindow();
 
@@ -48,6 +47,9 @@ public class NerdGame extends JFrame {
   this.setBackground(Color.black);
   this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   this.setResizable(false);
+  this.setLocationRelativeTo(null);
+  this.add(currentDisplayState);
+  this.pack();
   this.setVisible(true);
  }
 
