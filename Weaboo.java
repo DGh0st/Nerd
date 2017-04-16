@@ -12,13 +12,41 @@ import java.awt.Color;
 
 class Weaboo extends Character{
   int RECT_WIDTH = Tile.TILE_WIDTH, RECT_HEIGHT = Tile.TILE_HEIGHT;
-  BufferedImage image;
+  BufferedImage upImage, leftImage, downImage, rightImage, image;
   
   public Weaboo(int x, int y){
     super(x,y);
 
-    image = ImageLoader.loadImage("./resources/textures/Weaboo.png");
+    upImage = ImageLoader.loadImage("./resources/textures/WeabooB.png");
+    leftImage = ImageLoader.loadImage("./resources/textures/WeabooL.png");
+    downImage = ImageLoader.loadImage("./resources/textures/Weaboo.png");
+    rightImage = ImageLoader.loadImage("./resources/textures/WeabooR.png");
+    image = upImage;
    // draw();
+  }
+
+  public void moveLeft() {
+    super.moveLeft();
+
+    image = leftImage;
+  }
+
+  public void moveRight() {
+    super.moveRight();
+
+    image = rightImage;
+  }
+
+  public void moveUp() {
+    super.moveUp();
+
+    image = upImage;
+  }
+
+  public void moveDown() {
+    super.moveDown();
+
+    image = downImage;
   }
   
   public void draw(){
