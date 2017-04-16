@@ -23,7 +23,7 @@ public class LocationTest{
     assertEquals(test.getCurrentLocation().getHeight(),22);
     
     assertEquals(test.getCurrentLocation().getSpawnX(),10);
-    assertEquals(test.getCurrentLocation().getSpawnY(),13);
+    assertEquals(test.getCurrentLocation().getSpawnY(),20);
     
     assertEquals(test.getCurrentLocation().getId(),0);  
   }

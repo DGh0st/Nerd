@@ -1,5 +1,5 @@
 /*
- *  ~ NerdTester.java
+ *  ~ AssetsTest.java
  * Raymond Hruby II
  * 03/30/2017
  * Description: tester to collectively and extensively test each class 
@@ -13,7 +13,6 @@ import junit.framework.TestCase;
 import java.awt.image.BufferedImage;
 
 public class AssetsTest extends TestCase{
-  @Ignore
   @Test
   public void testAssetsAsSingleton(){
     LocationArray locations = LocationArray.getInstance();
@@ -24,13 +23,11 @@ public class AssetsTest extends TestCase{
     assertEquals(test,test2); //should be equal as returns same instance if already called
   }
     
-  @Ignore
   @Test
   public void testAssetsStaticSprites(){
 
   }
   
-  @Ignore
   @Test
   public void testAssetsGetSprite(){
     LocationArray locations = LocationArray.getInstance();

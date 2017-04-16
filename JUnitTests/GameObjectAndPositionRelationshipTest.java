@@ -8,7 +8,6 @@ public class GameObjectAndPositionRelationshipTest extends TestCase{
   GameObject object;
   int xPos = 0, yPos = 0;
   
-  @Ignore
   @Test
   public void testPositionSetToGameObjectSet(){
     
@@ -19,7 +18,6 @@ public class GameObjectAndPositionRelationshipTest extends TestCase{
     
   }
   
-  @Ignore
   @Test
   public void testGameObjectgetFromPositionGet(){
     

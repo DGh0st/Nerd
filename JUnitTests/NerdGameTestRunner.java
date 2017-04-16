@@ -13,7 +13,22 @@ import org.junit.runner.notification.Failure;
 public class NerdGameTestRunner {
 	public static void main(String[] args) {
 		// Todo: Add more test case classes
-		Result result = JUnitCore.runClasses(NerdGameTest.class, LocationTest.class, HoverButtonTest.class, GameStateTest.class, GameObjectAndPositionRelationshipTest.class, DisplayStateTest.class, CollisionEventTest.class, CharacterTest.class, AssetsTest.class);
+		Class testClasses[] = { 
+								AllMenuAssetsTest.class,
+								AssetsTest.class,
+								CharacterTest.class,
+								CollisionEventTest.class,
+								DisplayStateTest.class,
+								GameObjectAndPositionRelationshipTest.class,
+								GameStateTest.class,
+								HelpAssetsTest.class,
+								HoverButtonTest.class,
+								LocationTest.class,
+								NerdGameTest.class,
+								OzLocationTest.class
+							};
+
+		Result result = JUnitCore.runClasses(testClasses);
 		for (Failure failure : result.getFailures()) {
 			System.out.println(failure.toString());
 			System.out.println(failure.getTrace());

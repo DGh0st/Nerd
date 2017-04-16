@@ -12,7 +12,7 @@ import junit.framework.TestCase;
 import java.util.ArrayList;
 
 public class OzLocationTest extends TestCase{
-  /*
+  
   @Test
   @Ignore
   public void testOzLocationRanges(){
@@ -23,10 +23,10 @@ public class OzLocationTest extends TestCase{
     range1Test.add(3);
     
     //cannot grab getStaticRange()
-    ArrayList range = testArray.getCurrentLocation().getStaticRange(0);
+    ArrayList range = testArray.getCurrentLocation().getStaticRanges();
     
     assertEquals( range.get(0),range1Test.get(0) );
   }
-  */
+  
   
 }
