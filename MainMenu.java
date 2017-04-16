@@ -14,7 +14,7 @@ import java.net.*;
 
 public class MainMenu extends Menu implements ChangeListener {
   // TODO: Add more characters
- private static final BufferedImage characters[] = {Assets.getInstance().getSprite(0)};
+ private static final BufferedImage characters[] = {new Weaboo(1 , 1).getImage()};
  private static final String charactersCommands[] = {"0"};
  private static final Class charactersClass[] = {Weaboo.class};
 

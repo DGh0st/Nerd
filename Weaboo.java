@@ -65,4 +65,8 @@ class Weaboo extends Character{
   public void play(){
    //TODO
   }
+
+  public BufferedImage getImage() {
+    return downImage;
+  }
 }

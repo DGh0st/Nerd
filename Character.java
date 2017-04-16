@@ -7,6 +7,7 @@
  */
 import java.awt.event.*;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 public abstract class Character extends GameObject implements CollisionListener, Movable, Drawable, Sound {
 
@@ -65,6 +66,7 @@ public abstract class Character extends GameObject implements CollisionListener,
   abstract public void draw();
   abstract public void draw(Graphics g);
   abstract public void play();
+  abstract public BufferedImage getImage();
   
   public void collisionDetected(){
     //TODO
