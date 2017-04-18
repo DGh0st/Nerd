@@ -1,7 +1,7 @@
 /*
  *  ~Location.java
  * Raymond Hruby II
- * 04/10/2017
+ * 04/18/2017
  * Location - holds tileCodes and dimension of location
  * 
  * TODO: Getting ranges from methods
@@ -69,8 +69,13 @@ public abstract class Location implements Drawable
   public void redrawTileAtPos(Position pos, Graphics g) {
     int x = pos.getX();
     int y = pos.getY();
-
+    
+    int tileId = getTile(x,y).getId();
+    //System.out.println("TILE ID: "+ tileId);
+    
     getTile(x, y).draw(g, (int)(x*Tile.TILE_WIDTH), (int)(y*Tile.TILE_HEIGHT));
+    //g.drawImage(Assets.getInstance().getSprite(tileId), x, y, Tile.TILE_WIDTH, Tile.TILE_HEIGHT, null);
+    //Assets.getInstance().getSprite(tileId).draw(g, (int)(x*Tile.TILE_WIDTH), (int)(y*Tile.TILE_HEIGHT));
   }
   
   public void draw() {
@@ -196,6 +201,7 @@ public abstract class Location implements Drawable
 
   public void initializeLocation(String path){
     System.out.println("initializeLocation()...");
+    System.out.println("  path: " + path);
     this.movableObstacles = new ArrayList<MovableObstacle>();
     this.staticObstacles = new ArrayList<StaticObstacle>();
     

@@ -1,7 +1,7 @@
 /**
  * ~ Assets.java
  * Raymond Hruby II
- * 04/10/2017
+ * 04/18/2017
  * Assets class holds sprite images
  */
 import java.awt.image.BufferedImage;
@@ -67,7 +67,7 @@ public class Assets
     switch (id){
       case 0:  ROWS = 7; COLS = 5;
       break;
-      case 1:  ROWS = 5; COLS = 5;
+      case 1:  ROWS = 8; COLS = 5;
       break;
       default: ROWS = 5; COLS = 5;
       break;
@@ -80,6 +80,12 @@ public class Assets
   }
   public BufferedImage getCarSprite(int index){
     return sprites_cars.get(index);
+  }
+  public int getRows(){
+    return ROWS;
+  }
+  public int getCols(){
+    return COLS;
   }
 
 }

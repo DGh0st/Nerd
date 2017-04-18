@@ -1,5 +1,5 @@
 /**
- * Nerd 03/30/2017
+ * Nerd 04/18/2017
  * Deep Patel
  * DisplayState class that handles drawing and updating of scene/display.
  */
@@ -24,7 +24,8 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
 
   locations = LocationArray.getInstance();
   Assets assets = Assets.getInstance(); //needs to be under locationArray (dependent)
-
+  Tile tiles = new Tile();
+  
   collisionChecker = new CollisionEvent();
   collisionChecker.addListener(this);
 
