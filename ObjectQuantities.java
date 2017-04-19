@@ -7,7 +7,7 @@ static int getMaxStatic(int level){
         maxStatic = 15;
         break;
       case 1:
-        maxStatic = 4;
+        maxStatic = 20;
         break;
       case 2:
         maxStatic = 6;
@@ -64,28 +64,28 @@ static int getSpeed(int level){
     int speed;
     switch(level){
       case 0:
-        speed = 2;
+        speed = 15;
         break;
       case 1:
-        speed = 4;
+        speed = 17;
         break;
       case 2:
-        speed = 6;
+        speed = 19;
         break;
       case 3:
-        speed = 7;
+        speed = 20;
         break;
       case 4:
-        speed = 8;
+        speed = 21;
         break;
       case 5:
-        speed = 9;
+        speed = 22;
         break;
       case 6:
-        speed = 10;
+        speed = 23;
         break;
       default:
-        speed = 2; //placeholder as default
+        speed = 15; //placeholder as default
     }
     return speed;
   }

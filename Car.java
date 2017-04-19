@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 class Car extends MovableObstacle{
   int RECT_WIDTH = Tile.TILE_WIDTH, RECT_HEIGHT = Tile.TILE_HEIGHT, tileLimit = Tile.TILE_WIDTH, x;
   int carType = ThreadLocalRandom.current().nextInt(0, 3);
-
+  int constSpeed;
   public Car(int x, int y){
    super(x, y);
    this.x = NerdGame.windowSize.width / RECT_WIDTH;
@@ -33,14 +33,22 @@ class Car extends MovableObstacle{
   }
   
   public void setSpeed(int speed){
-   SPEED = ThreadLocalRandom.current().nextInt(speed, speed+RECT_WIDTH / 4);
+   int lane = (position.getY())%2;
+   switch(lane){
+      case 0:  SPEED = speed; break;
+      default: SPEED = speed+10;
+    }
+   constSpeed = speed;
   }
   
   public void moveLeft(){
     int xPos = position.getX();
     int yPos = position.getY();
     if (xPos < -2){
+      int randMovableRange = ThreadLocalRandom.current().nextInt(1, LocationArray.getInstance().getCurrentLocation().getTotalMovableRanges()*2);
+      if(randMovableRange%2 == 0){ randMovableRange-=1;}
       xPos = x;
+      yPos = ThreadLocalRandom.current().nextInt(LocationArray.getInstance().getCurrentLocation().getMovableRanges().get(randMovableRange-1), LocationArray.getInstance().getCurrentLocation().getMovableRanges().get(randMovableRange));
     }
     if (tileLimit <= 0) {
       tileLimit = 64;
@@ -48,11 +56,25 @@ class Car extends MovableObstacle{
     }
     tileLimit-=SPEED;
     position.setPosition(xPos, yPos);
+    setSpeed(constSpeed);
   }
   
   public void play(){
    //TODO
   }
+  
+    public void checkSelfCollision() {
+  for (int i = 0; i < LocationArray.getInstance().getCurrentLocation().getMovableObstacles().size(); i++){
+    for (int k = i+1; k < LocationArray.getInstance().getCurrentLocation().getMovableObstacles().size(); k++){
+      if(Math.abs(LocationArray.getInstance().getCurrentLocation().getMovableObstacles().get(i).getPosition().getX()-LocationArray.getInstance().getCurrentLocation().getMovableObstacles().get(k).getPosition().getX())<3){
+        if (LocationArray.getInstance().getCurrentLocation().getMovableObstacles().get(i).getPosition().getY() == LocationArray.getInstance().getCurrentLocation().getMovableObstacles().get(k).getPosition().getY()){           
+          int pos = LocationArray.getInstance().getCurrentLocation().getMovableObstacles().get(i).getPosition().getX();
+          LocationArray.getInstance().getCurrentLocation().getMovableObstacles().get(i).getPosition().setX(pos+2); 
+        }
+      }
+    }
+  }
+ }
   
   public void moveDown(){}
   public void moveUp(){}

@@ -210,8 +210,10 @@ public abstract class Location implements Drawable
     int movables = ObjectQuantities.getMaxMovables(1);
     
     StaticObstacle[] tree;
+    StaticObstacle[] cone;
     MovableObstacle[] car;
     tree = new StaticObstacle[statics];
+    cone = new StaticObstacle[statics];
     car = new MovableObstacle[movables];
     
     int index = 0;
@@ -252,17 +254,27 @@ public abstract class Location implements Drawable
     //System.out.println(statics);
     
     for(int i = 0; i<statics; i++){
-      int randX = ThreadLocalRandom.current().nextInt(0, 22);
-      int randY = ThreadLocalRandom.current().nextInt(0, 20);
-      if(randY <4){randY = ThreadLocalRandom.current().nextInt(0, 2);}
-      else{randY = ThreadLocalRandom.current().nextInt(9, 11);}
-      if(randX == 10 && randY == 10){randX = ThreadLocalRandom.current().nextInt(0, 22);}
+      int randStaticRange = ThreadLocalRandom.current().nextInt(1, totalStaticRanges*2);
+      if(randStaticRange%2 == 0){ randStaticRange-=1;}
+      int randY = ThreadLocalRandom.current().nextInt(staticRanges.get(randStaticRange-1), staticRanges.get(randStaticRange));
+      int randX = ThreadLocalRandom.current().nextInt(0, width );
+      if(randX == getSpawnX() && randY == getSpawnY()){randX = ThreadLocalRandom.current().nextInt(0, width);}
       tree[i] = new Tree(randX,randY);
       addStatic(tree[i]);
     }
     
+    for(int i = 0; i<statics; i++){
+      //TODO
+      //cone[i] = new Cone(randX,randY);
+      //addStatic(cone[i]);
+    }
+    
     for(int i = 0; i<movables; i++){
-      car[i] = new Car((ThreadLocalRandom.current().nextInt(22, 32)),(ThreadLocalRandom.current().nextInt(5, 9)));
+      int randMovableRange = ThreadLocalRandom.current().nextInt(1, totalMovableRanges*2);
+      if(randMovableRange%2 == 0){ randMovableRange-=1;}
+      int randX = ThreadLocalRandom.current().nextInt(width, width+64);
+      int randY = ThreadLocalRandom.current().nextInt(movableRanges.get(randMovableRange-1), movableRanges.get(randMovableRange));
+      car[i] = new Car(randX, randY);
       car[i].setSpeed(ObjectQuantities.getSpeed(id));
       addMovable(car[i]);
     }
