@@ -22,7 +22,7 @@ public abstract class Location implements Drawable
   private ArrayList<MovableObstacle> movableObstacles;
   private ArrayList<StaticObstacle> staticObstacles;
   protected BufferedImage locationBackgroundImage = null; //drawing buffer 
-  protected Position playerPosition;
+  protected Position playerPosition = null;
   
   private int totalStaticRanges;
   private int totalMovableRanges;
@@ -38,11 +38,23 @@ public abstract class Location implements Drawable
   }
 
   public void update() {
+    int playerY = getHeight() - 2;
+    if (playerPosition != null)
+      playerY = playerPosition.getY();
+    int y = 0;
+    if (playerY <= 10) {
+      y = 0;
+    }else if (playerY >= getHeight() - 2) {
+      y = getHeight() - 12;
+    }else {
+      y = playerY - 10;
+    }
+
     int imageWidth = getWidth() * Tile.TILE_WIDTH;
     int imageHeight = getHeight() * Tile.TILE_HEIGHT;
     locationBackgroundImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
     Graphics g2 = locationBackgroundImage.getGraphics();
-    for(int y=0; y<getHeight(); y++){
+    for(; y<getHeight(); y++){
       for(int x=0; x<getWidth(); x++){
         redrawTileAtPos( new Position(x,y), g2 );
       }
