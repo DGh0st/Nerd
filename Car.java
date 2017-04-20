@@ -63,6 +63,16 @@ class Car extends MovableObstacle{
    //TODO
   }
   
+  
+  public boolean checkPlayerCollision(Character player) {
+    if (position.getX() == player.getPosition().getX() || position.getX() + 1 == player.getPosition().getX()){
+      if (position.getY() == player.getPosition().getY()){     
+        return true;
+      }
+    }
+    return false;
+  }
+  
     public void checkSelfCollision() {
   for (int i = 0; i < LocationArray.getInstance().getCurrentLocation().getMovableObstacles().size(); i++){
     for (int k = i+1; k < LocationArray.getInstance().getCurrentLocation().getMovableObstacles().size(); k++){
