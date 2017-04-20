@@ -20,6 +20,7 @@ public abstract class MovableObstacle extends Obstacle{
   
   abstract public void setSpeed(int speed);
   abstract public void checkSelfCollision();
+  abstract public boolean checkPlayerCollision(Character player);
   abstract public void moveLeft();
   abstract public void moveDown();
   abstract public void moveUp();

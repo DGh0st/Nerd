@@ -28,6 +28,7 @@ public class DisplayState extends JPanel {
 		this.setBackground(Color.black);
 
 		backgroundMusicClip = ClipLoader.loadClip("./resources/music/backgroundMusic.wav");
+		backgroundMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
 		setBackgroundMusicVolume(0.25f);
 	}
 	
@@ -50,6 +51,7 @@ public class DisplayState extends JPanel {
 			backgroundMusicClip.start();
 		} catch (Exception e) {
 			backgroundMusicClip = ClipLoader.loadClip("./resources/music/backgroundMusic.wav");
+			backgroundMusicClip.loop(Clip.LOOP_CONTINUOUSLY);
 			setBackgroundMusicVolume(0.25f);
 			backgroundMusicClip.start();
 		}

@@ -21,8 +21,7 @@ public class CollisionEvent {
 	public void checkCollision(Character player, List<MovableObstacle> moveableObstacles) {
 		Position playerPos = player.getPosition();
 		for (MovableObstacle mo : moveableObstacles) {
-			Position moPos = mo.getPosition();
-			if (playerPos.equals(moPos)) {
+			if (mo.checkPlayerCollision(player)) {
 				for (CollisionListener listener : listeners) {
 					if (listener != null) {
 						listener.collisionDetected();

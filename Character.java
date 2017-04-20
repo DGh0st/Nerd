@@ -26,8 +26,9 @@ public abstract class Character extends GameObject implements CollisionListener,
     int pixelY = pixel.getY();
 
     if (pixelX != destX || pixelY != destY) {
-      pixel.setX(pixelX + animator.getX());
-      pixel.setY(pixelY + animator.getY());
+      //pixel.setX(pixelX + animator.getX());
+      //pixel.setY(pixelY + animator.getY());
+      pixel.setPosition(destX, destY);
     }
   }
   

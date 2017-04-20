@@ -136,7 +136,6 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
 
  public void draw() {
   addCurrentCanvasIfNeeded();
-  this.requestFocus();
 
   locations.getCurrentLocation().drawPlayer(player);
   locations.drawCurrentLocation();
@@ -145,6 +144,7 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
  private void addCurrentCanvasIfNeeded() {
   if (this.getParent() == null) {
     DisplayState.getInstance().add(this);
+    this.requestFocus();
   }
  }
 
