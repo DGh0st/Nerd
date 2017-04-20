@@ -75,15 +75,6 @@ class Car extends MovableObstacle{
     }
   }
  }
-
-  public boolean checkPlayerCollision(Character player) {
-    if (position.getX() == player.getPosition().getX() || position.getX() + 1 == player.getPosition().getX()){
-      if (position.getY() == player.getPosition().getY()){     
-        return true;
-      }
-    }
-    return false;
-  }
   
   public void moveDown(){}
   public void moveUp(){}

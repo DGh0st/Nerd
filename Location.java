@@ -6,10 +6,17 @@
  * 
  * TODO: Getting ranges from methods
  */
+import java.lang.*;
 import java.util.ArrayList;
 import java.awt.Graphics;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+
+
+
+
 
 //Location class to store data for locations
 public abstract class Location implements Drawable
@@ -22,7 +29,7 @@ public abstract class Location implements Drawable
   private ArrayList<MovableObstacle> movableObstacles;
   private ArrayList<StaticObstacle> staticObstacles;
   protected BufferedImage locationBackgroundImage = null; //drawing buffer 
-  protected Position playerPosition = null;
+  protected Position playerPosition;
   
   private int totalStaticRanges;
   private int totalMovableRanges;
@@ -38,23 +45,11 @@ public abstract class Location implements Drawable
   }
 
   public void update() {
-    int playerY = getHeight() - 2;
-    if (playerPosition != null)
-      playerY = playerPosition.getY();
-    int y = 0;
-    if (playerY <= 10) {
-      y = 0;
-    }else if (playerY >= getHeight() - 2) {
-      y = getHeight() - 12;
-    }else {
-      y = playerY - 10;
-    }
-
     int imageWidth = getWidth() * Tile.TILE_WIDTH;
     int imageHeight = getHeight() * Tile.TILE_HEIGHT;
     locationBackgroundImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
     Graphics g2 = locationBackgroundImage.getGraphics();
-    for(; y<getHeight(); y++){
+    for(int y=0; y<getHeight(); y++){
       for(int x=0; x<getWidth(); x++){
         redrawTileAtPos( new Position(x,y), g2 );
       }
@@ -210,29 +205,36 @@ public abstract class Location implements Drawable
     }
     return true;     //no collisions, proceed
   }
-
+  
   public void initializeLocation(String path){
     System.out.println("initializeLocation()...");
     System.out.println("  path: " + path);
     this.movableObstacles = new ArrayList<MovableObstacle>();
     this.staticObstacles = new ArrayList<StaticObstacle>();
     
+    String mazePath = AssetsLoader.getMazePath(id);
+    
     String file = Utilities.loadFileAsString(path);
+    String maze = Utilities.loadFileAsString(mazePath); 
+    
     int statics = ObjectQuantities.getMaxStatic(id);
     int movables = ObjectQuantities.getMaxMovables(1);
     
     StaticObstacle[] tree;
-    StaticObstacle[] cone;
+    StaticObstacle[] sobs;
     MovableObstacle[] car;
+    
     tree = new StaticObstacle[statics];
-    cone = new StaticObstacle[statics];
+    sobs = new StaticObstacle[1000];
     car = new MovableObstacle[movables];
+    
     
     int index = 0;
     
     //FILE PARSING
     //System.out.println("Location | FILE: "+file+"\n");
     String[] tokens = file.split("\\s+");//split on space or newline
+    String[] mazeTokens = maze.split("\\s+");//split on space or newline
     
     int width = Utilities.parseInt(tokens[0]);   
     int height = Utilities.parseInt(tokens[1]);
@@ -263,8 +265,8 @@ public abstract class Location implements Drawable
     }   
     index = index + totalMovableRanges*2; //16
     System.out.println("index: " + index);
-    //System.out.println(statics);
     
+    //randomized static objects
     for(int i = 0; i<statics; i++){
       int randStaticRange = ThreadLocalRandom.current().nextInt(1, totalStaticRanges*2);
       if(randStaticRange%2 == 0){ randStaticRange-=1;}
@@ -274,14 +276,37 @@ public abstract class Location implements Drawable
       tree[i] = new Tree(randX,randY);
       addStatic(tree[i]);
     }
-    
-    for(int i = 0; i<statics; i++){
-      //TODO
-      //cone[i] = new Cone(randX,randY);
-      //addStatic(cone[i]);
+
+      //non-randomized static objects
+      int i = 0, j=0;  
+      for(int y=0; y<height; y++){
+      for(int x=0; x<width; x++){
+        if ( Objects.equals(mazeTokens[(x+y*width) + index ],"*") ){
+          sobs[i] = new Cone(x,y);
+          addStatic(sobs[i]);
+          i++;
+        }
+        if ( Objects.equals(mazeTokens[(x+y*width) + index ],"p") ){
+          sobs[i] = new Plant01(x,y);
+          addStatic(sobs[i]);
+          i++;
+        }
+        if ( Objects.equals(mazeTokens[(x+y*width) + index ],"f") ){
+          sobs[i] = new Plant02(x,y);
+          addStatic(sobs[i]);
+          i++;
+        }
+        if ( Objects.equals(mazeTokens[(x+y*width) + index ],"c") ){
+          sobs[i] = new CarStatic(x,y);
+          addStatic(sobs[i]);
+          i++;
+        }
+      }
     }
+      
+      System.out.println("i "+i);
     
-    for(int i = 0; i<movables; i++){
+    for(i = 0; i<movables; i++){
       int randMovableRange = ThreadLocalRandom.current().nextInt(1, totalMovableRanges*2);
       if(randMovableRange%2 == 0){ randMovableRange-=1;}
       int randX = ThreadLocalRandom.current().nextInt(width, width+64);

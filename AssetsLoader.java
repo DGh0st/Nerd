@@ -65,4 +65,17 @@ public class AssetsLoader
     }
     return path;
   }
+  
+  
+  public static String getMazePath(int id){
+    String path;
+    switch(id){
+      case 1:
+        path = "./resources/locations/maze.txt";
+        break;
+      default:
+        path = "./resources/locations/mazeBlank.txt"; //placeholder as default
+    }
+    return path;
+  }
 }
