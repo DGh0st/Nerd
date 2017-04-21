@@ -1,7 +1,7 @@
 /**
  * ~ Assets.java
  * Raymond Hruby II
- * 04/18/2017
+ * 04/20/2017
  * Assets class holds sprite images
  */
 import java.awt.image.BufferedImage;
@@ -46,9 +46,9 @@ public class Assets
     if(LocationArray.getInstance().getCurrentLocationIndex() == 0){
       sprites_cars = new ArrayList<BufferedImage>(3); //hardcoded, no measure of how many will have
       
-      sprites_cars.add( 0, sheet.crop( 0, 5*HEIGHT, WIDTH*2, HEIGHT ) );
-      sprites_cars.add( 1, sheet.crop( 2*WIDTH, 5*HEIGHT, WIDTH*2, HEIGHT ) );
-      sprites_cars.add( 2, sheet.crop( 0, 6*HEIGHT, WIDTH*2, HEIGHT ) );
+      sprites_cars.add( 0, sheet.crop( WIDTH*5, HEIGHT*4, WIDTH*3, HEIGHT*2 ) );
+      sprites_cars.add( 1, sheet.crop( WIDTH*5, HEIGHT*6, WIDTH*3, HEIGHT*2 ) );
+      sprites_cars.add( 2, sheet.crop( WIDTH*5, HEIGHT*8, WIDTH*3, HEIGHT*2 ) );
     }
   }
   
