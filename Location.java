@@ -3,8 +3,6 @@
  * Raymond Hruby II
  * 04/18/2017
  * Location - holds tileCodes and dimension of location
- * 
- * TODO: Getting ranges from methods
  */
 import java.lang.*;
 import java.util.ArrayList;
@@ -14,15 +12,11 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 
-
-
-
-
 //Location class to store data for locations
 public abstract class Location implements Drawable
 {
   private int id;                  //index for LocationArray, index used for theme(assetLoader)     
-  private Position spawn;
+  private Position spawn;          //holds spawn location for player
   private String path;             //path to location data in .txt
   private LocationDimension dimensions;
   private int[][] tileCodes;       //holds the tile codes from the location.txt
@@ -45,11 +39,11 @@ public abstract class Location implements Drawable
   }
 
   public void update() {
-    int imageWidth = getWidth() * Tile.TILE_WIDTH;
-    int imageHeight = getHeight() * Tile.TILE_HEIGHT;
-    locationBackgroundImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+    locationBackgroundImage = getLocationBuffer();
     Graphics g2 = locationBackgroundImage.getGraphics();
-    for(int y=0; y<getHeight(); y++){
+    
+    int y = setYBounds();
+    for(; y<getHeight(); y++){
       for(int x=0; x<getWidth(); x++){
         redrawTileAtPos( new Position(x,y), g2 );
       }
@@ -63,6 +57,25 @@ public abstract class Location implements Drawable
       s.update();
       s.draw(g2);
     }
+  }
+  public BufferedImage getLocationBuffer(){
+    int imageWidth = getWidth() * Tile.TILE_WIDTH;
+    int imageHeight = getHeight() * Tile.TILE_HEIGHT;
+    return new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+  }
+  public int setYBounds(){
+    int playerY = getHeight() - 2;
+    if (playerPosition != null)
+      playerY = playerPosition.getY();
+    int y = 0;
+    if (playerY <= 10) {
+      y = 0;
+    }else if (playerY >= getHeight() - 2) {
+      y = getHeight() - 12;
+    }else {
+      y = playerY - 10;
+    }
+    return y;
   }
 
   public void drawPlayer(Character player) {
