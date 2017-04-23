@@ -1,7 +1,7 @@
 /**
  * ~ Tile.java
  * Raymond Hruby II
- * 04/18/2017
+ * 04/22/2017
  * Tile solidifies tileId to a sprite image
  */
 import java.awt.image.BufferedImage;
@@ -15,16 +15,6 @@ public class Tile
   //public static ArrayList<Tile> tiles = new ArrayList<Tile>(50);
   
   public static Tile grass01Tile = new Tile(Assets.getInstance().getSprite(5),5); 
-  /*
-  public static Tile grass02Tile = new Tile(Assets.getInstance().getSprite(6),6); 
-  public static Tile grass03Tile = new Tile(Assets.getInstance().getSprite(7),7);
-  public static Tile trail01Tile = new Tile(Assets.getInstance().getSprite(8),8);
-  public static Tile trail02Tile = new Tile(Assets.getInstance().getSprite(9),9);
-  public static Tile rock01Tile = new Tile(Assets.getInstance().getSprite(10),10);
-  public static Tile rock02Tile = new Tile(Assets.getInstance().getSprite(11),11);
-  public static Tile road01Tile = new Tile(Assets.getInstance().getSprite(15),15);
-  public static Tile road02Tile = new Tile(Assets.getInstance().getSprite(16),16);
-  */
   public static final int TILE_WIDTH = 64, TILE_HEIGHT = 64;
 
   private int id;
@@ -35,7 +25,6 @@ public class Tile
   }
   
   public Tile(BufferedImage sprite, int id){
-    System.out.println("TILE( , ) CONSTRUCTOR");
     this.id=id;
     this.sprite = sprite;
     

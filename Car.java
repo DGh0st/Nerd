@@ -1,5 +1,5 @@
 /**
- * Nerd 03/11/2017
+ * Nerd 04/22/2017
  * Kandyce Burks
  * Car class is a sub-class of MovableObstacle
  * TODO:
@@ -13,7 +13,8 @@ import java.awt.image.BufferedImage;
 
 class Car extends MovableObstacle{
   int RECT_WIDTH = Tile.TILE_WIDTH, RECT_HEIGHT = Tile.TILE_HEIGHT, tileLimit = Tile.TILE_WIDTH, x;
-  int carType = ThreadLocalRandom.current().nextInt(0, 3);
+  //int carTypeMax = Assets.getInstance().getCarSpritesSize() -1;
+  int carType = ThreadLocalRandom.current().nextInt(0, 6);
   int constSpeed;
   public Car(int x, int y){
    super(x, y);

@@ -17,7 +17,8 @@ public class Assets
   public static ArrayList<BufferedImage> sprites;
   public static ArrayList<BufferedImage> sprites_cars;
   private String path;        //path to Spritesheet 
-
+  private SpriteSheet sheet;
+  
   public static Assets getInstance() {
     if (instance == null) {
       instance = new Assets( LocationArray.getInstance().getCurrentLocationIndex() );
@@ -33,7 +34,7 @@ public class Assets
     initialize();
   }
   public void initialize(){
-    SpriteSheet sheet = new SpriteSheet(this.path);
+    sheet = new SpriteSheet(this.path);
     sprites = new ArrayList<BufferedImage>(ROWS*COLS);
     
     for (int i = 0; i < ROWS; i++){
@@ -43,17 +44,28 @@ public class Assets
     }
     
     //CARS
-    if(LocationArray.getInstance().getCurrentLocationIndex() == 0){
-      sprites_cars = new ArrayList<BufferedImage>(3); //hardcoded, no measure of how many will have
-      
-      sprites_cars.add( 0, sheet.crop( WIDTH*5, HEIGHT*4, WIDTH*3, HEIGHT*2 ) );
-      sprites_cars.add( 1, sheet.crop( WIDTH*5, HEIGHT*6, WIDTH*3, HEIGHT*2 ) );
-      sprites_cars.add( 2, sheet.crop( WIDTH*5, HEIGHT*8, WIDTH*3, HEIGHT*2 ) );
+    int locationIndex=LocationArray.getInstance().getCurrentLocationIndex();
+    switch(locationIndex){
+      case 0: initializeCars();
+        break;
+      case 1: initializeCars();
+        break;
+      default: initializeCars();
+        break;
     }
   }
+  public void initializeCars(){
+    sprites_cars = new ArrayList<BufferedImage>(6);
+      
+    sprites_cars.add( 0, sheet.crop( WIDTH*5, HEIGHT*4, WIDTH*3, HEIGHT*2 ) );
+    sprites_cars.add( 1, sheet.crop( WIDTH*5, HEIGHT*6, WIDTH*3, HEIGHT*2 ) );
+    sprites_cars.add( 2, sheet.crop( WIDTH*5, HEIGHT*8, WIDTH*3, HEIGHT*2 ) );
+    sprites_cars.add( 3, sheet.crop( WIDTH*8, HEIGHT*4, WIDTH*3, HEIGHT*2 ) );
+    sprites_cars.add( 4, sheet.crop( WIDTH*8, HEIGHT*6, WIDTH*3, HEIGHT*2 ) );
+    sprites_cars.add( 5, sheet.crop( WIDTH*8, HEIGHT*8, WIDTH*3, HEIGHT*2 ) );
+  }
   
-  //Only call if there is a new locaiton
-  public void update(){
+  public void update(){ 
     int newLocationId = LocationArray.getInstance().getCurrentLocationIndex();
     
     System.out.println("inpath" + this.path);
@@ -69,7 +81,7 @@ public class Assets
       break;
       case 1:  ROWS = 8; COLS = 5;
       break;
-      default: ROWS = 5; COLS = 5;
+      default: ROWS = 7; COLS = 5;
       break;
     }
   }
@@ -80,6 +92,9 @@ public class Assets
   }
   public BufferedImage getCarSprite(int index){
     return sprites_cars.get(index);
+  }
+  public int getCarSpritesSize(){
+    return sprites_cars.size();
   }
   public int getRows(){
     return ROWS;

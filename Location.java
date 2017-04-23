@@ -1,7 +1,7 @@
 /*
  *  ~Location.java
  * Raymond Hruby II
- * 04/18/2017
+ * 04/22/2017
  * Location - holds tileCodes and dimension of location
  */
 import java.lang.*;

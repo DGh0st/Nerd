@@ -1,5 +1,5 @@
 /**
- * Nerd 03/11/2017
+ * Nerd 04/22/2017
  * Kandyce Burks
  * Tree class that is a subclass StaticObstacle class
  * TODO:
@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 
 class CarStatic extends StaticObstacle{
   int RECT_WIDTH = Tile.TILE_WIDTH, RECT_HEIGHT = Tile.TILE_HEIGHT;
-  int carType = ThreadLocalRandom.current().nextInt(0, 3);
+  int carType = ThreadLocalRandom.current().nextInt(0, 6);
   BufferedImage image;
 
   public CarStatic(int x, int y) {
