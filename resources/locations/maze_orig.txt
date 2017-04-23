@@ -1,16 +1,11 @@
-22 51
-10 49
-4 4
-0 4 9 12 35 39 47 52
-g d 14 # 31 33 40 45
 g g g g g g g g g g g g g g g g g g g g g g
 g g g g g g g g g g g g g g g g g g g g g g
 g g g g g g g g g g g g g g g g g g g g g g
 g g g g g g g g g g g g g g g g g g g g g g
 d d d d d d d d d d d d d d d d d d d d d d
-# # # # # # # # # # # # # # # # # # # # # #
-# # # # # # # # # # # # # # # # # # # # # #
-# # # # # # # # # # # # # # # # # # # # # #
+r r r r r r r r r r r r r r r r r r r r r r
+r r r r r r r r r r r r r r r r r r r r r r
+r r r r r r r r r r r r r r r r r r r r r r
 d d d d d d d d d d d d d d d d d d d d d d
 g g g g g g g g g g g g g g g g g g g g g g
 g g g g g g g g g g g g g g g g g g g g g g
@@ -20,22 +15,22 @@ d d d d d d d d d d d d d d d d d d d d d d
 # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # #
-# # s s s c s s # # p p # # s s s s s s # #
-# # s s s c s s # # p p # # s s s s s s # #
-# # s s s c s s # # p p # # s s s s s s # #
-# # s s s c s s # # p p # # s s s s s s # #
-# # s s s s s s # # p p # # s s s s s s # #
-# # # # # # # # # # # # # # # # # # # # # #
-# # # # # # # # # # # # # # # # # # # # # #
-# # # # # # # # # # # # # # # # # # # # # #
-# # s s s s s s # # p p # # s s s s s s # #
-# # s s s s s s # # p p # # s s s s s s # #
-# # h s s s s h # # p p # # h s s s s h # #
-# # h s s s s h # # p p # # s s s s s h # #
-# # h s s c s h # # p p # # h s s s s h # #
+# * * # * * * * * * * * * * * * * * * * # #
+# f # s s s s # # # p p # # # s s s s # f #
+# f # s s s s # # # p p # # # s s s s # f #
+# f # s s s s # # # p p # # # s s s s # f #
+# f # s s c s # # # p p # # # s s s s # f #
+# * # # # # # # # # p p # # # # # # # # f #
+# * # # # # # # # # # # # # # # # # # # f #
+# * # # # # # # # # # # # # # # # # # # f #
+# f # s s s s # # # p p # # # s s s s # f #
+# f # s s s s # # # p p # # # s s s s # f #
+# f # s s s s # # # p p # # # s s s s # f #
+# f # h s s h # # # p p # # # h s s h # f #
+# f # h s s h # # # p p # # # h s s h # f #
+# f # h s c h # # # # # # # # h s s h # f #
 # # * * * * * * * * # # * * * * * * * * # #
 # # # # # # # # # # # # # # # # # # # # # #
-# # # # # # # # # # # # # # # # # # # # # #
 d d d d d d d d d d d d d d d d d d d d d d
 d d d d d d d d d d d d d d d d d d d d d d
 g g g g g g g g g g g g g g g g g g g g g g
@@ -50,8 +45,8 @@ r r r r r r r r r r r r r r r r r r r r r r
 r r r r r r r r r r r r r r r r r r r r r r
 r r r r r r r r r r r r r r r r r r r r r r
 d d d d d d d d d d d d d d d d d d d d d d
-g g g g g g g g g g g g g g g g g g g g g g
-g g g g g g g g g g g g g g g g g g g g g g
-g g g g g g g g g g g g g g g g g g g g g g
-g g g g g g g g g g g g g g g g g g g g g g
-g g g g g g g g g g g g g g g g g g g g g g
+g g g 7 7 g g g g g g g g g g g g g g g g g
+g g g 7 7 g g g g g g g g g g g g g g g g g
+g g g 7 7 g g g g g g g g g g g g g g g g g
+g g g 7 7 g g g g g g g g g g g g g g g g g
+g g g 7 7 g g g g g g g g g g g g g g g g g
