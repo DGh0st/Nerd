@@ -29,7 +29,7 @@ class Car extends MovableObstacle{
    int yPos = position.getY();
    if (g != null) {
       BufferedImage image = Assets.getInstance().getCarSprite(carType);
-      g.drawImage(image, xPos*RECT_WIDTH+tileLimit, yPos*RECT_HEIGHT, image.getWidth(), image.getHeight(), null);
+      g.drawImage(image, xPos*RECT_WIDTH+tileLimit, (yPos-1)*RECT_HEIGHT, image.getWidth(), image.getHeight(), null);
     }
   }
   
