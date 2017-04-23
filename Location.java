@@ -204,16 +204,24 @@ public abstract class Location implements Drawable
   }
   public boolean checkMovables(int xPos, int yPos){
     for( MovableObstacle mObs : movableObstacles ){
-      if( mObs.getPosition().getX() == xPos && mObs.getPosition().getY() == yPos){
+      int i = 0;
+      while(i<mObs.imageWidth){
+      if( mObs.getPosition().getX()+i == xPos && mObs.getPosition().getY() == yPos){
         return false; //no go, will collide with current object
+      }
+      i++;
       }
     }
     return true;     //no collisions, proceed
   }
   public boolean checkStatics(int xPos, int yPos){
     for( StaticObstacle sObs : staticObstacles ){
-      if( sObs.getPosition().getX() == xPos && sObs.getPosition().getY() == yPos){
+      int i = 0;
+      while(i<sObs.imageWidth){
+      if( (sObs.getPosition().getX()+i == xPos) && sObs.getPosition().getY() == yPos){
         return false; //no go, will collide with current object
+      }
+      i++;
       }
     }
     return true;     //no collisions, proceed

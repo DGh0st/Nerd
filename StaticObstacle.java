@@ -5,6 +5,7 @@
  * TODO:Implement update() Method
  */
 public abstract class StaticObstacle extends Obstacle{
+  int imageWidth = 1;
 
   public StaticObstacle(int x, int y) {
    super(x, y);

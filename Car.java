@@ -30,6 +30,7 @@ class Car extends MovableObstacle{
    if (g != null) {
       BufferedImage image = Assets.getInstance().getCarSprite(carType);
       g.drawImage(image, xPos*RECT_WIDTH+tileLimit, (yPos-1)*RECT_HEIGHT, image.getWidth(), image.getHeight(), null);
+      imageWidth = image.getWidth()/64;
     }
   }
   
@@ -66,10 +67,14 @@ class Car extends MovableObstacle{
   
   
   public boolean checkPlayerCollision(Character player) {
-    if (position.getX() == player.getPosition().getX() || position.getX() + 1 == player.getPosition().getX()){
+    int i = 0;
+    while(i<imageWidth){
+    if (position.getX()+i == player.getPosition().getX()){
       if (position.getY() == player.getPosition().getY()){     
         return true;
       }
+    }
+    i++;
     }
     return false;
   }

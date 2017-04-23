@@ -27,9 +27,11 @@ class CarStatic extends StaticObstacle{
    int y = position.getY();
     if (g != null) {
       BufferedImage image = Assets.getInstance().getCarSprite(carType);
-      g.drawImage(image, x*RECT_WIDTH, y*RECT_HEIGHT, image.getWidth(), image.getHeight(), null);
+      g.drawImage(image, x*RECT_WIDTH, (y-1)*RECT_HEIGHT, image.getWidth(), image.getHeight(), null);
+      imageWidth = image.getWidth()/64;
     }
   }
+  
   public void play(){
    //TODO
   }
