@@ -93,4 +93,12 @@ public class PauseMenu extends Menu implements KeyListener {
 			super.removeCurrentCanvasIfNeeded();
 		}
   	}
+
+  	@Override
+  	protected void paintComponent(Graphics g) {
+  		super.paintComponent(g);
+  		LocationArray.getInstance().getCurrentLocation().draw(g);
+  		g.setColor(new Color(0, 0, 0, 170));
+  		g.fillRect(0, 0, NerdGame.windowSize.width, NerdGame.windowSize.height);
+  	}
 }

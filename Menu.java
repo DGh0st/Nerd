@@ -13,7 +13,7 @@ public abstract class Menu extends JPanel implements ActionListener {
 
 	public Menu() {
 		this.setSize(NerdGame.windowSize);
-		this.setOpaque(false);
+		this.setBackground(Color.black);
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public abstract class Menu extends JPanel implements ActionListener {
 
 	protected JPanel createScreen(Dimension windowSize, FlowLayout layout) {
 		JPanel screen = new JPanel(layout);
-		screen.setBackground(Color.black);
+		screen.setOpaque(false);
 		screen.setPreferredSize(windowSize);
 		screen.setSize(windowSize);
 		return screen;
