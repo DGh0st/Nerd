@@ -12,6 +12,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.awt.*;
+import java.util.Collections;
+import java.util.Comparator;
 
 //Location class to store data for locations
 public abstract class Location implements Drawable
@@ -50,30 +52,10 @@ public abstract class Location implements Drawable
       resetScore();
       playerPosition = null;
     }
-    Graphics g2 = locationBackgroundImage.getGraphics();
-    
-    int startY = getYBounds();
-    for(int y = startY; y<startY + 12; y++){
-      for(int x=0; x<getWidth(); x++){
-        redrawTileAtPos( new Position(x,y), g2 );
-      }
-    }
-
-    for(MovableObstacle m: movableObstacles){
-      m.update();
-      m.draw(g2);
-    }
-    for(StaticObstacle s: staticObstacles){
-      s.update();
-      s.draw(g2);
-    }
 
     if (playerPosition != null && maxDistance > playerPosition.getY()) {
       maxDistance = playerPosition.getY();
     }
-    String score = "Score: " + (((getHeight() - 2) - maxDistance) * 10);
-    g2.setFont(new Font(Font.SERIF, Font.PLAIN, 32));
-    g2.drawString(score, 16, startY * Tile.TILE_HEIGHT + 32);
   }
   public BufferedImage getLocationBuffer(){
     int imageWidth = getWidth() * Tile.TILE_WIDTH;
@@ -97,9 +79,79 @@ public abstract class Location implements Drawable
 
   public void drawPlayer(Character player) {
     if (locationBackgroundImage != null) {
-      Graphics g2 = locationBackgroundImage.getGraphics();
-      player.draw(g2);
       playerPosition = player.getPosition();
+      Graphics g2 = locationBackgroundImage.getGraphics();
+      
+      int startY = getYBounds();
+      for(int y = startY; y<startY + 12; y++){
+        for(int x=0; x<getWidth(); x++){
+          redrawTileAtPos( new Position(x,y), g2 );
+        }
+      }
+
+      Collections.sort(movableObstacles, new Comparator<MovableObstacle>() {
+        @Override
+        public int compare(MovableObstacle mo1, MovableObstacle mo2) {
+          int diffY = mo1.getPosition().getY() - mo2.getPosition().getY();
+          if (diffY == 0) {
+            return mo1.getPosition().getX() - mo2.getPosition().getX();
+          }
+          return diffY;
+        }
+      });
+
+      boolean didDrawPlayer = false;
+      int i = 0, j = 0;
+      while (i < movableObstacles.size() && j < staticObstacles.size()) {
+        MovableObstacle m = movableObstacles.get(i);
+        StaticObstacle s = staticObstacles.get(j);
+        if (m.getPosition().getY() > s.getPosition().getY()) {
+          if (!didDrawPlayer && playerPosition.getY() < s.getPosition().getY()) {
+            player.draw(g2);
+            didDrawPlayer = true;
+          }
+
+          s.update();
+          s.draw(g2);
+          j++;
+        } else {
+          if (!didDrawPlayer && playerPosition.getY() < m.getPosition().getY()) {
+            player.draw(g2);
+            didDrawPlayer = true;
+          }
+
+          m.update();
+          m.draw(g2);
+          i++;
+        }
+      }
+
+      for (; i < movableObstacles.size(); i++) {
+        MovableObstacle m = movableObstacles.get(i);
+        if (!didDrawPlayer && playerPosition.getY() < m.getPosition().getY()) {
+          player.draw(g2);
+          didDrawPlayer = true;
+        }
+        m.update();
+        m.draw(g2);
+      }
+      for (; j < staticObstacles.size(); j++) {
+        StaticObstacle s = staticObstacles.get(j);
+        if (!didDrawPlayer && playerPosition.getY() < s.getPosition().getY()) {
+          player.draw(g2);
+          didDrawPlayer = true;
+        }
+        s.update();
+        s.draw(g2);
+      }
+      if (!didDrawPlayer) {
+        player.draw(g2);
+        didDrawPlayer = true;
+      }
+
+      String score = "Score: " + (((getHeight() - 2) - maxDistance) * 10);
+      g2.setFont(new Font(Font.SERIF, Font.PLAIN, 32));
+      g2.drawString(score, 16, startY * Tile.TILE_HEIGHT + 32);
     }
   }
 
@@ -351,5 +403,16 @@ public abstract class Location implements Drawable
     }
 
     locationBackgroundImage = null;
+
+    Collections.sort(staticObstacles, new Comparator<StaticObstacle>() {
+      @Override
+      public int compare(StaticObstacle so1, StaticObstacle so2) {
+        int diffY = so1.getPosition().getY() - so2.getPosition().getY();
+        if (diffY == 0) {
+          return so1.getPosition().getX() - so2.getPosition().getX();
+        }
+        return diffY;
+      }
+    });
   }
 }
