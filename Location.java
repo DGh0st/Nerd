@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.awt.*;
 
 //Location class to store data for locations
 public abstract class Location implements Drawable
@@ -24,6 +25,7 @@ public abstract class Location implements Drawable
   private ArrayList<StaticObstacle> staticObstacles;
   protected BufferedImage locationBackgroundImage = null; //drawing buffer 
   protected Position playerPosition;
+  private int maxDistance; // for scoreboard
   
   private int totalStaticRanges;
   private int totalMovableRanges;
@@ -38,12 +40,20 @@ public abstract class Location implements Drawable
     initializeLocation(path);
   }
 
+  public void resetScore() {
+    maxDistance = getHeight() - 2;
+  }
+
   public void update() {
-    locationBackgroundImage = getLocationBuffer();
+    if (locationBackgroundImage == null) {
+      locationBackgroundImage = getLocationBuffer();
+      resetScore();
+      playerPosition = null;
+    }
     Graphics g2 = locationBackgroundImage.getGraphics();
     
-    int y = setYBounds();
-    for(; y<getHeight(); y++){
+    int startY = getYBounds();
+    for(int y = startY; y<startY + 12; y++){
       for(int x=0; x<getWidth(); x++){
         redrawTileAtPos( new Position(x,y), g2 );
       }
@@ -57,13 +67,20 @@ public abstract class Location implements Drawable
       s.update();
       s.draw(g2);
     }
+
+    if (playerPosition != null && maxDistance > playerPosition.getY()) {
+      maxDistance = playerPosition.getY();
+    }
+    String score = "Score: " + (((getHeight() - 2) - maxDistance) * 10);
+    g2.setFont(new Font(Font.SERIF, Font.PLAIN, 32));
+    g2.drawString(score, 16, startY * Tile.TILE_HEIGHT + 32);
   }
   public BufferedImage getLocationBuffer(){
     int imageWidth = getWidth() * Tile.TILE_WIDTH;
     int imageHeight = getHeight() * Tile.TILE_HEIGHT;
     return new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
   }
-  public int setYBounds(){
+  public int getYBounds(){
     int playerY = getHeight() - 2;
     if (playerPosition != null)
       playerY = playerPosition.getY();
@@ -106,16 +123,7 @@ public abstract class Location implements Drawable
     if (locationBackgroundImage == null) {
       return;
     }
-    int playerY = playerPosition.getY();
-    int y = 0;
-    if (playerY <= 10) {
-      y = 0;
-    }else if (playerY >= getHeight() - 2) {
-      y = getHeight() - 12;
-    }else {
-      y = playerY - 10;
-    }
-    g.drawImage( locationBackgroundImage, 0, -(y * Tile.TILE_HEIGHT), null );
+    g.drawImage( locationBackgroundImage, 0, -(getYBounds() * Tile.TILE_HEIGHT), null );
   }
   
   //GETTERS AND SETTERS
@@ -204,7 +212,7 @@ public abstract class Location implements Drawable
   }
   public boolean checkMovables(int xPos, int yPos){
     for( MovableObstacle mObs : movableObstacles ){
-      if( mObs.getPosition().getX()+i == xPos && mObs.getPosition().getY() == yPos){
+      if( mObs.getPosition().getX() == xPos && mObs.getPosition().getY() == yPos){
         return false; //no go, will collide with current object
       }
     }
@@ -341,5 +349,7 @@ public abstract class Location implements Drawable
         tileCodes[x][y] = tile;
       }
     }
+
+    locationBackgroundImage = null;
   }
 }
