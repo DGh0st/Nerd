@@ -43,18 +43,10 @@ public class MainMenu extends Menu implements ChangeListener {
   super.paintComponent(g);
 
   g.drawImage(backgroundImage, 0, 0, null);
- }
-
- protected JLabel createLabel(String title, Font font) {
-  JLabel label = super.createLabel(title, font);
-  label.setForeground(Color.black);
-  return label;
- }
-
- protected HoverButton createHoverButton(String title, String actionCommand, Font font, BufferedImage regularButtonImage, BufferedImage hoverButtonImage) {
-  HoverButton hb = super.createHoverButton(title, actionCommand, font, regularButtonImage, hoverButtonImage);
-  hb.setForeground(Color.black);
-  return hb;
+  if (mainScreen.getParent() == null) {
+    g.setColor(new Color(25, 25, 25, 150));
+    g.fillRect(15, 15,  NerdGame.windowSize.width - 30, NerdGame.windowSize.height - 30);
+  }
  }
 
  private void setupMainScreen(Dimension windowSize) {
@@ -64,6 +56,7 @@ public class MainMenu extends Menu implements ChangeListener {
   Font buttonFont = new Font(Font.SERIF, Font.PLAIN, 48);
 
   JLabel title = createLabel("Nerd", titleFont);
+  title.setForeground(new Color(25, 25, 25, 200));
   mainScreen.add(Box.createRigidArea(new Dimension(windowSize.width - title.getPreferredSize().width * 5 / 4, 0)));
   mainScreen.add(title);
 
@@ -87,6 +80,7 @@ public class MainMenu extends Menu implements ChangeListener {
    HoverButton hb = createHoverButton(buttonTitles[i], buttonCommands[i], buttonFont, image, hoverImage);
    hb.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
    hb.setShouldCenter(false);
+   hb.setForeground(new Color(25, 25, 25, 200));
    mainScreen.add(hb);
   }
  }
