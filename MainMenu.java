@@ -20,24 +20,10 @@ public class MainMenu extends Menu implements ChangeListener {
  private JPanel mainScreen;
  private JPanel shopScreen;
  private JPanel settingsScreen;
- private JPanel helpScreen;
  private String selectedCharacter;
  private HoverButton selectedCharacterButton;
+ private BufferedImage backgroundImage;
 
- private static class ImagePanel extends JPanel {
-  private Image image;
-
-  public ImagePanel(Image image) {
-    this.image = image;
-  }
-
-  @Override
-  public void paintComponent(Graphics g) {
-    super.paintComponent(g);
-    g.drawImage(image,0,0,getWidth(),getHeight(),this);
-  }
- }
- 
  public MainMenu() {
   super();
 
@@ -46,7 +32,28 @@ public class MainMenu extends Menu implements ChangeListener {
 
   setupMainScreen(NerdGame.windowSize);
 
+  backgroundImage = ImageLoader.loadImage("./resources/menus/MainMenuBackground.png");
+
   this.add(mainScreen);
+ }
+
+ @Override
+ protected void paintComponent(Graphics g) {
+  super.paintComponent(g);
+
+  g.drawImage(backgroundImage, 0, 0, null);
+ }
+
+ protected JLabel createLabel(String title, Font font) {
+  JLabel label = super.createLabel(title, font);
+  label.setForeground(Color.black);
+  return label;
+ }
+
+ protected HoverButton createHoverButton(String title, String actionCommand, Font font, BufferedImage regularButtonImage, BufferedImage hoverButtonImage) {
+  HoverButton hb = super.createHoverButton(title, actionCommand, font, regularButtonImage, hoverButtonImage);
+  hb.setForeground(Color.black);
+  return hb;
  }
 
  private void setupMainScreen(Dimension windowSize) {
@@ -136,27 +143,12 @@ public class MainMenu extends Menu implements ChangeListener {
   JSlider volumeControlSlider = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 25);
   volumeControlSlider.addChangeListener(this);
   volumeControlSlider.setPreferredSize(new Dimension(windowSize.width - 100, 40));
-  volumeControlSlider.setBackground(Color.black);
+  volumeControlSlider.setOpaque(false);
   settingsScreen.add(volumeControlSlider);
 
   settingsScreen.add(Box.createRigidArea(new Dimension(windowSize.width, 20)));
 
   // TODO: Add more settings
- }
-
- private void setupHelpScreen(Dimension windowSize) {
-  helpScreen = createScreen(windowSize, new FlowLayout(FlowLayout.LEFT));
-  
-  Image helpImage = Toolkit.getDefaultToolkit().getImage("./resources/menus/help.gif");
-  ImagePanel imagePanel = new ImagePanel(helpImage);
-  imagePanel.setPreferredSize(new Dimension(windowSize.width, windowSize.height));
-  imagePanel.setSize(new Dimension(windowSize.width, windowSize.height));
-
-  addHeader(imagePanel, "Help", "mainFromHelp", windowSize);
-
-  helpScreen.add(imagePanel);
-
-  // TODO: Add more help information
  }
 
  private void addHeader(JPanel panel, String displayTitle, String backButtonCommand, Dimension windowSize) {
@@ -212,19 +204,12 @@ public class MainMenu extends Menu implements ChangeListener {
     setupSettingsScreen(NerdGame.windowSize);
    }
    changeScreen(mainScreen, settingsScreen);
-  } else if (event.getActionCommand().equals("helpMenu")) {
-    if (helpScreen == null) {
-      setupHelpScreen(NerdGame.windowSize);
-    }
-    changeScreen(mainScreen, helpScreen);
   } else if (event.getActionCommand().equals("closeGame")) {
    NerdGame.getInstance().close();
   } else if (event.getActionCommand().equals("mainFromShop")) {
    changeScreen(shopScreen, mainScreen);
   } else if (event.getActionCommand().equals("mainFromSet")) {
    changeScreen(settingsScreen, mainScreen);
-  } else if (event.getActionCommand().equals("mainFromHelp")) {
-   changeScreen(helpScreen, mainScreen);
   } else if (selectedCharacter != event.getActionCommand()) {
    int i = Integer.parseInt(selectedCharacter);
    BufferedImage normalCharacter = new BufferedImage(characters[i].getWidth(), characters[i].getHeight(), characters[i].getType());
