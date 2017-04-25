@@ -118,6 +118,8 @@ public class GameState extends JPanel implements KeyListener, CollisionListener 
   locations.getCurrentLocation().initializeLocation(locations.getCurrentLocation().getPath());
   if (selectedCharacterClass == Weaboo.class) {
     player = new Weaboo(locations.getCurrentSpawnX(), locations.getCurrentSpawnY());
+  } else if (selectedCharacterClass == Prophet.class) {
+    player = new Prophet(locations.getCurrentSpawnX(), locations.getCurrentSpawnY());
   } // TODO: Add more character classes
   collisionChecker.addListener(player);
   lastCharacterMillis = System.currentTimeMillis();

@@ -14,8 +14,9 @@ import java.net.*;
 
 public class MainMenu extends Menu implements ChangeListener {
   // TODO: Add more characters
- private static final BufferedImage characters[] = {new Weaboo(1 , 1).getImage()};
- private static final String charactersCommands[] = {"0"};
+ private static final BufferedImage characters[] = {new Weaboo(1 , 1).getImage(), new Prophet(1, 1).getImage()};
+ private static final String charactersCommands[] = {"0", "1"};
+ private static final Class charactersClasses[] = {Weaboo.class, Prophet.class};
 
  private JPanel mainScreen;
  private JPanel shopScreen;
@@ -232,7 +233,7 @@ public class MainMenu extends Menu implements ChangeListener {
    selectedCharacterButton.setImage(selectCharacter);
    selectedCharacterButton.repaint();
 
-   GameState.getInstance().setSelectedCharacterClass(characters[i].getClass());
+   GameState.getInstance().setSelectedCharacterClass(charactersClasses[i]);
   }
  }
 

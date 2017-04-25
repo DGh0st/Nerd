@@ -1,28 +1,24 @@
 /**
- * Nerd 03/11/2017
- * Kandyce Burks
- * Weaboo class that is a subclass of Character
- * TODO:
- *  - Implement draw() Method
- *  - Implement play() Method
+ * Nerd 04/25/2017
+ * Deep Patel
+ * Prophet class that is a subclass of Character
  */
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
 import java.awt.Color;
 
-class Weaboo extends Character{
+class Prophet extends Character{
   int RECT_WIDTH = Tile.TILE_WIDTH, RECT_HEIGHT = Tile.TILE_HEIGHT;
   BufferedImage upImage, leftImage, downImage, rightImage, image;
   
-  public Weaboo(int x, int y){
+  public Prophet(int x, int y){
     super(x,y);
 
-    upImage = ImageLoader.loadImage("./resources/characters/Weaboo/WeabooB_band.png");
-    leftImage = ImageLoader.loadImage("./resources/characters/Weaboo/WeabooL_band.png");
-    downImage = ImageLoader.loadImage("./resources/characters/Weaboo/Weaboo_band.png");
-    rightImage = ImageLoader.loadImage("./resources/characters/Weaboo/WeabooR_band.png");
+    upImage = ImageLoader.loadImage("./resources/characters/prophet/ProphetB_band.png");
+    leftImage = ImageLoader.loadImage("./resources/characters/prophet/ProphetL_band.png");
+    downImage = ImageLoader.loadImage("./resources/characters/prophet/Prophet_band.png");
+    rightImage = ImageLoader.loadImage("./resources/characters/prophet/ProphetR_band.png");
     image = upImage;
-   // draw();
   }
 
   public void moveLeft() {
@@ -51,7 +47,6 @@ class Weaboo extends Character{
   
   public void draw(){
     draw(GameState.getInstance().getGraphics());
-    //System.out.println("x "+position.x+" y "+position.y);
   }
 
   public void draw(Graphics g){
