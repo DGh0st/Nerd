@@ -99,6 +99,11 @@ public class MainMenu extends Menu implements ChangeListener {
   BufferedImage regularButtonImage = MainMenuAssets.getInstance().getSprite(2);
   BufferedImage hoverButtonImage = MainMenuAssets.getInstance().getSprite(3);
   BufferedImage selectedButtonImage = MainMenuAssets.getInstance().getSprite(4);
+  Graphics g2 = selectedButtonImage.getGraphics();
+  Font font = new Font(Font.SERIF, Font.PLAIN, 16);
+  g2.setFont(font);
+  int length = g2.getFontMetrics(font).stringWidth("Selected");
+  g2.drawString("Selected", selectedButtonImage.getWidth() / 2 - length / 2, 24);
 
   for (int i = 0; i < characters.length; i++) {
     BufferedImage character = new BufferedImage(characters[i].getWidth(), characters[i].getHeight(), characters[i].getType());
